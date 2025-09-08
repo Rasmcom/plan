@@ -85,6 +85,48 @@
             border-radius: 2.5px;
         }
 
+        /* Responsive Styles for Mobile */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .a4-page {
+                width: 100%;
+                min-height: 0;
+                padding: 16px;
+                margin: 0;
+                border: none;
+                box-shadow: none;
+            }
+            .no-print, header.no-print {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+             h1 {
+                font-size: 1.5rem; /* 24px */
+            }
+            .tab-button {
+                font-size: 0.875rem; /* 14px */
+                padding: 8px 12px;
+            }
+            .table-bordered {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .a4-page .grid-cols-2 {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+            .flex-1 {
+                 min-width: 0;
+            }
+            #output-plan footer .grid-cols-2, #output-report footer .grid-cols-2 {
+                 grid-template-columns: repeat(1, minmax(0, 1fr));
+                 gap: 1rem;
+            }
+        }
+
         @media print {
             @page {
                 size: A4 portrait;
@@ -117,6 +159,7 @@
             .a4-page {
                 box-shadow: none !important;
                 max-width: 100% !important;
+                width: 100% !important; /* Ensure it takes full width for printing */
                 margin: 0 !important;
                 border: none !important;
                 padding: 1cm 5mm;
@@ -136,6 +179,7 @@
             .table-bordered, .table-bordered th, .table-bordered td {
                 padding: 4px;
                 font-size: 8pt;
+                 white-space: normal; /* Allow text to wrap when printing */
             }
             
             h2 { font-size: 14pt; }
@@ -181,7 +225,7 @@
             <div id="content-plan" class="content-section active">
                 <div id="setup-screen-plan" class="no-print">
                     <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-slate-200">
-                        <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
                             <input type="text" id="education-admin" placeholder="الإدارة التعليمية: ..." class="w-full p-3 border border-slate-300 rounded-lg">
                             <input type="text" id="school-name" placeholder="المدرسة: ..." class="w-full p-3 border border-slate-300 rounded-lg">
                         </div>
@@ -308,7 +352,7 @@
                             </table>
                             <table class="w-full table-bordered mb-6">
                                 <thead class="bg-teal-50 font-bold">
-                                    <tr><th class="w-[15%]">الأسبوع</th><th class="w-[20%]">التاريخ</th><th class="w-[25%]">عنوان الحصة</th><th class="w-[40%]">المحتوى والإجراءات</th></tr>
+                                    <tr><th class="w-[15%]">الأسبوع</th><th class="w-[20%]">التاريخ</th><th class="w-[20%]">عنوان الحصة</th><th class="w-[30%]">المحتوى والإجراءات</th><th class="w-[15%]">الحالة</th></tr>
                                 </thead>
                                 <tbody id="plan-table-body"></tbody>
                             </table>
@@ -954,7 +998,16 @@
                     if (date && date !== 'يحدد لاحقًا') {
                          for (const key in activeWeeksData) { if (Object.values(activeWeeksData[key].days).includes(date.split(' ').slice(1).join(' '))) { weekName = activeWeeksData[key].name; break; }}
                     }
-                    tableBody.innerHTML += `<tr><td>${weekName}</td><td>${date ? (date === 'يحدد لاحقًا' ? 'يحدد لاحقًا' : formatFullDate(date)) : 'لم يحدد'}</td><td>${session.title}</td><td>${session.content}</td></tr>`;
+                    tableBody.innerHTML += `<tr>
+                        <td>${weekName}</td>
+                        <td>${date ? (date === 'يحدد لاحقًا' ? 'يحدد لاحقًا' : formatFullDate(date)) : 'لم يحدد'}</td>
+                        <td>${session.title}</td>
+                        <td>${session.content}</td>
+                        <td class="text-xs">
+                            <div class="flex items-center p-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> نفذ</div>
+                            <div class="flex items-center p-1 mt-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> لم ينفذ</div>
+                        </td>
+                    </tr>`;
                 });
                 document.getElementById('setup-screen-plan').classList.add('hidden');
                 document.getElementById('output-plan').classList.remove('hidden');
