@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خطط برامج النشاط</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2D3C57 0%, #253448 100%);
+            position: relative;
+        }
+        
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+
+    <!-- Wrapper for main content, to be hidden when a plan is shown -->
+    <div id="main-content-wrapper">
+        <!-- Header -->
+        <header class="text-center py-8 relative z-10">
+            <!-- شعار وزارة التعليم -->
+            <div class="mb-8">
+                <img src="https://salogos.org/wp-content/uploads/2021/11/UntiTtled-1-1300x988.png" 
+                     alt="شعار وزارة التعليم" 
+                     class="w-32 h-auto mx-auto mb-4"
+                     onerror="this.src='https://placehold.co/128x128/ffffff/000000?text=Logo'; this.alt='شعار وزارة التعليم';">
+            </div>
+            
+            <div class="animate-float">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">
+                    خطط الحصص الدراسية
+                </h1>
+                <h2 class="text-2xl md:text-3xl font-semibold text-white mb-4 opacity-90">
+                    لبرامج النشاط الطلابي
+                </h2>
+                <div class="w-32 h-1 bg-white mx-auto rounded-full opacity-80"></div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-6 pb-12 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                
+                <!-- المواطنة والحياة -->
+                <a href="./plancitizenship-life.html" class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden block" style="border-top: 6px solid #981E47;">
+                    <div class="p-8 text-center">
+                        <div class="mb-6">
+                            <img src="https://k.top4top.io/p_3472ccl2l0.gif" 
+                                 alt="المواطنة والحياة" 
+                                 class="w-24 h-24 mx-auto rounded-full shadow-lg"
+                                 onerror="this.src='https://placehold.co/96x96/981E47/FFFFFF?text=Icon'; this.alt='صورة المواطنة والحياة';">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4" style="color: #981E47;">المواطنة والحياة</h3>
+                        <div class="w-16 h-1 mx-auto rounded-full mb-4" style="background-color: #981E47;"></div>
+                        <p class="text-gray-600 text-sm">برامج تعزز قيم المواطنة والمسؤولية المجتمعية</p>
+                    </div>
+                </a>
+
+                <!-- العلوم والتقنية -->
+                <a href="./planscience-technology.html" class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden block" style="border-top: 6px solid #24344D;">
+                    <div class="p-8 text-center">
+                        <div class="mb-6">
+                            <img src="https://l.top4top.io/p_3472daolv1.gif" 
+                                 alt="العلوم والتقنية" 
+                                 class="w-24 h-24 mx-auto rounded-full shadow-lg"
+                                 onerror="this.src='https://placehold.co/96x96/24344D/FFFFFF?text=Icon'; this.alt='صورة العلوم والتقنية';">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4" style="color: #24344D;">العلوم والتقنية</h3>
+                        <div class="w-16 h-1 mx-auto rounded-full mb-4" style="background-color: #24344D;"></div>
+                        <p class="text-gray-600 text-sm">أنشطة علمية وتقنية لتنمية مهارات المستقبل</p>
+                    </div>
+                </a>
+                
+                <!-- الرياضة والصحة -->
+                <a href="./plansports-health.html" class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden block" style="border-top: 6px solid #2FB7BD;">
+                    <div class="p-8 text-center">
+                        <div class="mb-6">
+                            <img src="https://c.top4top.io/p_3472urwbn4.gif" 
+                                 alt="الرياضة والصحة" 
+                                 class="w-24 h-24 mx-auto rounded-full shadow-lg"
+                                 onerror="this.src='https://placehold.co/96x96/2FB7BD/FFFFFF?text=Icon'; this.alt='صورة الرياضة والصحة';">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4" style="color: #2FB7BD;">الرياضة والصحة</h3>
+                        <div class="w-16 h-1 mx-auto rounded-full mb-4" style="background-color: #2FB7BD;"></div>
+                        <p class="text-gray-600 text-sm">برامج رياضية وصحية لنمط حياة متوازن</p>
+                    </div>
+                </a>
+
+                <!-- الأيام والمناسبات -->
+                <a href="./plandaysoccasions.html" class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden block" style="border-top: 6px solid #583C71;">
+                    <div class="p-8 text-center">
+                        <div class="mb-6">
+                            <img src="https://e.top4top.io/p_34729xucx5.gif" 
+                                 alt="الأيام والمناسبات" 
+                                 class="w-24 h-24 mx-auto rounded-full shadow-lg"
+                                 onerror="this.src='https://placehold.co/96x96/583C71/FFFFFF?text=Icon'; this.alt='صورة الأيام والمناسبات';">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4" style="color: #583C71;">الأيام والمناسبات</h3>
+                        <div class="w-16 h-1 mx-auto rounded-full mb-4" style="background-color: #583C71;"></div>
+                        <p class="text-gray-600 text-sm">فعاليات ومناسبات وطنية ودولية مميزة</p>
+                    </div>
+                </a>
+
+                <!-- الثقافة والفنون -->
+                <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer" 
+                     onclick="showUpdateMessage('الثقافة والفنون')" 
+                     style="border-top: 6px solid #FF7145;">
+                    <div class="p-8 text-center">
+                        <div class="mb-6">
+                            <img src="https://a.top4top.io/p_3472miame2.gif" 
+                                 alt="الثقافة والفنون" 
+                                 class="w-24 h-24 mx-auto rounded-full shadow-lg"
+                                 onerror="this.src='https://placehold.co/96x96/FF7145/FFFFFF?text=Icon'; this.alt='صورة الثقافة والفنون';">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4" style="color: #FF7145;">الثقافة والفنون</h3>
+                        <div class="w-16 h-1 mx-auto rounded-full mb-4" style="background-color: #FF7145;"></div>
+                        <p class="text-gray-600 text-sm">برامج ثقافية وفنية لإثراء الخبرات الإبداعية</p>
+                    </div>
+                </div>
+
+                <!-- النشاط الكشفي -->
+                <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer" 
+                     onclick="showUpdateMessage('النشاط الكشفي')" 
+                     style="border-top: 6px solid #018083;">
+                    <div class="p-8 text-center">
+                        <div class="mb-6">
+                            <img src="https://b.top4top.io/p_3472h0ngk3.gif" 
+                                 alt="النشاط الكشفي" 
+                                 class="w-24 h-24 mx-auto rounded-full shadow-lg"
+                                 onerror="this.src='https://placehold.co/96x96/018083/FFFFFF?text=Icon'; this.alt='صورة النشاط الكشفي';">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4" style="color: #018083;">النشاط الكشفي</h3>
+                        <div class="w-16 h-1 mx-auto rounded-full mb-4" style="background-color: #018083;"></div>
+                        <p class="text-gray-600 text-sm">أنشطة كشفية لبناء الشخصية والقيادة</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 bg-opacity-90 backdrop-blur-sm py-8 mt-12 relative z-10">
+            <div class="container mx-auto px-6">
+                <div class="flex items-center justify-center gap-4">
+                    <a href="https://www.rasmcom.com" target="_blank" class="hover:opacity-80 transition-opacity duration-300">
+                        <img src="https://e.top4top.io/p_3463x5tj40.png" 
+                             alt="شعار رسم" 
+                             class="w-12 h-auto"
+                             onerror="this.src='https://placehold.co/48x48/ffffff/000000?text=Logo'; this.alt='شعار رسم';">
+                    </a>
+                    <div class="text-right">
+                        <p class="text-lg font-semibold text-white mb-1">جميع الحقوق محفوظة</p>
+                        <p class="text-sm text-white opacity-80">لقناة رسم للتصميم والخدمات التعليمية 2025</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Plan View (Overlay, hidden by default) -->
+    <div id="plan-view" class="hidden fixed inset-0 z-40 bg-white">
+        <iframe id="plan-iframe" class="w-full h-full border-none"></iframe>
+    </div>
+
+    <!-- Floating Home Button (hidden by default) -->
+    <button id="back-to-main-btn" class="hidden fixed top-4 right-4 z-50 flex items-center bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 pl-5 pr-2 py-2">
+        <span class="font-semibold text-gray-800 text-lg ml-3">الرئيسية</span>
+        <img src="https://b.top4top.io/p_3523lx4qa1.gif" alt="الرئيسية" class="w-10 h-10 rounded-full object-cover">
+    </button>
+
+
+    <!-- Modal for Pledge -->
+    <div id="pledgeModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-3xl p-8 mx-4 max-w-lg w-full text-center shadow-2xl">
+            <div class="flex items-center justify-center gap-4 mb-6">
+                <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+                    <img src="https://k.top4top.io/p_35163lq2x1.gif" 
+                         alt="صورة التعهد" 
+                         class="w-full h-full object-cover"
+                         onerror="this.src='https://placehold.co/64x64/cccccc/000000?text=Pledge'; this.alt='صورة التعهد';">
+                </div>
+                <h3 class="text-3xl font-bold text-gray-800">تعهد</h3>
+            </div>
+            
+            <div class="mb-6 text-right leading-relaxed">
+                <p class="text-gray-700 text-lg mb-4">
+                    أقر وأتعهد أمام الله أنني سأستخدم هذا الموقع للأغراض الشخصية فقط، ولن أستخدمه لأي غرض تجاري أو ربحي. كما أتعهد بعدم مشاركة رابط الموقع مع أي شخص آخر.
+                </p>
+                <p class="text-gray-600 text-base mb-4">
+                    يرجى الضغط على "أوافق" للمتابعة
+                </p>
+            </div>
+            
+            <button onclick="acceptPledge()" 
+                    class="bg-gradient-to-r from-green-500 to-green-600 text-white px-12 py-4 rounded-full font-bold text-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg mb-6">
+                أوافق
+            </button>
+            
+            <div class="border-t pt-6">
+                <p class="text-gray-600 text-sm mb-4">
+                    لطلباتكم يشرفنا تواصلكم على قناة رسم للتصميم والخدمات التعليمية اضغط على الشعار للانضمام
+                </p>
+                <a href="https://www.rasmcom.com" target="_blank" class="inline-block hover:opacity-80 transition-opacity duration-300">
+                    <img src="https://e.top4top.io/p_3463x5tj40.png" 
+                         alt="شعار قناة رسم" 
+                         class="w-16 h-auto mx-auto"
+                         onerror="this.src='https://placehold.co/64x64/ffffff/000000?text=Logo'; this.alt='شعار قناة رسم';">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Update Message -->
+    <div id="updateModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 mx-4 max-w-md w-full text-center shadow-2xl">
+            <div class="mb-6">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2" id="modalTitle">تحديث قريباً</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    سيتم تحديث الموقع بعد صدور الأدلة من المركز الوطني للمناهج الخاصة بهذا المجال
+                </p>
+            </div>
+            <button onclick="closeModal()" 
+                    class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg">
+                حسناً
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- Original Script for Modals ---
+        function checkPledgeStatus() {
+            const lastPledgeTime = localStorage.getItem('lastPledgeTime');
+            const currentTime = new Date().getTime();
+            const thirtyMinutes = 30 * 60 * 1000;
+            
+            if (!lastPledgeTime || (currentTime - parseInt(lastPledgeTime)) > thirtyMinutes) {
+                document.getElementById('pledgeModal').classList.remove('hidden');
+                document.getElementById('pledgeModal').classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.getElementById('pledgeModal').classList.add('hidden');
+                document.getElementById('pledgeModal').classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        function acceptPledge() {
+            const currentTime = new Date().getTime();
+            localStorage.setItem('lastPledgeTime', currentTime.toString());
+            document.getElementById('pledgeModal').classList.add('hidden');
+            document.getElementById('pledgeModal').classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+        
+        window.addEventListener('load', function() {
+            checkPledgeStatus();
+        });
+
+        function showUpdateMessage(sectionName) {
+            document.getElementById('modalTitle').textContent = sectionName;
+            document.getElementById('updateModal').classList.remove('hidden');
+            document.getElementById('updateModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('updateModal').classList.add('hidden');
+            document.getElementById('updateModal').classList.remove('flex');
+        }
+
+        document.getElementById('updateModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // --- New Script for Navigation ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContentWrapper = document.getElementById('main-content-wrapper');
+            const planView = document.getElementById('plan-view');
+            const planIframe = document.getElementById('plan-iframe');
+            const backButton = document.getElementById('back-to-main-btn');
+
+            const planLinks = document.querySelectorAll('#main-content-wrapper main a[href]');
+
+            planLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const planUrl = link.getAttribute('href');
+                    if (planUrl) {
+                        planIframe.src = planUrl;
+                        mainContentWrapper.classList.add('hidden');
+                        planView.classList.remove('hidden');
+                        backButton.classList.remove('hidden');
+                    }
+                });
+            });
+
+            backButton.addEventListener('click', () => {
+                planIframe.src = 'about:blank'; // To stop content from loading in the background
+                mainContentWrapper.classList.remove('hidden');
+                planView.classList.add('hidden');
+                backButton.classList.add('hidden');
+            });
+        });
+
+    </script>
+</body>
+</html>
