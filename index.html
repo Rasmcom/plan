@@ -51,11 +51,8 @@
 </head>
 <body class="min-h-screen gradient-bg">
 
-    <!-- Wrapper for main content, to be hidden when a plan is shown -->
     <div id="main-content-wrapper">
-        <!-- Header -->
         <header class="text-center py-8 relative z-10">
-            <!-- شعار وزارة التعليم -->
             <div class="mb-8">
                 <img src="https://salogos.org/wp-content/uploads/2021/11/UntiTtled-1-1300x988.png" 
                      alt="شعار وزارة التعليم" 
@@ -74,11 +71,9 @@
             </div>
         </header>
 
-        <!-- Main Content -->
         <main class="container mx-auto px-6 pb-12 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                 
-                <!-- المواطنة والحياة -->
                 <a href="./plancitizenship-life.html" class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden block" style="border-top: 6px solid #981E47;">
                     <div class="p-8 text-center">
                         <div class="mb-6">
@@ -93,7 +88,6 @@
                     </div>
                 </a>
 
-                <!-- العلوم والتقنية -->
                 <a href="./planscience-technology.html" class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden block" style="border-top: 6px solid #24344D;">
                     <div class="p-8 text-center">
                         <div class="mb-6">
@@ -108,7 +102,6 @@
                     </div>
                 </a>
                 
-                <!-- الرياضة والصحة -->
                 <a href="./plansports-health.html" class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden block" style="border-top: 6px solid #2FB7BD;">
                     <div class="p-8 text-center">
                         <div class="mb-6">
@@ -123,7 +116,6 @@
                     </div>
                 </a>
 
-                <!-- الأيام والمناسبات -->
                 <a href="./plandaysoccasions.html" class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden block" style="border-top: 6px solid #583C71;">
                     <div class="p-8 text-center">
                         <div class="mb-6">
@@ -138,7 +130,6 @@
                     </div>
                 </a>
 
-                <!-- الثقافة والفنون -->
                 <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer" 
                      onclick="showUpdateMessage('الثقافة والفنون')" 
                      style="border-top: 6px solid #FF7145;">
@@ -155,7 +146,6 @@
                     </div>
                 </div>
 
-                <!-- النشاط الكشفي -->
                 <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer" 
                      onclick="showUpdateMessage('النشاط الكشفي')" 
                      style="border-top: 6px solid #018083;">
@@ -175,7 +165,6 @@
             </div>
         </main>
 
-        <!-- Footer -->
         <footer class="bg-gray-900 bg-opacity-90 backdrop-blur-sm py-8 mt-12 relative z-10">
             <div class="container mx-auto px-6">
                 <div class="flex items-center justify-center gap-4">
@@ -194,19 +183,16 @@
         </footer>
     </div>
     
-    <!-- Plan View (Overlay, hidden by default) -->
     <div id="plan-view" class="hidden fixed inset-0 z-40 bg-white">
         <iframe id="plan-iframe" class="w-full h-full border-none"></iframe>
     </div>
 
-    <!-- Floating Home Button (hidden by default) -->
     <button id="back-to-main-btn" class="hidden fixed top-4 right-4 z-50 flex items-center bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 pl-5 pr-2 py-2">
         <span class="font-semibold text-gray-800 text-lg ml-3">الرئيسية</span>
         <img src="https://b.top4top.io/p_3523lx4qa1.gif" alt="الرئيسية" class="w-10 h-10 rounded-full object-cover">
     </button>
 
 
-    <!-- Modal for Pledge -->
     <div id="pledgeModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-3xl p-8 mx-4 max-w-lg w-full text-center shadow-2xl">
             <div class="flex items-center justify-center gap-4 mb-6">
@@ -247,7 +233,6 @@
         </div>
     </div>
 
-    <!-- Modal for Update Message -->
     <div id="updateModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
         <div class="bg-white rounded-2xl p-8 mx-4 max-w-md w-full text-center shadow-2xl">
             <div class="mb-6">
@@ -268,6 +253,29 @@
         </div>
     </div>
 
+    <div id="newUpdateModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-3xl p-8 mx-4 max-w-lg w-full text-center shadow-2xl">
+            <h3 class="text-3xl font-bold text-gray-800 mb-4">
+                🔔 تنبيه تحديث الموقع
+            </h3>
+            <div class="mb-6 text-right leading-relaxed">
+                <p class="text-gray-700 text-lg mb-4">
+                    تمت إضافة وتحديث مميزات جديدة في الموقع:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 text-base mb-4 space-y-2">
+                    <li>إمكانية اختيار عدد حصص أقل من المطلوب، وسيظهر لك مباشرةً خطة الحصص المختارة.</li>
+                    <li>تعديل عدد الحصص لبعض المراحل والبرامج بما يتوافق مع آخر التحديثات.</li>
+                    <li>تحديثات قادمة فور صدور الأدلة بإذن الله.</li>
+                </ul>
+                <p class="text-lg font-semibold text-gray-800 mb-2">✨ نتمنى لك تجربة ممتعة.</p>
+                <p class="text-md text-gray-600">مع تحيات متجر رسم  </p>
+            </div>
+            <button onclick="closeNewUpdateModal()" 
+                    class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-12 py-4 rounded-full font-bold text-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg">
+                موافق
+            </button>
+        </div>
+    </div>
     <script>
         // --- Original Script for Modals ---
         function checkPledgeStatus() {
@@ -292,6 +300,14 @@
             document.getElementById('pledgeModal').classList.add('hidden');
             document.getElementById('pledgeModal').classList.remove('flex');
             document.body.style.overflow = 'auto';
+
+            // START: Logic for one-time update modal
+            if (!localStorage.getItem('updatePopupShown')) {
+                document.getElementById('newUpdateModal').classList.remove('hidden');
+                document.getElementById('newUpdateModal').classList.add('flex');
+                localStorage.setItem('updatePopupShown', 'true');
+            }
+            // END: Logic for one-time update modal
         }
         
         window.addEventListener('load', function() {
@@ -309,11 +325,26 @@
             document.getElementById('updateModal').classList.remove('flex');
         }
 
+        // START: Function to close the new update modal
+        function closeNewUpdateModal() {
+            document.getElementById('newUpdateModal').classList.add('hidden');
+            document.getElementById('newUpdateModal').classList.remove('flex');
+        }
+        // END: Function to close the new update modal
+
         document.getElementById('updateModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
             }
         });
+
+        // START: Event listener to close the new modal when clicking outside
+        document.getElementById('newUpdateModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeNewUpdateModal();
+            }
+        });
+        // END: Event listener
 
         // --- New Script for Navigation ---
         document.addEventListener('DOMContentLoaded', () => {
