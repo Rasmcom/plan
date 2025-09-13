@@ -9,6 +9,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Sakkal Majalla';
+            src: local('Sakkal Majalla'),
+                 url('https://fonts.cdnfonts.com/s/72921/Sakkal Majalla.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'AL Mohanad';
+            src: local('AL Mohanad'),
+                 url('https://alfont.net/fonts/a-l-mohanad-340/AL-Mohanad-Light.woff') format('woff');
+        }
+
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: #f7fafc;
@@ -54,13 +66,19 @@
             padding: 8px;
             border-left: 4px solid #0891b2;
         }
+        /* --- تعديل تنسيق الجداول --- */
         .table-bordered th, .table-bordered td {
-            border: 1px solid #e2e8f0;
-            padding: 6px;
+            border: 1px solid #ddd;
+            padding: 4px;
             text-align: right;
-            vertical-align: middle;
+            vertical-align: top;
             font-size: 0.8rem;
         }
+        .table-bordered th {
+            background-color: #2c5aa0;
+            color: white;
+        }
+        /* ------------------------- */
         #date-picker-modal .week-grid .day.selected {
             background-color: #0d9488;
             color: white;
@@ -127,45 +145,45 @@
             }
         }
 
+        /* --- PRINT STYLES --- */
+        @page {
+            size: A4 portrait;
+            margin: 0.3cm;
+        }
+
         @media print {
-            @page {
-                size: A4 portrait;
-                margin: 0;
-            }
-
-            * {
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-            }
-
             .no-print {
                 display: none !important;
             }
 
-            body,
-            html {
-                background: white !important;
-                margin: 0;
-                padding: 0;
-                font-size: 9pt;
-            }
-            
-            textarea {
-                overflow: hidden !important;
-                height: auto !important;
-                resize: none;
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
-            .a4-page {
+            html, body {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+                font-size: 8pt;
+            }
+            
+            .container, .a4-page {
                 box-shadow: none !important;
+                border-radius: 0 !important;
                 max-width: 100% !important;
-                width: 100% !important; /* Ensure it takes full width for printing */
+                width: 100% !important; 
                 margin: 0 !important;
                 border: none !important;
                 padding: 1cm 5mm;
                 page-break-inside: avoid;
                 height: auto;
-                min-height: 0; 
+                min-height: 0;
+            }
+            
+            .a4-page main {
+                flex-grow: 1;
             }
 
             .content-section {
@@ -176,23 +194,63 @@
                 display: block !important;
             }
             
-            .table-bordered, .table-bordered th, .table-bordered td {
-                padding: 4px;
+            /* --- توحيد تنسيق الجداول للطباعة --- */
+            .table-bordered th, .table-bordered td {
+                border: 1px solid #ddd !important;
+                padding: 4px !important;
                 font-size: 8pt;
-                white-space: normal; /* Allow text to wrap when printing */
+                white-space: normal;
+                word-wrap: break-word;
+                vertical-align: top;
+            }
+            .table-bordered th {
+                background-color: #0c7894 !important;
+                color: white !important;
+            }
+            /* ---------------------------------- */
+
+            textarea, input[type="text"] {
+                overflow: hidden !important;
+                height: auto !important;
+                resize: none;
+                border: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+                font-size: 8pt !important;
+                color: #000 !important;
+                font-family: inherit !important;
+            }
+
+            .report-label {
+                background-color: #f0f9ff !important;
+                color: #000 !important;
+                border-left: 1px solid #000 !important;
+            }
+
+            .print-header-container, .print-footer-container {
+                display: block !important;
             }
             
-            h2 { font-size: 14pt; }
-            
-            #image-upload-grid {
-                grid-template-columns: repeat(3, 1fr) !important;
+            h2 {
+                font-size: 14pt;
+                color: #000 !important;
             }
+            
+            .header img {
+                height: 50px !important;
+            }
+
             .image-upload-slot {
                 height: 5cm;
                 aspect-ratio: auto;
             }
-             .image-upload-slot img {
+            
+            .image-upload-slot img {
                 object-fit: contain;
+            }
+            
+            .image-upload-slot:not(.has-image) {
+                display: none !important;
             }
         }
     </style>
@@ -250,7 +308,7 @@
                                     </select>
                                 </div>
                             </div>
-                             <div>
+                            <div>
                                 <h3 class="text-xl font-bold mb-3 text-teal-700">3. اختر البرنامج</h3>
                                 <div class="grid grid-cols-1 gap-4">
                                     <select id="program-select-plan" class="w-full p-3 border border-slate-300 rounded-lg" disabled>
@@ -279,7 +337,7 @@
                                     </div>
                                 </div>
                             </div>
-                             <div>
+                            <div>
                                 <h3 class="text-xl font-bold mb-3 text-teal-700">7. تفاصيل إضافية (مقترحة)</h3>
                                 <div class="grid md:grid-cols-2 gap-4">
                                     <textarea id="additional-achievements" placeholder="الإنجازات" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
@@ -287,6 +345,14 @@
                                     <textarea id="difficulties" placeholder="الصعوبات" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
                                     <textarea id="remedial-actions" placeholder="الإجراءات العلاجية" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
                                 </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-3 text-teal-700">8. اختيار الخط</h3>
+                                <select id="font-select" class="w-full p-3 border border-slate-300 rounded-lg">
+                                    <option value="Tajawal">الخط الافتراضي (Tajawal)</option>
+                                    <option value="Sakkal Majalla">Sakkal Majalla</option>
+                                    <option value="AL Mohanad">AL Mohanad</option>
+                                </select>
                             </div>
                         </div>
                         <div class="mt-10 text-center flex gap-4">
@@ -318,35 +384,35 @@
                                 <tbody>
                                     <tr>
                                         <td class="report-label w-1/5">اسم البرنامج:</td>
-                                        <td id="report-program-name-plan" class="p-2 border border-slate-200 w-3/10"></td>
+                                        <td class="p-0 border border-slate-200 w-3/10"><textarea id="report-program-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label w-1/5">تفاصيل البرنامج:</td>
-                                        <td id="report-program-details-name-plan" class="p-2 border border-slate-200 w-3/10"></td>
+                                        <td class="p-0 border border-slate-200 w-3/10"><textarea id="report-program-details-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label">الهدف من البرنامج:</td>
-                                        <td id="report-objective-plan" class="p-2 border border-slate-200"></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-objective-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label">الفئة المستهدفة:</td>
-                                        <td id="report-program-target-plan" class="p-2 border border-slate-200"></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-program-target-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label">المعلم/ة المنفذ/ة:</td>
-                                        <td id="report-teacher-name-plan" class="p-2 border border-slate-200"></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-teacher-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label">مدة التنفيذ:</td>
-                                        <td id="report-duration-plan" class="p-2 border border-slate-200"></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-duration-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label">مكان التنفيذ:</td>
-                                        <td id="report-location-plan" class="p-2 border border-slate-200 whitespace-pre-line"></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-location-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label">أدوات التنفيذ:</td>
-                                        <td id="report-tools-plan" class="p-2 border border-slate-200 whitespace-pre-line"></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-tools-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label align-top">نواتج التعلم:</td>
-                                        <td id="report-learning-outcomes-plan" class="p-2 border border-slate-200 whitespace-pre-line" colspan="3"></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-learning-outcomes-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label w-1/4">أساليب التقويم:</td>
-                                        <td id="report-assessment-methods-plan" class="p-2 border border-slate-200 whitespace-pre-line" colspan="3"></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-assessment-methods-plan" class="w-full border-none p-2 resize-none" rows="2"></textarea></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -357,10 +423,10 @@
                                 <tbody id="plan-table-body"></tbody>
                             </table>
                             <div class="grid grid-cols-2 gap-4 text-sm">
-                                <div><h4 class="report-label mb-1">الإنجازات</h4><p id="report-additional-achievements-plan" class="p-2 border border-slate-200 min-h-[40px] whitespace-pre-wrap"></p></div>
-                                <div><h4 class="report-label mb-1">نقاط القوة</h4><p id="report-strengths-plan" class="p-2 border border-slate-200 min-h-[40px] whitespace-pre-wrap"></p></div>
-                                <div><h4 class="report-label mb-1">الصعوبات</h4><p id="report-difficulties-plan" class="p-2 border border-slate-200 min-h-[40px] whitespace-pre-wrap"></p></div>
-                                <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><p id="report-remedial-actions-plan" class="p-2 border border-slate-200 min-h-[40px] whitespace-pre-wrap"></p></div>
+                                <div><h4 class="report-label mb-1">الإنجازات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-additional-achievements-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
+                                <div><h4 class="report-label mb-1">نقاط القوة</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-strengths-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
+                                <div><h4 class="report-label mb-1">الصعوبات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-difficulties-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
+                                <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-remedial-actions-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
                             </div>
                         </main>
                         <footer class="pt-8 text-center text-xs">
@@ -369,6 +435,7 @@
                                 <div class="pt-2 mt-2"><p id="report-leader-name-plan" class="font-bold h-6"></p></div>
                                 <div class="pt-2 mt-2"><p id="report-director-name-plan" class="font-bold h-6"></p></div>
                             </div>
+
                         </footer>
                     </div>
                 </div>
@@ -538,7 +605,7 @@
                             { title: "أخطاء الذكاء الاصطناعي", content: "عرض فيديو قصير عن أخطاء الذكاء الاصطناعي (مثل خطأ التعرف على صور) – نقاش تبعاتها." },
                             { title: "قضايا الخصوصية والحقوق", content: "مناقشة ما يجوز وما لا يجوز مشاركته – نشاط: ورشة صغيرة \"قواعد الخصوصية\"." },
                             { title: "مشروع مصغر – نظام تصنيف", content: "المجموعات تنفذ تصنيف مبسط (صور/بطاقات/أصوات) – توثيق النتائج." },
-                            { title: "عرض المشاريع والتقييم", content: "تقديم المشاريع أمام الزملاء – ملاحظات المعلم – شهادات تحفيزية." }
+                            { title: "عرض المشاريع والتقييم", content: "تقديم المجموعات لمشاريعها – مشاركة زملائهم بالتعليق – توزيع شهادات/ملصقات تحفيزية." }
                         ],
                         strengths: "قدرة الطلاب على فهم مفاهيم تعلم الآلة.", difficulties: "التعامل مع البيانات وتحضيرها.", achievements: "بناء نماذج تصنيف بسيطة.", remedial_actions: "التركيز على مشاريع عملية ومبسطة."
                     },
@@ -610,7 +677,7 @@
                     },
                     'middle': {
                         name: "برنامج التصاميم العلمية والتقنية – المرحلة المتوسطة", sessions: 7, duration: "315 دقيقة (7 حصص)", target: "المرحلة المتوسطة", location: "معمل الحاسب/المكتبة", tools: "أدوات برمجية، مصادر بحث",
-                        learningOutcomes: "• تحليل مشكلة بيئية أو اجتماعية واقتراح حل تقني.\n• توظيف مصدرين علميين موثوقين لدعم فكرة المشروع.\n• دمج مفاهيم من البرمجة والعلوم والهندسة في التصميم.\n• اقتراح تحسين واحد على الأقل بناءً على الملاحظة.\n• توضيح إسهام المشروع في خدمة المجتمع.\n• عرض النتائج بشكل منظم.",
+                        learningOutcomes: "• تحليل مشكلة بيئية أو اجتماعية واقتراح حل تقني.\n• توظيف مصدرين علميين موثوقين لدعم فكرة المشروع.\n• دمج مفاهيم من البرمجة والعلوم والهندسة في التصميم.\n• اقتراح تحسين واحد على الأقل بناءً על الملاحظة.\n• توضيح إسهام المشروع في خدمة المجتمع.\n• عرض النتائج بشكل منظم.",
                         assessmentMethods: "تقييم المشاريع، البحث العلمي",
                         details: [
                             { title: "من المشكلة إلى الفكرة", content: "أمثلة لحلول تقنية تخدم المجتمع/البيئة؛ تكوين فرق، اختيار مشكلة محلية محددة وصياغة فرضية وأهداف قابلة للقياس." },
@@ -621,7 +688,7 @@
                             { title: "تحسين وتكامل STEM", content: "تطبيق تحسينين على الأقل بناءً على البيانات؛ إبراز التكامل بين العلوم/الرياضيات/التقنية/الهندسة في التعديل." },
                             { title: "عرض مُنظَّم وتقييم", content: "إعداد ملصق/عرض قصير يتضمن المشكلة، الفكرة، البيانات، التحسين؛ تقديم أمام زملاء/لجنة وتلقي تغذية راجعة موثّقة." }
                         ],
-                        strengths: "قدرة الطلاب على البحث والتصميم.", difficulties: "دمج البرمجة في المشاريع.", achievements: "تطوير حلول تقنية لمشكلات مجتمعية.", remedial_actions: "تنظيم ورش عمل في البرمجة والتصميم."
+                        strengths: "قدرة الطلاب על البحث والتصميم.", difficulties: "دمج البرمجة في المشاريع.", achievements: "تطوير حلول تقنية لمشكلات مجتمعية.", remedial_actions: "تنظيم ورش عمل في البرمجة والتصميم."
                     },
                     'high-2': {
                         name: "برنامج التصاميم العلمية والتقنية – المرحلة الثانوية", sessions: 7, duration: "315 دقيقة (7 حصص)", target: "المرحلة الثانوية", location: "معمل الحاسب/قاعة النشاط", tools: "منصات برمجة، أدوات عرض",
@@ -633,71 +700,12 @@
                             { title: "تخطيط تقني ونمذجة", content: "إعداد مخطط تشغيلي/نموذج ثلاثي الأبعاد أو مخطط برمجي يوضح آلية العمل؛ خطة موارد وزمن ومخاطر وسلامة." },
                             { title: "تطوير نموذج أولي", content: "بناء Prototype (أدوات برمجة/تصميم رقمي أو مواد فعلية) مع تعريف حالات الاختبار ومقاييس التقييم (وظيفة/اعتمادية/سهولة استخدام)." },
                             { title: "اختبار وتحليل بيانات", content: "تنفيذ اختبارات منهجية، جمع بيانات، إجراء تحليل رياضي/إحصائي مبسّط (متوسط/نسبة تحسن) واستنتاجات مرتبطة بالمعايير." },
-                            { title: "تحسين وتوثيق تكاملي", content: "تطبيق تحسينات مبنية على النتائج، وتوثيق التكامل بين العلوم والرياضيات والهندسة والتقنية في الحل؛ إعداد ملف مشروع منظّم." },
-                            { title: "عرض نهائي ومعايير تقييم", content: "تقديم عرض احترافي يوضح المشكلة، الحل، البيانات، أثر الاستدامة؛ تقييم وفق rubrics (جِدّة الفكرة–تكامل التخصصات–كفاءة الأداء–التوثيق–العرض)." }
-                        ],
-                        strengths: "قدرة الطلاب على تطوير حلول مبتكرة.", difficulties: "الحاجة إلى مهارات برمجية متقدمة.", achievements: "تطوير مشاريع تقنية متكاملة.", remedial_actions: "الاستعانة بخبراء لتقديم الدعم الفني."
-                    }
-                }
-            };
-            
-            fieldsData.stem_apps = {
-                name: "برنامج تطبيقات STEAM",
-                field: "العلوم والتقنية",
-                stages: {
-                    'primary': {
-                        name: "برنامج تطبيقات STEAM – المرحلة الأولية", sessions: 3, duration: "135 دقيقة (3 حصص)", target: "الصفوف الأولية", location: "الصف/ركن العلوم", tools: "أدوات تجارب بسيطة",
-                        learningOutcomes: "• رسم مشهد يعبر عن ظاهرة طبيعية.\n• ذكر ثلاثة عناصر طبيعية في بيئته.\n• وصف تجربة حسية مبسطة.\n• شرح مبدأ علمي بسيط.\n• المشاركة في تنفيذ تجربة ضمن مجموعة.\n• التعبير عن نتيجة تجربة بالرسم.",
-                        assessmentMethods: "الملاحظة، تقييم الرسومات",
-                        details: [
-                            { title: "تهيئة STEAM وتجربة حسّية", content: "تمهيد قصير وصور/فيديو؛ تنفيذ تجربة «ذوبان السكر في الماء الدافئ والبارد» مع ملاحظة الفروق وطرح أسئلة بسيطة." },
-                            { title: "فنّ وعلم: أرسم ما تعلّمت", content: "يختار الطفل مشهدًا من التجربة ويرسمه ويكتب كلمة/جملة بسيطة؛ حفظ العمل في «ملف الإنجاز»." },
-                            { title: "معرض STEAM الصغير", content: "عرض كل طفل لنموذجه/رسمه وشرح مبسّط لما حدث في التجربة؛ تقويم بالملاحظة." }
-                        ],
-                        strengths: "فضول الطلاب ورغبتهم في الاستكشاف.", difficulties: "الحفاظ על تركيز الطلاب لفترات طويلة.", achievements: "فهم الطلاب للمفاهيم العلمية البسيطة.", remedial_actions: "استخدام أنشطة قصيرة ومتنوعة."
-                    },
-                    'upper-primary': {
-                        name: "برنامج تطبيقات STEAM – المرحلة العليا", sessions: 5, duration: "225 دقيقة (5 حصص)", target: "الصفوف العليا", location: "معمل العلوم", tools: "أدوات بناء دوائر كهربائية",
-                        learningOutcomes: "• شرح كيفية عمل جهاز بسيط.\n• تصنيف ثلاثة استخدامات للكهرباء.\n• الربط بين المواد المستخدمة وموارد البيئة.\n• تنفيذ خطوات لإنشاء مشروع إلكتروني.\n• تقديم فكرة جديدة لتطوير المشروع.\n• المشاركة الفعالة ضمن فريق.",
-                        assessmentMethods: "تقييم المشاريع، الملاحظة",
-                        details: [
-                            { title: "تمهيد وتحديد فكرة المشروع", content: "تقديم المفاهيم الأساسية لـSTEAM مع مقطع فيديو؛ اختيار فكرة لمشكلة بسيطة وحلّها بنموذج مبسّط." },
-                            { title: "تخطيط نموذج إلكتروني مبسّط", content: "رسم مخطط أولي لنموذج يدمج العلوم/الهندسة/الفن/التقنية (مثل دائرة بسيطة ببطارية ومصباح) بمواد متوفرة." },
-                            { title: "تنفيذ أولي واختبار", content: "بناء النموذج خطوة بخطوة مع تجريب فوري وتغذية راجعة وتوثيق بالصور القصيرة." },
-                            { title: "تحسين وإضافة لمسة فنية", content: "تعديل التصميم بناء على النتائج وإضافة عنصر جمالي/وظيفي؛ توجيه وتحفيز وتقويم تكويني شفهي." },
-                            { title: "عرض مختصر", content: "عرض النماذج أمام الزملاء وشرح المسار من الفكرة للتنفيذ؛ ملاحظة مدى الاستيعاب." }
-                        ],
-                        strengths: "قدرة الطلاب على بناء دوائر كهربائية.", difficulties: "فهم المفاهيم الكهربائية المجردة.", achievements: "تنفيذ مشاريع إلكترونية بسيطة.", remedial_actions: "استخدام محاكاة الدوائر الكهربائية."
-                    },
-                    'middle': {
-                        name: "برنامج تطبيقات STEAM – المرحلة المتوسطة", sessions: 7, duration: "315 دقيقة (7 حصص)", target: "المرحلة المتوسطة", location: "معمل الحاسب/المكتبة", tools: "أدوات برمجية، مصادر بحث",
-                        learningOutcomes: "• توضيح إسهامات عالم أو مخترع.\n• تطبيق خطوات علمية باستخدام أداة برمجية.\n• مناقشة استخدام مورد محلي في تصميم نموذج بيئي.\n• شرح تكامل العلوم والرياضيات والتقنية في المشروع.\n• التعاون مع الزملاء ضمن فريق.\n• عرض المشروع أمام لجنة.",
-                        assessmentMethods: "تقييم المشاريع، البحث العلمي",
-                        details: [
-                            { title: "انطلاق المشروع وتقسيم الفرق", content: "تمهيد STEAM وتحديد مشكلة محلية؛ اختيار أداة (Scratch/Micro:bit) وخطة عمل أولية." },
-                            { title: "تصميم الحلّ (خريطة/خوارزمية)", content: "وضع خطوات واضحة (تخطيط–تنفيذ–اختبار–عرض) وتحديد المدخلات/المخرجات." },
-                            { title: "بناء/برمجة أولية", content: "بدء البرمجة أو تركيب المكوّنات مع مراعاة قواعد السلامة والموافقات اللازمة أثناء النشاط." },
-                            { title: "اختبار وتتبّع الأخطاء", content: "اختبار أولي وتسجيل الملاحظات والتعديلات لتحسين النموذج." },
-                            { title: "إكمال الوظائف والقياسات", content: "إكمال الميزات المطلوبة وتوظيف القياس/الجداول لتوثيق النتائج." },
-                            { title: "تجهيز العرض", content: "إعداد ملصق/عرض رقمي يوثّق المشكلة والحلّ وخطوات العمل والنتائج." },
-                            { title: "عرض وتقويم", content: "عروض المجموعات وتقويم وفق سُلّم مشروع/عروض تقديمية (وضوح الفكرة–التنظيم–الابتكار–التنفيذ–النتائج)." }
-                        ],
-                        strengths: "قدرة الطلاب على البحث والتصميم.", difficulties: "دمج البرمجة في المشاريع.", achievements: "تطوير حلول تقنية لمشكلات مجتمعية.", remedial_actions: "تنظيم ورش عمل في البرمجة والتصميم."
-                    },
-                    'high-2': {
-                        name: "برنامج تطبيقات STEAM – المرحلة الثانوية", sessions: 7, duration: "315 دقيقة (7 حصص)", target: "المرحلة الثانوية", location: "معمل الحاسب/قاعات النشاط", tools: "أدوات عرض، نماذج عمل",
-                        learningOutcomes: "• تحليل مشكلة مجتمعية واقتراح حل مبتكر.\n• تحليل الأثر الإيجابي/السلبي للفكرة.\n• البحث في المصادر الرقمية والمقارنة عالميًا ومحليًا.\n• التخطيط لمشروع متكامل.\n• عرض المشروع باستخدام أدوات احترافية.\n• المشاركة في منافسة علمية.",
-                        assessmentMethods: "تقييم المشاريع، الأبحاث",
-                        details: [
-                            { title: "تمهيد وأمثلة ملهمة", content: "تقديم المفاهيم الأساسية وأمثلة فيديو؛ استعراض الأدوات: Micro:bit، حساسات (رطوبة/LED/Buzzer)… إلخ." },
-                            { title: "اختيار مشروع وخطة أولية", content: "اختيار فكرة تخدم البيئة المدرسية/المجتمع؛ تصميم أولي (Prototype) وخطة تنفيذ." },
-                            { title: "بناء وتركيب", content: "تركيب الدائرة/النموذج واختبار عمل الحساسات والمخرجات خطوة بخطوة مع التوثيق." },
-                            { title: "جمع بيانات وتحسين", content: "قياسات وتجارب قصيرة وتحليل أولي ثم تحسين التصميم بناءً على النتائج." },
-                            { title: "توثيق احترافي", content: "إعداد ملف مشروع مُنظّم (فكرة–تنظيم–ابتكار–تنفيذ–نتائج) تمهيدًا للتقييم." },
+                            { title: "تحسين وتوثيق تكاملي", content: "تطبيق تحسينات مبنية على النتائج، وتوثيق التكامل بين العلوم/الرياضيات/الهندسة/التقنية في الحل؛ إعداد ملف مشروع منظّم." },
                             { title: "إعداد العروض", content: "تجهيز عرض احترافي ومراعاة معايير الإلقاء والوقت ولُغة الجسد وجودة الوسائط." },
-                            { title: "عرض ونهائيّات", content: "عرض المشاريع أمام لجنة/زملاء ورفعها لِمعرض المدرسة/المنصّات، مع تقويم ختامي." }
+                            { title: "عرض تجريبي (Rehearsal)", content: "بروفة أمام زملاء مع تغذية راجعة وفق مؤشرات: وضوح/تنظيم/ابتكار/تنفيذ/نتائج." },
+                            { title: "معرض/تحكيم ختامي", content: "تنظيم معرض داخلي لعرض نماذج المدن الذكية ومناقشة تأثيرها المستقبلي؛ توثيق نهائي." }
                         ],
-                        strengths: "قدرة الطلاب على التخطيط والتنفيذ.", difficulties: "الحاجة إلى مهارات عرض متقدمة.", achievements: "تطوير مشاريع متكاملة وتقديمها بشكل احترافي.", remedial_actions: "تنظيم ورش عمل في مهارات العرض والتقديم."
+                        strengths: "قدرة الطلاب על تطوير حلول مستدامة.", difficulties: "الحاجة إلى دعم فني متخصص.", achievements: "تطوير مشاريع متكاملة للمدن الذكية والمستدامة.", remedial_actions: "التواصل مع خبراء في مجال المدن الذكية."
                     }
                 }
             };
@@ -790,7 +798,7 @@
                             { title: "نموذج ثلاثي الأبعاد", content: "عمل مجموعي لبناء نموذج ورقي/كرتوني أو رقمي مبسّط مع أدوار واضحة؛ توثيق الخطوات بصور قصيرة." },
                             { title: "عرض وتقويم", content: "عرض الفكرة الرئيسة، وصف الابتكار، وبيان خطوات التنفيذ؛ تغذية راجعة وفق مؤشرات: وضوح الفكرة/تنظيم/ابتكار/نتائج." }
                         ],
-                        strengths: "قدرة الطلاب על استخدام برامج التصميم.", difficulties: "الحاجة إلى أجهزة حاسوب بمواصفات جيدة.", achievements: "تصميم نماذج رقمية للمدن الذكية.", remedial_actions: "استخدام برامج تصميم مجانية ومفتوحة المصدر."
+                        strengths: "قدرة الطلاب على استخدام برامج التصميم.", difficulties: "الحاجة إلى أجهزة حاسوب بمواصفات جيدة.", achievements: "تصميم نماذج رقمية للمدن الذكية.", remedial_actions: "استخدام برامج تصميم مجانية ومفتوحة المصدر."
                     },
                     'middle': {
                         name: "برنامج مدن المستقبل – المرحلة المتوسطة", sessions: 7, duration: "315 دقيقة (7 حصص)", target: "المرحلة المتوسطة", location: "معمل الحاسب/المكتبة", tools: "برامج تصميم، وسائل عرض",
@@ -805,7 +813,7 @@
                             { title: "محاكاة وعرض رقمي", content: "إعداد عرض تقديمي موجز يشرح الحل والابتكارات والقياسات/الجداول المستخدمة." },
                             { title: "عرض ختامي وتقييم", content: "معرض صفّي/مسابقة مصغّرة لأفضل تصميم؛ تغذية راجعة جماعية ومعايير ابتكار/فعالية/استدامة." }
                         ],
-                        strengths: "قدرة الطلاب على التقييم والتحليل.", difficulties: "الحاجة إلى وقت كافٍ لتطوير المشاريع.", achievements: "تقديم عروض متكاملة للمشاريع.", remedial_actions: "تنظيم وقت العمل وتوزيع المهام بشكل فعال."
+                        strengths: "قدرة الطلاب על التقييم والتحليل.", difficulties: "الحاجة إلى وقت كافٍ لتطوير المشاريع.", achievements: "تقديم عروض متكاملة للمشاريع.", remedial_actions: "تنظيم وقت العمل وتوزيع المهام بشكل فعال."
                     },
                     'high-2': {
                         name: "برنامج مدن المستقبل – المرحلة الثانوية", sessions: 9, duration: "405 دقيقة (9 حصص)", target: "المرحلة الثانوية", location: "معامل الحاسب/قاعات النشاط", tools: "أدوات بناء نماذج، أدوات رقمية",
@@ -863,6 +871,7 @@
             const stageSelectReports = document.getElementById('stage-select-reports');
             const programSelectReports = document.getElementById('program-select-reports');
             const generateReportBtn = document.getElementById('generate-report-btn');
+            const fontSelect = document.getElementById('font-select');
 
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -943,6 +952,11 @@
                 datePickerBtn.addEventListener('click', () => openDatePicker());
                 document.getElementById('reset-plan-btn').addEventListener('click', () => { if(confirm('هل أنت متأكد؟ سيتم حذف جميع البيانات المدخلة.')) { localStorage.removeItem('planGeneratorState'); location.reload(); }});
                 document.getElementById('generate-plan-btn').addEventListener('click', generatePlan);
+                fontSelect.addEventListener('change', (e) => {
+                    document.body.style.fontFamily = e.target.value;
+                    state.fontFamily = e.target.value;
+                    saveState();
+                });
             }
              function updateProgramDisplay() {
                 if (!state.programKey || !state.stage) return;
@@ -951,7 +965,7 @@
                 if (!programData) return;
                 document.getElementById('program-details-plan').innerHTML = `<p><strong class="font-semibold">البرنامج:</strong> ${programData.name}</p><p><strong class="font-semibold">عدد الحصص المقترح:</strong> ${programData.sessions} حصص</p>`;
                 objectiveSelect.disabled = false;
-                if (programData.duration.includes("العام الدراسي") || programData.duration.includes("مرنة")) {
+                if (programData.duration && (programData.duration.includes("العام الدراسي") || programData.duration.includes("مرنة"))) {
                     datePickerBtn.disabled = true;
                     datePickerBtn.textContent = 'البرنامج مستمر أو بمدة مرنة';
                     state.planDates = programData.details.map(d => d.date);
@@ -1010,7 +1024,7 @@
                 if (state.planDates && state.planDates.length > 0 && !state.planDates.includes('يحدد لاحقًا')) {
                      state.planDates.sort((a, b) => parseDateForSorting(a) - parseDateForSorting(b));
                      dateRange = `من ${formatFullDate(state.planDates[0])} إلى ${formatFullDate(state.planDates[state.planDates.length - 1])}`;
-                } else if (programData.duration.includes("العام الدراسي") || programData.duration.includes("مرنة")) {
+                } else if (programData.duration && (programData.duration.includes("العام الدراسي") || programData.duration.includes("مرنة"))) {
                     dateRange = "على مدار العام الدراسي أو بمدة مرنة";
                 }
                 
@@ -1032,25 +1046,32 @@
                         <h3 class="text-xl font-bold mb-3 text-teal-700 text-center">${programData.name}</h3>
                         <table class="w-full mb-4 text-sm border-collapse table-bordered">
                             <tbody>
-                                <tr><td class="font-bold bg-slate-50 w-1/5">المرحلة:</td><td colspan="3">${stageSelectReports.options[stageSelectReports.selectedIndex].text}</td></tr>
-                                <tr><td class="font-bold bg-slate-50 w-1/5">الهدف من البرنامج:</td><td colspan="3">${state.objective || 'لم يحدد في الخطة'}</td></tr>
-                                <tr><td class="font-bold bg-slate-50 w-1/5">تاريخ التنفيذ:</td><td>${dateRange}</td><td class="font-bold bg-slate-50 w-1/5">مكان التنفيذ:</td><td><textarea rows="${locationLines}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' class="w-full border-none p-1 bg-transparent" style="overflow-y:hidden; resize:none;">${programData.location}</textarea></td></tr>
+                                <tr><td class="font-bold bg-slate-50 w-1/5">المرحلة:</td><td colspan="3"><textarea id="report-stage-report" class="w-full border-none p-2 resize-none" rows="1">${stageSelectReports.options[stageSelectReports.selectedIndex].text}</textarea></td></tr>
+                                <tr><td class="font-bold bg-slate-50 w-1/5">الهدف من البرنامج:</td><td colspan="3"><textarea id="report-objective-report" class="w-full border-none p-2 resize-none" rows="1">${state.objective || 'لم يحدد في الخطة'}</textarea></td></tr>
+                                <tr><td class="font-bold bg-slate-50 w-1/5">تاريخ التنفيذ:</td><td><textarea id="report-date-report" class="w-full border-none p-2 resize-none" rows="1">${dateRange}</textarea></td><td class="font-bold bg-slate-50 w-1/5">مكان التنفيذ:</td><td><textarea id="report-location-report" rows="${locationLines}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' class="w-full border-none p-1 bg-transparent" style="overflow-y:hidden; resize:none;">${programData.location}</textarea></td></tr>
                                 <tr><td class="font-bold bg-slate-50 w-1/5">عدد الطلاب المستفيدين:</td><td><input type="text" class="w-full border-none p-1" placeholder="للتعبئة"></td><td class="font-bold bg-slate-50 w-1/5">المعلم/ة المنفذ/ة:</td><td><input type="text" class="w-full border-none p-1" value="${document.getElementById('teacher-name').value}"></td></tr>
+                                <tr>
+                                    <td class="report-label align-top">نواتج التعلم:</td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3">
+                                        <textarea id="report-learning-outcomes-report" class="w-full border-none p-2 resize-none" rows="3">${programData.learningOutcomes}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="report-label align-top">إجراءات التنفيذ (ملخص):</td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3">
+                                        <textarea id="report-details-report" class="w-full border-none p-2 resize-none" rows="3">${programData.details.map(d => `- ${d.content}`).join('\n')}</textarea>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="space-y-4 text-sm">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div><h4 class="report-label mb-1">نواتج التعلم المستهدفة</h4><p class="p-2 border border-slate-200 whitespace-pre-wrap">${programData.learningOutcomes}</p></div>
-                                <div><h4 class="report-label mb-1">إجراءات التنفيذ (ملخص)</h4><p class="p-2 border border-slate-200 whitespace-pre-wrap">${programData.details.map(d => `- ${d.content}`).join('\n')}</p></div>
-
-
-                            </div>
-                            <div><h4 class="report-label mb-1 mt-8">صور للشواهد</h4>
+                            <div>
+                                <h4 class="report-label mb-1 mt-8">صور للشواهد</h4>
                                 <div id="image-upload-grid" class="grid grid-cols-3 gap-4 mt-2">
                                     ${Array(6).fill(0).map((_, i) => `
                                         <div class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center text-slate-400 relative image-upload-slot">
                                             <label for="image-input-${i}" class="cursor-pointer absolute inset-0 flex flex-col items-center justify-center z-10">
-                                                <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>إضافة صورة ${i + 1}</span></label>
+                                                <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>إضافة صورة ${i + 1}</span></label>
                                             <input type="file" id="image-input-${i}" class="hidden" accept="image/*" onchange="previewImage(event, 'image-preview-${i}')">
                                             <img id="image-preview-${i}" class="absolute inset-0 w-full h-full object-cover rounded-lg hidden z-0">
                                         </div>`).join('')}
@@ -1068,6 +1089,12 @@
                 document.getElementById('report-page-content').innerHTML = reportHTML;
                 document.getElementById('setup-screen-reports').classList.add('hidden');
                 document.getElementById('output-report').classList.remove('hidden');
+
+                // Auto-resize all textareas in the report
+                document.querySelectorAll('#report-page-content textarea').forEach(textarea => {
+                    autoGrowTextarea(textarea);
+                    textarea.addEventListener('input', () => autoGrowTextarea(textarea));
+                });
             }
             
             const parseDateForSorting = (dateString) => { const parts = dateString.split(' '); return parseInt(parts[3], 10) * 100 + parseInt(parts[1], 10); };
@@ -1076,16 +1103,23 @@
                 state.objective = objectiveSelect.value; 
                 localStorage.setItem('planGeneratorState', JSON.stringify(state)); 
             };
+            
+            function autoGrowTextarea(element) {
+                element.style.height = "auto";
+                element.style.height = (element.scrollHeight) + "px";
+            }
 
             window.previewImage = function(event, imgId) {
                 const img = document.getElementById(imgId);
                 const input = event.target;
-                const label = input.closest('.image-upload-slot').querySelector('label');
+                const slot = input.closest('.image-upload-slot');
+                const label = slot.querySelector('label');
                 if (input.files && input.files[0]) {
                     img.src = URL.createObjectURL(input.files[0]);
                     img.classList.remove('hidden');
                     label.classList.add('opacity-0', 'hover:opacity-75', 'hover:bg-black/50');
                     label.querySelector('span').textContent = 'تغيير الصورة';
+                    slot.classList.add('has-image');
                 }
             }
             window.openDatePicker = function() {
@@ -1096,7 +1130,7 @@
                 tempSelectedDates = [...(state.planDates || [])].filter(d => d !== 'يحدد لاحقًا');
                 const container = document.getElementById('modal-weeks-container');
                 container.innerHTML = '';
-                document.getElementById('modal-title').textContent = `اختر تواريخ التنفيذ (حتى ${programData.sessions} حصص)`;
+                document.getElementById('modal-title').textContent = `اختر ${programData.sessions} حصص لبرنامج: ${programData.name}`;
                 Object.values(activeWeeksData).forEach(weekData => {
                     const weekDiv = document.createElement('div');
                     weekDiv.className = 'p-2 border rounded-md';
@@ -1150,58 +1184,57 @@
                 state = { ...state, objective: objectiveSelect.value, ...Object.fromEntries(['teacher-name', 'leader-name', 'director-name', 'education-admin', 'school-name', 'strengths', 'difficulties', 'remedial-actions'].map(id => [id.replace(/-(\w)/g, (m, p1) => p1.toUpperCase()), document.getElementById(id).value])), achievements: document.getElementById('additional-achievements').value };
                 const programKeyOnly = state.programKey;
                 const programData = fieldsData[programKeyOnly]?.stages[state.stage];
-                
-                if (!programData || !state.objective) { 
-                    alert('يرجى التأكد من اختيار جميع الحقول المطلوبة.'); 
-                    return; 
-                }
+                if (!programData || !state.objective) { alert('يرجى التأكد من اختيار جميع الحقول المطلوبة.'); return; }
+                if (programData.isPlaceholder){ alert('لا يمكن إنشاء خطة لهذا البرنامج حاليًا.'); return; }
                 
                 saveState(); 
-                if(state.planDates && state.planDates.length > 0 && !state.planDates.includes('يحدد لاحقًا')) {
+                if(state.planDates && !state.planDates.includes('يحدد لاحقًا')) {
                     state.planDates.sort((a, b) => parseDateForSorting(a) - parseDateForSorting(b));
                 }
                 
                 document.getElementById('report-education-admin-plan').textContent = state.educationAdmin;
                 document.getElementById('report-school-name-plan').textContent = state.schoolName;
-                document.getElementById('report-program-name-plan').textContent = fieldsData[programKeyOnly].name;
-                document.getElementById('report-program-details-name-plan').textContent = programData.name;
-                document.getElementById('report-objective-plan').textContent = state.objective;
-                document.getElementById('report-program-target-plan').textContent = programData.target;
-                document.getElementById('report-teacher-name-plan').textContent = state.teacherName;
-                document.getElementById('report-duration-plan').textContent = programData.duration;
-                document.getElementById('report-location-plan').textContent = programData.location;
-                document.getElementById('report-tools-plan').textContent = programData.tools;
-                document.getElementById('report-learning-outcomes-plan').textContent = programData.learningOutcomes;
-                document.getElementById('report-assessment-methods-plan').textContent = programData.assessmentMethods;
+                document.getElementById('report-program-name-plan').value = fieldsData[programKeyOnly].name;
+                document.getElementById('report-program-details-name-plan').value = programData.name;
+                document.getElementById('report-objective-plan').value = state.objective;
+                document.getElementById('report-program-target-plan').value = programData.target;
+                document.getElementById('report-teacher-name-plan').value = state.teacherName;
+                document.getElementById('report-duration-plan').value = programData.duration;
+                document.getElementById('report-location-plan').value = programData.location;
+                document.getElementById('report-tools-plan').value = programData.tools;
+                document.getElementById('report-learning-outcomes-plan').value = programData.learningOutcomes;
+                document.getElementById('report-assessment-methods-plan').value = programData.assessmentMethods;
                 document.getElementById('report-leader-name-plan').textContent = state.leaderName;
                 document.getElementById('report-director-name-plan').textContent = state.directorName;
-                document.getElementById('report-additional-achievements-plan').textContent = state.achievements;
-                document.getElementById('report-strengths-plan').textContent = state.strengths;
-                document.getElementById('report-difficulties-plan').textContent = state.difficulties;
-                document.getElementById('report-remedial-actions-plan').textContent = state.remedialActions;
+                document.getElementById('report-additional-achievements-plan').value = state.achievements;
+                document.getElementById('report-strengths-plan').value = state.strengths;
+                document.getElementById('report-difficulties-plan').value = state.difficulties;
+                document.getElementById('report-remedial-actions-plan').value = state.remedialActions;
 
                 const tableBody = document.getElementById('plan-table-body');
                 tableBody.innerHTML = '';
 
-                // **MODIFIED LOGIC**: Loop through selected dates instead of all program details.
+                // MODIFIED: Loop over selected dates instead of all program details
                 state.planDates.forEach((date, index) => {
-                    // Ensure there's a corresponding session detail for the current index.
-                    if (programData.details[index]) {
+                    // Ensure we don't try to access a session that doesn't exist in the definition
+                    if (index < programData.details.length) {
                         const session = programData.details[index];
-                        let weekName = '';
-                        if (date && date !== 'يحدد لاحقًا') {
-                            for (const key in activeWeeksData) {
-                                if (Object.values(activeWeeksData[key].days).includes(date.split(' ').slice(1).join(' '))) {
-                                    weekName = activeWeeksData[key].name;
-                                    break;
+                        let weekName = session.week || '';
+                        
+                        if (date !== 'يحدد لاحقًا') {
+                             for (const key in activeWeeksData) { 
+                                if (Object.values(activeWeeksData[key].days).includes(date.split(' ').slice(1).join(' '))) { 
+                                    weekName = activeWeeksData[key].name; 
+                                    break; 
                                 }
                             }
                         }
+
                         tableBody.innerHTML += `<tr>
-                            <td>${weekName}</td>
-                            <td>${formatFullDate(date)}</td>
-                            <td>${session.title}</td>
-                            <td>${session.content}</td>
+                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${weekName}</textarea></td>
+                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${date ? (date === 'يحدد لاحقًا' ? 'يحدد لاحقًا' : formatFullDate(date)) : 'لم يحدد'}</textarea></td>
+                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${session.title}</textarea></td>
+                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${session.content}</textarea></td>
                             <td class="text-xs">
                                 <div class="flex items-center p-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> نفذ</div>
                                 <div class="flex items-center p-1 mt-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> لم ينفذ</div>
@@ -1212,6 +1245,9 @@
 
                 document.getElementById('setup-screen-plan').classList.add('hidden');
                 document.getElementById('output-plan').classList.remove('hidden');
+
+                // Auto-resize all textareas after generation
+                document.querySelectorAll('#output-plan textarea').forEach(textarea => autoGrowTextarea(textarea));
             }
             
             window.printContent = function(elementId) {
@@ -1252,6 +1288,13 @@
                 updateRegionUI();
                 setupPlanTab();
                 setupReportsTab();
+
+                if(state.fontFamily) {
+                    document.body.style.fontFamily = state.fontFamily;
+                    fontSelect.value = state.fontFamily;
+                } else {
+                    fontSelect.value = 'Tajawal';
+                }
 
                 if(state.objective) {
                     setTimeout(() => { 
