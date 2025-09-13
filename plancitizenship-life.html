@@ -9,6 +9,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Sakkal Majalla';
+            src: local('Sakkal Majalla'),
+                 url('https://fonts.cdnfonts.com/s/72921/Sakkal Majalla.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'AL Mohanad';
+            src: local('AL Mohanad'),
+                 url('https://alfont.net/fonts/a-l-mohanad-340/AL-Mohanad-Light.woff') format('woff');
+        }
+
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: #f7fafc;
@@ -54,13 +66,19 @@
             padding: 8px;
             border-left: 4px solid #0891b2;
         }
+        /* --- تعديل تنسيق الجداول --- */
         .table-bordered th, .table-bordered td {
-            border: 1px solid #e2e8f0;
-            padding: 6px;
+            border: 1px solid #ddd;
+            padding: 4px; /* تقليل الهوامش الداخلية */
             text-align: right;
-            vertical-align: middle;
+            vertical-align: top;
             font-size: 0.8rem;
         }
+        .table-bordered th {
+            background-color: #2c5aa0;
+            color: white;
+        }
+        /* ------------------------- */
         #date-picker-modal .week-grid .day.selected {
             background-color: #0d9488;
             color: white;
@@ -127,45 +145,45 @@
             }
         }
 
+        /* --- PRINT STYLES --- */
+        @page {
+            size: A4 portrait;
+            margin: 0.3cm;
+        }
+
         @media print {
-            @page {
-                size: A4 portrait;
-                margin: 0;
-            }
-
-            * {
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-            }
-
             .no-print {
                 display: none !important;
             }
 
-            body,
-            html {
-                background: white !important;
-                margin: 0;
-                padding: 0;
-                font-size: 9pt;
-            }
-            
-            textarea {
-                overflow: hidden !important;
-                height: auto !important;
-                resize: none;
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
-            .a4-page {
+            html, body {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+                font-size: 8pt;
+            }
+            
+            .container, .a4-page {
                 box-shadow: none !important;
+                border-radius: 0 !important;
                 max-width: 100% !important;
-                width: 100% !important; /* Ensure it takes full width for printing */
+                width: 100% !important; 
                 margin: 0 !important;
                 border: none !important;
                 padding: 1cm 5mm;
                 page-break-inside: avoid;
                 height: auto;
-                min-height: 0; 
+                min-height: 0;
+            }
+            
+            .a4-page main {
+                flex-grow: 1;
             }
 
             .content-section {
@@ -176,23 +194,63 @@
                 display: block !important;
             }
             
-            .table-bordered, .table-bordered th, .table-bordered td {
-                padding: 4px;
+            /* --- توحيد تنسيق الجداول للطباعة --- */
+            .table-bordered th, .table-bordered td {
+                border: 1px solid #ddd !important;
+                padding: 4px !important;
                 font-size: 8pt;
-                 white-space: normal; /* Allow text to wrap when printing */
+                white-space: normal;
+                word-wrap: break-word;
+                vertical-align: top;
+            }
+            .table-bordered th {
+                background-color: #0c7894 !important; /* اللون الجديد */
+                color: white !important;
+            }
+            /* ---------------------------------- */
+
+            textarea, input[type="text"] {
+                overflow: hidden !important;
+                height: auto !important;
+                resize: none;
+                border: none !important;
+                background: transparent !important;
+                padding: 0 !important; /* لضمان احتواء النص بالكامل */
+                font-size: 8pt !important;
+                color: #000 !important;
+                font-family: inherit !important;
+            }
+
+            .report-label {
+                background-color: #f0f9ff !important;
+                color: #000 !important;
+                border-left: 1px solid #000 !important;
+            }
+
+            .print-header-container, .print-footer-container {
+                display: block !important;
             }
             
-            h2 { font-size: 14pt; }
-            
-            #image-upload-grid {
-                grid-template-columns: repeat(3, 1fr) !important;
+            h2 {
+                font-size: 14pt;
+                color: #000 !important;
             }
+            
+            .header img {
+                height: 50px !important;
+            }
+
             .image-upload-slot {
                 height: 5cm;
                 aspect-ratio: auto;
             }
-             .image-upload-slot img {
+            
+            .image-upload-slot img {
                 object-fit: contain;
+            }
+            
+            .image-upload-slot:not(.has-image) {
+                display: none !important;
             }
         }
     </style>
@@ -279,7 +337,7 @@
                                     </div>
                                 </div>
                             </div>
-                             <div>
+                            <div>
                                 <h3 class="text-xl font-bold mb-3 text-teal-700">7. تفاصيل إضافية (مقترحة)</h3>
                                 <div class="grid md:grid-cols-2 gap-4">
                                     <textarea id="additional-achievements" placeholder="الإنجازات" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
@@ -287,6 +345,14 @@
                                     <textarea id="difficulties" placeholder="الصعوبات" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
                                     <textarea id="remedial-actions" placeholder="الإجراءات العلاجية" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
                                 </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-3 text-teal-700">8. اختيار الخط</h3>
+                                <select id="font-select" class="w-full p-3 border border-slate-300 rounded-lg">
+                                    <option value="Tajawal">الخط الافتراضي (Tajawal)</option>
+                                    <option value="Sakkal Majalla">Sakkal Majalla</option>
+                                    <option value="AL Mohanad">AL Mohanad</option>
+                                </select>
                             </div>
                         </div>
                         <div class="mt-10 text-center flex gap-4">
@@ -318,35 +384,35 @@
                                 <tbody>
                                     <tr>
                                         <td class="report-label w-1/5">اسم البرنامج:</td>
-                                        <td id="report-program-name-plan" class="p-2 border border-slate-200 w-3/10"></td>
+                                        <td class="p-0 border border-slate-200 w-3/10"><textarea id="report-program-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label w-1/5">تفاصيل البرنامج:</td>
-                                        <td id="report-program-details-name-plan" class="p-2 border border-slate-200 w-3/10"></td>
+                                        <td class="p-0 border border-slate-200 w-3/10"><textarea id="report-program-details-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label">الهدف من البرنامج:</td>
-                                        <td id="report-objective-plan" class="p-2 border border-slate-200"></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-objective-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label">الفئة المستهدفة:</td>
-                                        <td id="report-program-target-plan" class="p-2 border border-slate-200"></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-program-target-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label">المعلم/ة المنفذ/ة:</td>
-                                        <td id="report-teacher-name-plan" class="p-2 border border-slate-200"></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-teacher-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label">مدة التنفيذ:</td>
-                                        <td id="report-duration-plan" class="p-2 border border-slate-200"></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-duration-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label">مكان التنفيذ:</td>
-                                        <td id="report-location-plan" class="p-2 border border-slate-200 whitespace-pre-line"></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-location-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label">أدوات التنفيذ:</td>
-                                        <td id="report-tools-plan" class="p-2 border border-slate-200 whitespace-pre-line"></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-tools-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label align-top">نواتج التعلم:</td>
-                                        <td id="report-learning-outcomes-plan" class="p-2 border border-slate-200 whitespace-pre-line" colspan="3"></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-learning-outcomes-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label w-1/4">أساليب التقويم:</td>
-                                        <td id="report-assessment-methods-plan" class="p-2 border border-slate-200 whitespace-pre-line" colspan="3"></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-assessment-methods-plan" class="w-full border-none p-2 resize-none" rows="2"></textarea></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -357,10 +423,10 @@
                                 <tbody id="plan-table-body"></tbody>
                             </table>
                             <div class="grid grid-cols-2 gap-4 text-sm">
-                                <div><h4 class="report-label mb-1">الإنجازات</h4><p id="report-additional-achievements-plan" class="p-2 border border-slate-200 min-h-[40px] whitespace-pre-wrap"></p></div>
-                                <div><h4 class="report-label mb-1">نقاط القوة</h4><p id="report-strengths-plan" class="p-2 border border-slate-200 min-h-[40px] whitespace-pre-wrap"></p></div>
-                                <div><h4 class="report-label mb-1">الصعوبات</h4><p id="report-difficulties-plan" class="p-2 border border-slate-200 min-h-[40px] whitespace-pre-wrap"></p></div>
-                                <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><p id="report-remedial-actions-plan" class="p-2 border border-slate-200 min-h-[40px] whitespace-pre-wrap"></p></div>
+                                <div><h4 class="report-label mb-1">الإنجازات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-additional-achievements-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
+                                <div><h4 class="report-label mb-1">نقاط القوة</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-strengths-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
+                                <div><h4 class="report-label mb-1">الصعوبات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-difficulties-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
+                                <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-remedial-actions-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
                             </div>
                         </main>
                         <footer class="pt-8 text-center text-xs">
@@ -526,9 +592,9 @@
                             { title: 'تنظيم معرض', content: 'تقسيم الطلاب إلى فرق – تحديد أدوار (عارض/مصور/منظم) – تنفيذ مصغر لمعرض.' }
                         ],
                         achievements: "تنظيم معرض مبسط بمشاركة الطلاب.\nاستخدام الوسائل الرقمية في عرض منجزاتهم.\nأنشطة ممتعة حول الوطن والحرمين.",
-                        strengths: "حماس الطلاب للمشاركة الجماعية.\nوضوح الأنشطة وبساطتها.\nوجود محتوى بصري جذاب (صور – فيديوهات).",
-                        difficulties: "ضعف بعض الطلاب في التعبير الشفهي.\nحاجة الطلاب لمزيد من التدريب على التقنية.\nتفاوت الدعم الأسري.",
-                        remedial_actions: "تعزيز مهارات التعبير من خلال أنشطة تمثيل ورواية.\nاستخدام تطبيق بسيط موحد للتوثيق.\nإرسال أنشطة منزلية بسيطة للأسرة."
+                        strengths: "حماس عالي لدى الطلاب للمشاركة في الأنشطة العملية.\nمشاركة الأسرة في دعم المبادرات.\nسهولة الأنشطة وارتباطها ببيئة الطفل.",
+                        difficulties: "قلة وعي بعض الطلاب بمفهوم \"التطوع\".\nمحدودية مهاراتهم التقنية في التوثيق الرقمي.\nتباين مشاركة الأسر (البعض متفاعل والبعض أقل).",
+                        remedial_actions: "تبسيط مفهوم \"التطوع\" عبر القصص المصورة.\nتدريب مبسط على استخدام تطبيق واحد فقط للتوثيق.\nتحفيز الأسر عبر رسائل تواصل منزلي (صور، ملاحظات)."
                     },
                     'upper-primary': {
                         name: "برنامج مهارات طموحة – الصفوف العليا", sessions: 4, duration: "180 دقيقة (4 حصص)", target: "الصفوف العليا", location: "الفصل الدراسي / مصادر التعلم", tools: "فيديو وصور، برامج تقنية لتوثيق الصوت",
@@ -681,6 +747,7 @@
             const stageSelectReports = document.getElementById('stage-select-reports');
             const programSelectReports = document.getElementById('program-select-reports');
             const generateReportBtn = document.getElementById('generate-report-btn');
+            const fontSelect = document.getElementById('font-select');
 
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -765,6 +832,11 @@
                 datePickerBtn.addEventListener('click', () => openDatePicker());
                 document.getElementById('reset-plan-btn').addEventListener('click', () => { if(confirm('هل أنت متأكد؟ سيتم حذف جميع البيانات المدخلة.')) { localStorage.removeItem('planGeneratorState'); location.reload(); }});
                 document.getElementById('generate-plan-btn').addEventListener('click', generatePlan);
+                fontSelect.addEventListener('change', (e) => {
+                    document.body.style.fontFamily = e.target.value;
+                    state.fontFamily = e.target.value;
+                    saveState();
+                });
             }
 
              function updateProgramDisplay() {
@@ -865,20 +937,27 @@
                         <h3 class="text-xl font-bold mb-3 text-teal-700 text-center">${programData.name}</h3>
                         <table class="w-full mb-4 text-sm border-collapse table-bordered">
                             <tbody>
-                                <tr><td class="font-bold bg-slate-50 w-1/5">المرحلة:</td><td colspan="3">${stageSelectReports.options[stageSelectReports.selectedIndex].text}</td></tr>
-                                <tr><td class="font-bold bg-slate-50 w-1/5">الهدف من البرنامج:</td><td colspan="3">${state.objective || 'لم يحدد في الخطة'}</td></tr>
-                                <tr><td class="font-bold bg-slate-50 w-1/5">تاريخ التنفيذ:</td><td>${dateRange}</td><td class="font-bold bg-slate-50 w-1/5">مكان التنفيذ:</td><td><textarea rows="${locationLines}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' class="w-full border-none p-1 bg-transparent" style="overflow-y:hidden; resize:none;">${programData.location}</textarea></td></tr>
+                                <tr><td class="font-bold bg-slate-50 w-1/5">المرحلة:</td><td colspan="3"><textarea id="report-stage-report" class="w-full border-none p-2 resize-none" rows="1">${stageSelectReports.options[stageSelectReports.selectedIndex].text}</textarea></td></tr>
+                                <tr><td class="font-bold bg-slate-50 w-1/5">الهدف من البرنامج:</td><td colspan="3"><textarea id="report-objective-report" class="w-full border-none p-2 resize-none" rows="1">${state.objective || 'لم يحدد في الخطة'}</textarea></td></tr>
+                                <tr><td class="font-bold bg-slate-50 w-1/5">تاريخ التنفيذ:</td><td><textarea id="report-date-report" class="w-full border-none p-2 resize-none" rows="1">${dateRange}</textarea></td><td class="font-bold bg-slate-50 w-1/5">مكان التنفيذ:</td><td><textarea id="report-location-report" rows="${locationLines}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' class="w-full border-none p-1 bg-transparent" style="overflow-y:hidden; resize:none;">${programData.location}</textarea></td></tr>
                                 <tr><td class="font-bold bg-slate-50 w-1/5">عدد الطلاب المستفيدين:</td><td><input type="text" class="w-full border-none p-1" placeholder="للتعبئة"></td><td class="font-bold bg-slate-50 w-1/5">المعلم/ة المنفذ/ة:</td><td><input type="text" class="w-full border-none p-1" value="${document.getElementById('teacher-name').value}"></td></tr>
+                                <tr>
+                                    <td class="report-label align-top">نواتج التعلم:</td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3">
+                                        <textarea id="report-learning-outcomes-report" class="w-full border-none p-2 resize-none" rows="3">${programData.learningOutcomes}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="report-label align-top">إجراءات التنفيذ (ملخص):</td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3">
+                                        <textarea id="report-details-report" class="w-full border-none p-2 resize-none" rows="3">${programData.details.map(d => `- ${d.content}`).join('\n')}</textarea>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="space-y-4 text-sm">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div><h4 class="report-label mb-1">نواتج التعلم المستهدفة</h4><p class="p-2 border border-slate-200 whitespace-pre-wrap">${programData.learningOutcomes}</p></div>
-                                <div><h4 class="report-label mb-1">إجراءات التنفيذ (ملخص)</h4><p class="p-2 border border-slate-200 whitespace-pre-wrap">${programData.details.map(d => `- ${d.content}`).join('\n')}</p></div>
-
-
-                            </div>
-                            <div><h4 class="report-label mb-1 mt-8">صور للشواهد</h4>
+                            <div>
+                                <h4 class="report-label mb-1 mt-8">صور للشواهد</h4>
                                 <div id="image-upload-grid" class="grid grid-cols-3 gap-4 mt-2">
                                     ${Array(6).fill(0).map((_, i) => `
                                         <div class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center text-slate-400 relative image-upload-slot">
@@ -894,13 +973,19 @@
                     <footer class="pt-8 text-center text-xs">
                         <div class="gradient-line mb-4"></div>
                         <div class="grid grid-cols-2 gap-16">
-                            <div class="pt-2 mt-2"><p class="font-bold h-6">${leaderName}</p></div>
-                            <div class="pt-2 mt-2"><p class="font-bold h-6">${directorName}</p></div>
+                            <div class="pt-2 mt-2"><p id="report-leader-name-report" class="font-bold h-6">${leaderName}</p></div>
+                            <div class="pt-2 mt-2"><p id="report-director-name-report" class="font-bold h-6">${directorName}</p></div>
                         </div>
                     </footer>`;
                 document.getElementById('report-page-content').innerHTML = reportHTML;
                 document.getElementById('setup-screen-reports').classList.add('hidden');
                 document.getElementById('output-report').classList.remove('hidden');
+
+                // Auto-resize all textareas in the report
+                document.querySelectorAll('#report-page-content textarea').forEach(textarea => {
+                    autoGrowTextarea(textarea);
+                    textarea.addEventListener('input', () => autoGrowTextarea(textarea));
+                });
             }
             
             const parseDateForSorting = (dateString) => { const parts = dateString.split(' '); return parseInt(parts[3], 10) * 100 + parseInt(parts[1], 10); };
@@ -909,16 +994,23 @@
                 state.objective = objectiveSelect.value; 
                 localStorage.setItem('planGeneratorState', JSON.stringify(state)); 
             };
+            
+            function autoGrowTextarea(element) {
+                element.style.height = "auto";
+                element.style.height = (element.scrollHeight) + "px";
+            }
 
             window.previewImage = function(event, imgId) {
                 const img = document.getElementById(imgId);
                 const input = event.target;
-                const label = input.closest('.image-upload-slot').querySelector('label');
+                const slot = input.closest('.image-upload-slot');
+                const label = slot.querySelector('label');
                 if (input.files && input.files[0]) {
                     img.src = URL.createObjectURL(input.files[0]);
                     img.classList.remove('hidden');
                     label.classList.add('opacity-0', 'hover:opacity-75', 'hover:bg-black/50');
                     label.querySelector('span').textContent = 'تغيير الصورة';
+                    slot.classList.add('has-image');
                 }
             }
             window.openDatePicker = function() {
@@ -993,22 +1085,22 @@
                 
                 document.getElementById('report-education-admin-plan').textContent = state.educationAdmin;
                 document.getElementById('report-school-name-plan').textContent = state.schoolName;
-                document.getElementById('report-program-name-plan').textContent = fieldsData[programKeyOnly].name;
-                document.getElementById('report-program-details-name-plan').textContent = programData.name;
-                document.getElementById('report-objective-plan').textContent = state.objective;
-                document.getElementById('report-program-target-plan').textContent = programData.target;
-                document.getElementById('report-teacher-name-plan').textContent = state.teacherName;
-                document.getElementById('report-duration-plan').textContent = programData.duration;
-                document.getElementById('report-location-plan').textContent = programData.location;
-                document.getElementById('report-tools-plan').textContent = programData.tools;
-                document.getElementById('report-learning-outcomes-plan').textContent = programData.learningOutcomes;
-                document.getElementById('report-assessment-methods-plan').textContent = programData.assessmentMethods;
+                document.getElementById('report-program-name-plan').value = fieldsData[programKeyOnly].name;
+                document.getElementById('report-program-details-name-plan').value = programData.name;
+                document.getElementById('report-objective-plan').value = state.objective;
+                document.getElementById('report-program-target-plan').value = programData.target;
+                document.getElementById('report-teacher-name-plan').value = state.teacherName;
+                document.getElementById('report-duration-plan').value = programData.duration;
+                document.getElementById('report-location-plan').value = programData.location;
+                document.getElementById('report-tools-plan').value = programData.tools;
+                document.getElementById('report-learning-outcomes-plan').value = programData.learningOutcomes;
+                document.getElementById('report-assessment-methods-plan').value = programData.assessmentMethods;
                 document.getElementById('report-leader-name-plan').textContent = state.leaderName;
                 document.getElementById('report-director-name-plan').textContent = state.directorName;
-                document.getElementById('report-additional-achievements-plan').textContent = state.achievements;
-                document.getElementById('report-strengths-plan').textContent = state.strengths;
-                document.getElementById('report-difficulties-plan').textContent = state.difficulties;
-                document.getElementById('report-remedial-actions-plan').textContent = state.remedialActions;
+                document.getElementById('report-additional-achievements-plan').value = state.achievements;
+                document.getElementById('report-strengths-plan').value = state.strengths;
+                document.getElementById('report-difficulties-plan').value = state.difficulties;
+                document.getElementById('report-remedial-actions-plan').value = state.remedialActions;
 
                 const tableBody = document.getElementById('plan-table-body');
                 tableBody.innerHTML = '';
@@ -1030,10 +1122,10 @@
                         }
 
                         tableBody.innerHTML += `<tr>
-                            <td>${weekName}</td>
-                            <td>${date ? (date === 'يحدد لاحقًا' ? 'يحدد لاحقًا' : formatFullDate(date)) : 'لم يحدد'}</td>
-                            <td>${session.title}</td>
-                            <td>${session.content}</td>
+                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${weekName}</textarea></td>
+                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${date ? (date === 'يحدد لاحقًا' ? 'يحدد لاحقًا' : formatFullDate(date)) : 'لم يحدد'}</textarea></td>
+                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${session.title}</textarea></td>
+                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${session.content}</textarea></td>
                             <td class="text-xs">
                                 <div class="flex items-center p-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> نفذ</div>
                                 <div class="flex items-center p-1 mt-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> لم ينفذ</div>
@@ -1044,6 +1136,9 @@
 
                 document.getElementById('setup-screen-plan').classList.add('hidden');
                 document.getElementById('output-plan').classList.remove('hidden');
+
+                // Auto-resize all textareas after generation
+                document.querySelectorAll('#output-plan textarea').forEach(textarea => autoGrowTextarea(textarea));
             }
             
             window.printContent = function(elementId) {
@@ -1084,6 +1179,13 @@
                 updateRegionUI();
                 setupPlanTab();
                 setupReportsTab();
+
+                if(state.fontFamily) {
+                    document.body.style.fontFamily = state.fontFamily;
+                    fontSelect.value = state.fontFamily;
+                } else {
+                    fontSelect.value = 'Tajawal';
+                }
 
                 if(state.objective) {
                     setTimeout(() => { 
