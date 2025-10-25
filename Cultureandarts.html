@@ -166,7 +166,7 @@
 
         <div class="flex justify-center gap-2 mb-8 no-print">
             <button id="tab-btn-plan" class="tab-button active flex items-center gap-2 text-lg py-3 px-6">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
                 خطة برامج النشاط
             </button>
             <button id="tab-btn-reports" class="tab-button flex items-center gap-2 text-lg py-3 px-6">
@@ -280,35 +280,35 @@
                                 <tbody>
                                     <tr>
                                         <td class="report-label w-1/5">اسم البرنامج:</td>
-                                        <td class="p-0 border border-slate-200 w-3/10"><textarea data-id="report-program-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                        <td class="p-0 border border-slate-200 w-3/10"><textarea id="report-program-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label w-1/5">تفاصيل البرنامج:</td>
-                                        <td class="p-0 border border-slate-200 w-3/10"><textarea data-id="report-program-details-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                        <td class="p-0 border border-slate-200 w-3/10"><textarea id="report-program-details-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label">الهدف من البرنامج:</td>
-                                        <td class="p-0 border border-slate-200"><textarea data-id="report-objective-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-objective-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label">الفئة المستهدفة:</td>
-                                        <td class="p-0 border border-slate-200"><textarea data-id="report-program-target-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-program-target-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label">المعلم/ة المنفذ/ة:</td>
-                                        <td class="p-0 border border-slate-200"><textarea data-id="report-teacher-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-teacher-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label">مدة التنفيذ:</td>
-                                        <td class="p-0 border border-slate-200"><textarea data-id="report-duration-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                        <td class="p-0 border border-slate-200"><textarea id="report-duration-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label">مكان التنفيذ:</td>
-                                        <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea data-id="report-location-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-location-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                         <td class="report-label">أدوات التنفيذ:</td>
-                                        <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea data-id="report-tools-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-tools-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label align-top">نواتج التعلم:</td>
-                                        <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea data-id="report-learning-outcomes-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-learning-outcomes-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td class="report-label w-1/4">أساليب التقويم:</td>
-                                        <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea data-id="report-assessment-methods-plan" class="w-full border-none p-2 resize-none" rows="2"></textarea></td>
+                                        <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-assessment-methods-plan" class="w-full border-none p-2 resize-none" rows="2"></textarea></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -319,10 +319,10 @@
                                 <tbody id="plan-table-body"></tbody>
                             </table>
                             <div class="grid grid-cols-2 gap-4 text-sm">
-                                <div><h4 class="report-label mb-1">الإنجازات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea data-id="report-additional-achievements-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
-                                <div><h4 class="report-label mb-1">نقاط القوة</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea data-id="report-strengths-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
-                                <div><h4 class="report-label mb-1">الصعوبات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea data-id="report-difficulties-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
-                                <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea data-id="report-remedial-actions-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
+                                <div><h4 class="report-label mb-1">الإنجازات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-additional-achievements-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
+                                <div><h4 class="report-label mb-1">نقاط القوة</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-strengths-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
+                                <div><h4 class="report-label mb-1">الصعوبات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-difficulties-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
+                                <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-remedial-actions-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
                             </div>
                         </main>
                         <footer class="pt-8 text-center text-xs">
@@ -853,20 +853,20 @@
                 document.getElementById('report-leader-name-plan').textContent = state.leaderName;
                 document.getElementById('report-director-name-plan').textContent = state.directorName;
                 
-                document.querySelector('[data-id="report-program-name-plan"]').value = fieldsData[programKeyOnly].name;
-                document.querySelector('[data-id="report-program-details-name-plan"]').value = programData.name;
-                document.querySelector('[data-id="report-objective-plan"]').value = state.objective;
-                document.querySelector('[data-id="report-program-target-plan"]').value = programData.target;
-                document.querySelector('[data-id="report-teacher-name-plan"]').value = state.teacherName;
-                document.querySelector('[data-id="report-duration-plan"]').value = programData.duration;
-                document.querySelector('[data-id="report-location-plan"]').value = programData.location;
-                document.querySelector('[data-id="report-tools-plan"]').value = programData.tools;
-                document.querySelector('[data-id="report-learning-outcomes-plan"]').value = programData.learningOutcomes;
-                document.querySelector('[data-id="report-assessment-methods-plan"]').value = programData.assessmentMethods;
-                document.querySelector('[data-id="report-additional-achievements-plan"]').value = state.achievements;
-                document.querySelector('[data-id="report-strengths-plan"]').value = state.strengths;
-                document.querySelector('[data-id="report-difficulties-plan"]').value = state.difficulties;
-                document.querySelector('[data-id="report-remedial-actions-plan"]').value = state.remedialActions;
+                document.getElementById('report-program-name-plan').value = fieldsData[programKeyOnly].name;
+                document.getElementById('report-program-details-name-plan').value = programData.name;
+                document.getElementById('report-objective-plan').value = state.objective;
+                document.getElementById('report-program-target-plan').value = programData.target;
+                document.getElementById('report-teacher-name-plan').value = state.teacherName;
+                document.getElementById('report-duration-plan').value = programData.duration;
+                document.getElementById('report-location-plan').value = programData.location;
+                document.getElementById('report-tools-plan').value = programData.tools;
+                document.getElementById('report-learning-outcomes-plan').value = programData.learningOutcomes;
+                document.getElementById('report-assessment-methods-plan').value = programData.assessmentMethods;
+                document.getElementById('report-additional-achievements-plan').value = state.achievements;
+                document.getElementById('report-strengths-plan').value = state.strengths;
+                document.getElementById('report-difficulties-plan').value = state.difficulties;
+                document.getElementById('report-remedial-actions-plan').value = state.remedialActions;
                 
                 const tableBody = document.getElementById('plan-table-body');
                 tableBody.innerHTML = '';
@@ -918,7 +918,7 @@
                 if (!container) return;
                 container.querySelectorAll('.print-only-content').forEach(el => el.remove());
             }
-            
+
             window.printContent = function(elementId) {
                 document.querySelectorAll('.content-section').forEach(el => el.classList.remove('printable-active'));
                 const elementToPrint = document.getElementById(elementId);
@@ -928,6 +928,94 @@
                 
                 prepareForPrinting(elementId);
                 
-                // Use a short timeout to allow the DOM to update before printing
+                // Use a short timeout to ensure the DOM has time to update before the print dialog appears
                 setTimeout(() => {
-                    window.print()
+                    window.print();
+                }, 50);
+            }
+
+            // A robust way to handle cleanup after printing for both desktop and mobile
+            let afterPrintHandler = () => {
+                const activePrintable = document.querySelector('.printable-active .a4-page');
+                if (activePrintable) {
+                    cleanupAfterPrinting(activePrintable.id || activePrintable.parentElement.id);
+                }
+            };
+
+            window.addEventListener('afterprint', afterPrintHandler);
+            if (window.matchMedia) {
+                let mediaQueryList = window.matchMedia('print');
+                mediaQueryList.addEventListener('change', (mql) => {
+                    if (!mql.matches) { // After print dialog is closed
+                        afterPrintHandler();
+                    }
+                });
+            }
+
+            function updateRegionUI() {
+                const btnOther = document.getElementById('btn-region-other');
+                const btnWestern = document.getElementById('btn-region-western');
+                if (state.region === 'western') {
+                    activeWeeksData = weeksDataWestern;
+                    btnWestern.classList.add('bg-teal-600', 'text-white');
+                    btnOther.classList.remove('bg-teal-600', 'text-white');
+                } else {
+                    activeWeeksData = weeksDataDefault;
+                    btnOther.classList.add('bg-teal-600', 'text-white');
+                    btnWestern.classList.remove('bg-teal-600', 'text-white');
+                }
+                
+                state.planDates = [];
+                updateDatePickerButton();
+            }
+            
+            function initializeApp() {
+                state = JSON.parse(localStorage.getItem('planGeneratorState')) || { region: 'other' };
+                if (state.educationAdmin) document.getElementById('education-admin').value = state.educationAdmin;
+                if (state.schoolName) document.getElementById('school-name').value = state.schoolName;
+                if (state.teacherName) document.getElementById('teacher-name').value = state.teacherName;
+                if (state.leaderName) document.getElementById('leader-name').value = state.leaderName;
+                if (state.directorName) document.getElementById('director-name').value = state.directorName;
+                if (state.achievements) document.getElementById('additional-achievements').value = state.achievements;
+                if (state.strengths) document.getElementById('strengths').value = state.strengths;
+                if (state.difficulties) document.getElementById('difficulties').value = state.difficulties;
+                if (state.remedialActions) document.getElementById('remedial-actions').value = state.remedialActions;
+                
+                if (state.region === 'western') {
+                    document.getElementById('btn-region-western').classList.add('bg-teal-600', 'text-white');
+                    activeWeeksData = weeksDataWestern;
+                } else {
+                    document.getElementById('btn-region-other').classList.add('bg-teal-600', 'text-white');
+                    activeWeeksData = weeksDataDefault;
+                }
+
+                setupPlanTab();
+                setupReportsTab();
+
+                fontSelect.addEventListener('change', (e) => {
+                    document.body.style.fontFamily = e.target.value;
+                    state.fontFamily = e.target.value;
+                    saveState();
+                });
+
+                if(state.fontFamily) {
+                    document.body.style.fontFamily = state.fontFamily;
+                    fontSelect.value = state.fontFamily;
+                } else {
+                    fontSelect.value = 'Tajawal';
+                }
+
+                if(state.objective) {
+                    setTimeout(() => { 
+                        if (objectiveSelect.options.length > 1) {
+                            objectiveSelect.value = state.objective;
+                        }
+                    }, 200);
+                }
+            }
+            
+            initializeApp();
+        });
+    </script>
+</body>
+</html>
