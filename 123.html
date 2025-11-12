@@ -44,10 +44,12 @@
         .content-section.active {
             display: block;
         }
+        
+        /* MODIFIED: Using relative units for padding on screen to avoid print conflicts */
         .a4-page {
             width: 210mm;
             min-height: 297mm;
-            padding: 12mm 5mm;
+            padding: 3rem 1.5rem; /* Using relative units */
             margin: 1cm auto;
             border: 1px #D1D5DB solid;
             border-radius: 5px;
@@ -99,7 +101,6 @@
         }
 
         @media screen and (max-width: 768px) {
-            .container { padding-left: 0; padding-right: 0; }
             .a4-page { width: 100%; min-height: 0; padding: 16px; margin: 0; border: none; box-shadow: none; }
             .no-print, header.no-print { padding-left: 1rem; padding-right: 1rem; }
             h1 { font-size: 1.5rem; }
@@ -138,10 +139,10 @@
 
             @page {
                 size: A4 portrait;
-                margin: 1cm;
+                margin: 1cm; /* This defines the outer margin of the printed page */
             }
 
-            /* THIS IS THE KEY FIX FOR CHROME SCALING: NO FIXED DIMENSIONS ON BODY/HTML */
+            /* This is the key fix for Chrome scaling: NO fixed dimensions on body/html */
             html, body {
                 width: 100%;
                 height: auto;
@@ -151,12 +152,13 @@
                 font-size: 9pt;
             }
 
+            /* And this is the other key fix: NO fixed padding */
             .a4-page {
                 width: 100% !important;
                 min-height: 0 !important;
                 height: auto !important;
                 margin: 0 !important;
-                padding: 0 !important;
+                padding: 0 !important; /* The page margin is handled by @page now */
                 border: none !important;
                 box-shadow: none !important;
                 border-radius: 0 !important;
