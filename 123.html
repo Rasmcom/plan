@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -108,10 +109,9 @@
             .flex-1 { min-width: 0; }
             #output-plan footer .grid-cols-2, #output-report footer .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1rem; }
         }
-
+        
         /* --- FINAL REVISED PRINT STYLES --- */
         @media print {
-            /* --- General Settings for Printing --- */
             * {
                 box-shadow: none !important;
                 text-shadow: none !important;
@@ -119,12 +119,10 @@
                 print-color-adjust: exact !important;
             }
 
-            /* --- Hide non-essential elements --- */
             .no-print, header.no-print, footer.no-print {
                 display: none !important;
             }
 
-            /* --- Isolate the content to be printed --- */
             body > .container {
                 display: block !important;
                 width: 100% !important;
@@ -138,31 +136,29 @@
                 display: block !important;
             }
 
-            /* --- Page and Body Setup --- */
             @page {
                 size: A4 portrait;
                 margin: 1cm;
             }
 
-            /* REMOVED fixed width/height to solve Chrome scaling issue */
             html, body {
+                width: 100%;
                 margin: 0 !important;
                 padding: 0 !important;
                 background: #fff !important;
                 font-size: 9pt;
             }
 
-            /* --- Main A4 Container Styling (Made Flexible) --- */
             .a4-page {
-                width: 100% !important; /* CHANGED to be flexible */
+                width: 100% !important;
                 min-height: 0 !important;
-                height: auto !important; /* CHANGED to be flexible */
+                height: auto !important;
                 margin: 0 !important;
                 padding: 0 !important;
                 border: none !important;
                 box-shadow: none !important;
                 border-radius: 0 !important;
-                page-break-inside: avoid; /* ADDED to help keep content on one page */
+                page-break-inside: avoid;
             }
 
             .a4-page header, .a4-page footer {
@@ -175,7 +171,6 @@
             
             .a4-page header img { height: 50px !important; }
 
-            /* --- Table Styling for Readability --- */
             .table-bordered {
                 width: 100%;
                 border-collapse: collapse;
@@ -191,15 +186,19 @@
                 vertical-align: top;
             }
             
-            /* --- MODIFIED Image placeholder handling for single-page printing --- */
+            /* MODIFIED: Image placeholder handling to prevent cropping and reduce height */
             .image-upload-slot {
+                width: 100%;
                 height: auto;
-                max-height: 3.8cm; /* REDUCED HEIGHT to fit on one page */
+                max-height: 3.5cm; /* Controls the maximum height to save space */
+                aspect-ratio: auto; /* Removed fixed aspect ratio */
                 border: 1px solid #ccc !important;
                 page-break-inside: avoid;
             }
             .image-upload-slot img { 
-                object-fit: contain; 
+                width: 100%;
+                height: 100%;
+                object-fit: contain; /* This ensures the whole image is visible without cropping */
             }
             .image-upload-slot:not(.has-image) { 
                 display: none !important; 
@@ -208,7 +207,6 @@
                 display: none !important; 
             }
 
-            /* --- Print-only Content Handling --- */
             textarea, input[type="text"] {
                 display: none !important;
             }
@@ -400,13 +398,19 @@
                                 <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-remedial-actions-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
                             </div>
                         </main>
+                        <!-- MODIFIED: Footer structure for the Plan -->
                         <footer class="pt-8 text-center text-xs">
                             <div class="gradient-line mb-4"></div>
                             <div class="grid grid-cols-2 gap-16">
-                                <div class="pt-2 mt-2"><p class="font-bold">رائد/ة النشاط</p><p id="report-leader-name-plan" class="font-bold h-6"></p></div>
-                                <div class="pt-2 mt-2"><p class="font-bold">مدير/ة المدرسة</p><p id="report-director-name-plan" class="font-bold h-6"></p></div>
+                                <div class="pt-2 mt-2">
+                                    <p class="font-bold">رائد/ة النشاط</p>
+                                    <p id="report-leader-name-plan" class="font-bold h-6 mt-4"></p>
+                                </div>
+                                <div class="pt-2 mt-2">
+                                    <p class="font-bold">مدير/ة المدرسة</p>
+                                    <p id="report-director-name-plan" class="font-bold h-6 mt-4"></p>
+                                </div>
                             </div>
-
                         </footer>
                     </div>
                 </div>
@@ -966,8 +970,8 @@
                     <footer class="pt-8 text-center text-xs">
                         <div class="gradient-line mb-4"></div>
                         <div class="grid grid-cols-2 gap-16">
-                             <div class="pt-2 mt-2"><p class="font-bold">رائد/ة النشاط</p><p id="report-leader-name-report" class="font-bold h-6">${leaderName}</p></div>
-                             <div class="pt-2 mt-2"><p class="font-bold">مدير/ة المدرسة</p><p id="report-director-name-report" class="font-bold h-6">${directorName}</p></div>
+                             <div class="pt-2 mt-2"><p class="font-bold">رائد/ة النشاط</p><p id="report-leader-name-report" class="font-bold h-6 mt-4"></p></div>
+                             <div class="pt-2 mt-2"><p class="font-bold">مدير/ة المدرسة</p><p id="report-director-name-report" class="font-bold h-6 mt-4"></p></div>
                         </div>
                     </footer>`;
                 document.getElementById('report-page-content').innerHTML = reportHTML;
