@@ -110,7 +110,7 @@
             #output-plan footer .grid-cols-2, #output-report footer .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1rem; }
         }
         
-        /* --- FINAL REVISED PRINT STYLES --- */
+        /* --- FINAL AND DEFINITIVE PRINT STYLES --- */
         @media print {
             * {
                 box-shadow: none !important;
@@ -141,8 +141,10 @@
                 margin: 1cm;
             }
 
+            /* THIS IS THE KEY FIX FOR CHROME SCALING: NO FIXED DIMENSIONS ON BODY/HTML */
             html, body {
                 width: 100%;
+                height: auto;
                 margin: 0 !important;
                 padding: 0 !important;
                 background: #fff !important;
@@ -186,22 +188,22 @@
                 vertical-align: top;
             }
             
-            /* MODIFIED: Image placeholder for better scaling and fitting */
+            /* FIXED: Image placeholder styling to prevent cropping and allow scaling */
             .image-upload-slot {
                 width: 100%;
                 height: auto;
-                max-height: 15vh; /* CHANGED: Switched from cm to vh for flexible scaling */
-                aspect-ratio: auto; /* Removed fixed aspect ratio */
+                max-height: 15vh; /* Using relative unit 'vh' to allow scaling */
+                aspect-ratio: auto !important; /* Removed fixed aspect ratio that caused cropping */
                 border: 1px solid #ccc !important;
                 page-break-inside: avoid;
-                display: flex; /* Added for better alignment */
-                align-items: center; /* Center image vertically */
-                justify-content: center; /* Center image horizontally */
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             .image-upload-slot img { 
                 max-width: 100%;
                 max-height: 100%;
-                object-fit: contain; /* Ensures the whole image is visible without cropping */
+                object-fit: contain !important; /* This is the key to prevent cropping */
             }
             .image-upload-slot:not(.has-image) { 
                 display: none !important; 
@@ -981,9 +983,9 @@
                 document.getElementById('setup-screen-reports').classList.add('hidden');
                 document.getElementById('output-report').classList.remove('hidden');
 
-                document.querySelectorAll('#report-page-content textarea').forEach(textarea => {
-                    autoGrowTextarea(textarea);
-                    textarea.addEventListener('input', () => autoGrowTextarea(textarea));
+                document.querySelectorAll('#report-page-content textarea, #report-page-content input').forEach(element => {
+                    autoGrowTextarea(element);
+                    element.addEventListener('input', () => autoGrowTextarea(element));
                 });
             }
             
