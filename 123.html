@@ -186,19 +186,22 @@
                 vertical-align: top;
             }
             
-            /* MODIFIED: Image placeholder handling to prevent cropping and reduce height */
+            /* MODIFIED: Image placeholder for better scaling and fitting */
             .image-upload-slot {
                 width: 100%;
                 height: auto;
-                max-height: 3.5cm; /* Controls the maximum height to save space */
+                max-height: 15vh; /* CHANGED: Switched from cm to vh for flexible scaling */
                 aspect-ratio: auto; /* Removed fixed aspect ratio */
                 border: 1px solid #ccc !important;
                 page-break-inside: avoid;
+                display: flex; /* Added for better alignment */
+                align-items: center; /* Center image vertically */
+                justify-content: center; /* Center image horizontally */
             }
             .image-upload-slot img { 
-                width: 100%;
-                height: 100%;
-                object-fit: contain; /* This ensures the whole image is visible without cropping */
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain; /* Ensures the whole image is visible without cropping */
             }
             .image-upload-slot:not(.has-image) { 
                 display: none !important; 
@@ -398,7 +401,7 @@
                                 <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-remedial-actions-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
                             </div>
                         </main>
-                        <!-- MODIFIED: Footer structure for the Plan -->
+                        <!-- FIXED: Footer structure for the Plan -->
                         <footer class="pt-8 text-center text-xs">
                             <div class="gradient-line mb-4"></div>
                             <div class="grid grid-cols-2 gap-16">
@@ -582,7 +585,7 @@
                     },
                     'middle': {
                         name: "برنامج التصاميم العلمية والتقنية – المرحلة المتوسطة", sessions: 7, duration: "315 دقيقة (7 حصص)", target: "المرحلة المتوسطة", location: "معمل الحاسب/المكتبة", tools: "أدوات برمجية، مصادر بحث",
-                        learningOutcomes: "• تحليل مشكلة بيئية أو اجتماعية واقتراح حل تقني.\n• توظيف مصدرين علميين موثوقين لدعم فكرة المشروع.\n• دمج مفاهيم من البرمجة والعلوم والهندسة في التصميم.\n• اقتراح تحسين واحد على الأقل بناءً על الملاحظة.\n• توضيح إسهام المشروع في خدمة المجتمع.\n• عرض النتائج بشكل منظم.",
+                        learningOutcomes: "• تحليل مشكلة بيئية أو اجتماعية واقتراح حل تقني.\n• توظيف مصدرين علميين موثوقين لدعم فكرة المشروع.\n• dمج مفاهيم من البرمجة والعلوم والهندسة في التصميم.\n• اقتراح تحسين واحد على الأقل بناءً על الملاحظة.\n• توضيح إسهام المشروع في خدمة المجتمع.\n• عرض النتائج بشكل منظم.",
                         assessmentMethods: "تقييم المشاريع، البحث العلمي",
                         details: [
                             { title: "من المشكلة إلى الفكرة", content: "أمثلة لحلول تقنية تخدم المجتمع/البيئة؛ تكوين فرق، اختيار مشكلة محلية محددة وصياغة فرضية وأهداف قابلة للقياس." }, { title: "بحث مدعوم بالمصادر", content: "جمع معلومات من مصدرين موثوقين (كتاب/موقع تعليمي) مع توثيق مبسّط؛ استخراج متطلبات الحل وقيوده ووضع معايير نجاح." }, { title: "تصميم الحل", content: "رسم مخطط إنسيابي/تصميمي يوضح آلية العمل، تحديد المدخلات/المخرجات، وخطة مواد وأدوات (ورقية أو رقمية) مع تعليمات سلامة." }, { title: "بناء النموذج الأولي", content: "تنفيذ نموذج أولي (فيزيائي أو رقمي) وفق الخطة؛ تحديد بروتوكول اختبار (كم عدد المحاولات؟ ما الذي سيُقاس أو يُلاحظ؟)." }, { title: "اختبار وجمع بيانات", content: "إجراء الاختبارات وتسجيل بيانات في جدول بسيط؛ تحليل أولي (متوسط/أفضل نتيجة) وتحديد نقاط القوة والقصور." }, { title: "تحسين وتكامل STEM", content: "تطبيق تحسينين على الأقل بناءً على البيانات؛ إبراز التكامل بين العلوم/الرياضيات/التقنية/الهندسة في التعديل." }, { title: "عرض مُنظَّم وتقييم", content: "إعداد ملصق/عرض قصير يتضمن المشكلة، الفكرة، البيانات، التحسين؛ تقديم أمام زملاء/لجنة وتلقي تغذية راجعة موثّقة." }
@@ -660,7 +663,7 @@
                         learningOutcomes: "• تمييز ثلاث من خصائص الفضاء.\n• تصميم نموذج مبسط لبدلة أو مركبة فضائية.\n• توظيف أدوات بسيطة ومحلية في التصميم.\n• المشاركة في نشاط تمثيلي بدور رائد فضاء.\n• مناقشة جهود عالم أو مهندس فضاء.\n• التعاون مع الزملاء في تنفيذ تصميم مشترك.",
                         assessmentMethods: "تقييم المشاريع، الملاحظة",
                         details: [
-                            { title: "خصائص الفضاء والرحلات الفضائية", content: "نشاط افتتاحي (مقارنة بين الأرض والفضاء من حيث الجاذبية/الأكسجين/الحرارة) – مشاهدة مقطع قصير عن رحلات الفضاء – مناقشة أهمية الاستكشاف." }, { title: "تصميم نموذج مبسط (بدلة أو مركبة)", content: "رسم توضيحي أو استخدام مواد بسيطة لتصميم جزء من مركبة/بدلة فضائية – شرح وظيفة جزء واحد على الأقل – تبادل الأفكار داخل المجموعات." }, { title: "ابتكار فكرة باستخدام أدوات محلية", content: "استخدام أدوات متوفرة (ورق، كرتون، عبوات) لتطوير فكرة بدلة/مركبة ذكية – نقاش جماعي حول كيف ساعدهم الخيال في تحسين التصميم." }, { title: "حياتي كـرائد فضاء", content: "نشاط تمثيلي: لعب أدوار (رائد فضاء) يصف مهمتين داخل المحطة أو في الفضاء – تبادل الحوار حول الصعوبات اليومية لرائد الفضاء." }, { title: "علماء ومهندسو الفضاء", content: "عرض قصير عن عالم أو مهندس فضاء (سعودي أو عالمي) – توضيح أثر إنجازه في تطوير تقنيات الفضاء – نشاط ختامي: تصميم بطاقة شكر/لوحة إنجاز." }
+                            { title: "خصائص الفضاء والرحلات الفضائية", content: "نشاط افتتاحي (مقارنة بين الأرض والفضاء من حيث الجاذبية/الأكسجين/الحرارة) – مشاهدة مقطع قصير عن رحلات الفضاء – مناقشة أهمية الاستكشاف." }, { title: "تصميم نموذج مبسط (بدلة أو مركبة)", content: "رسم توضيحي أو استخدام مواد بسيطة لتصميم جزء من مركبة/بدلة فضائية – شرح وظيفة جزء واحد على الأقل – تبادل الأفكار داخل المجموعات." }, { title: "ابتكار فكرة باستخدام أدوات محلية", content: "استخدام أدوات متوفرة (ورق، كرتون، عبوات) لتطوير فكرة بدلة/مركبة ذكية – نقاش جماعي حول كيف ساعدهم الخيال في تحسين التصميم." }, { title: "حياتي كـرائد فضاء", content: "نشاط تمثيلي: لعب أدوار (رائد فضاء) يصف مهمتين داخل المحطة أو في الفضاء – تبادل الحوار حول الصعوبات اليومية لرائد فضاء." }, { title: "علماء ومهندسو الفضاء", content: "عرض قصير عن عالم أو مهندس فضاء (سعودي أو عالمي) – توضيح أثر إنجازه في تطوير تقنيات الفضاء – نشاط ختامي: تصميم بطاقة شكر/لوحة إنجاز." }
                         ],
                         strengths: "قدرة الطلاب على التصميم والبناء.", difficulties: "توفير مواد متنوعة للبناء.", achievements: "تصميم نماذج مبتكرة للمركبات الفضائية.", remedial_actions: "تشجيع استخدام المواد المعاد تدويرها."
                     },
@@ -957,11 +960,11 @@
                                 <h4 class="report-label mb-1 mt-8">صور للشواهد</h4>
                                 <div id="image-upload-grid" class="grid grid-cols-3 gap-4 mt-2">
                                     ${Array(6).fill(0).map((_, i) => `
-                                        <div class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center text-slate-400 relative image-upload-slot">
+                                        <div class="border-2 border-dashed rounded-lg flex items-center justify-center text-slate-400 relative image-upload-slot">
                                             <label for="image-input-${i}" class="cursor-pointer absolute inset-0 flex flex-col items-center justify-center z-10">
                                                 <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>إضافة صورة ${i + 1}</span></label>
                                             <input type="file" id="image-input-${i}" class="hidden" accept="image/*" onchange="previewImage(event, 'image-preview-${i}')">
-                                            <img id="image-preview-${i}" class="absolute inset-0 w-full h-full object-cover rounded-lg hidden z-0">
+                                            <img id="image-preview-${i}" class="absolute inset-0 w-full h-full rounded-lg hidden z-0">
                                         </div>`).join('')}
                                 </div>
                             </div>
@@ -1156,6 +1159,14 @@
 
                     element.parentNode.insertBefore(printDiv, element.nextSibling);
                 });
+                
+                // Special handling for report leader/director names
+                if (containerId === 'report-page-content') {
+                    const leaderName = document.getElementById('leader-name').value;
+                    const directorName = document.getElementById('director-name').value;
+                    document.getElementById('report-leader-name-report').textContent = leaderName;
+                    document.getElementById('report-director-name-report').textContent = directorName;
+                }
             }
 
             function cleanupAfterPrinting(containerId) {
