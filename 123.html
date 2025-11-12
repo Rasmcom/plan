@@ -110,14 +110,14 @@
             #output-plan footer .grid-cols-2, #output-report footer .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1rem; }
         }
 
-        /* --- MODIFIED & ENHANCED PRINT STYLES FOR CROSS-BROWSER COMPATIBILITY --- */
+        /* --- UPDATED PRINT STYLES TO KEEP COLORS --- */
         @media print {
-            /* --- General Reset for Printing --- */
+            /* --- General Settings for Printing --- */
             * {
-                background: transparent !important;
-                color: #000 !important;
+                /* Removed color and background overrides */
                 box-shadow: none !important;
                 text-shadow: none !important;
+                /* This is the KEY RULE to force browsers to print colors */
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
@@ -152,7 +152,7 @@
                 height: 297mm;
                 margin: 0 !important;
                 padding: 0 !important;
-                background: #fff !important;
+                background: #fff !important; /* Keep body background white */
                 font-size: 9pt;
             }
 
@@ -176,41 +176,25 @@
             .a4-page main {
                 flex-grow: 1;
             }
-
-            /* --- Content-specific styling --- */
-            .gradient-line {
-                background: #666 !important; /* Use a solid gray color for print */
-                height: 3px !important;
-            }
-            h2 { font-size: 16pt; color: #000 !important; }
+            
             .a4-page header img { height: 50px !important; }
 
             /* --- Table Styling for Readability --- */
             .table-bordered {
                 width: 100%;
                 border-collapse: collapse;
-                table-layout: fixed; /* Use fixed for better column control */
+                table-layout: fixed;
                 word-wrap: break-word;
             }
             .table-bordered tr {
                 page-break-inside: avoid;
             }
             .table-bordered th, .table-bordered td {
-                border: 1px solid #bbb !important;
+                border: 1px solid #ddd !important; /* Lighter border for print */
                 padding: 5px !important;
                 font-size: 8.5pt;
-                white-space: normal !important; /* Ensure text wraps */
+                white-space: normal !important;
                 vertical-align: top;
-            }
-            .table-bordered th {
-                background-color: #e9ecef !important;
-                color: #000 !important;
-                font-weight: bold;
-            }
-            .report-label {
-                background-color: #f8f9fa !important;
-                font-weight: bold;
-                border-left: 2px solid #dee2e6 !important;
             }
             
             /* --- Image placeholder handling --- */
@@ -1026,29 +1010,22 @@
                 document.querySelectorAll('#output-plan textarea').forEach(textarea => autoGrowTextarea(textarea));
             }
             
-            // --- MODIFIED SCRIPT FOR BETTER PRINTING ---
-
             function prepareForPrinting(containerId) {
                 const container = document.getElementById(containerId);
                 if (!container) return;
                 
-                // First, remove any lingering print divs from a previous attempt
                 cleanupAfterPrinting(containerId); 
 
                 container.querySelectorAll('textarea, input[type="text"]').forEach(element => {
                     const printDiv = document.createElement('div');
                     printDiv.className = 'print-only-content';
                     
-                    // Use textContent to better preserve whitespace and newlines
                     printDiv.textContent = element.value || ''; 
 
-                    // If empty, add a non-breaking space to maintain layout in tables
                     if (printDiv.textContent.trim() === '') {
                         printDiv.innerHTML = '&nbsp;';
                     }
 
-                    // Insert the div right after the original element.
-                    // The CSS will hide the original <textarea> during print.
                     element.parentNode.insertBefore(printDiv, element.nextSibling);
                 });
             }
@@ -1063,20 +1040,17 @@
                 document.querySelectorAll('.content-section').forEach(el => el.classList.remove('printable-active'));
                 const elementToPrint = document.getElementById(elementId);
 
-                // The printable content is the direct child of the content-section
                 if (elementToPrint && elementToPrint.parentElement.classList.contains('content-section')) {
                      elementToPrint.parentElement.classList.add('printable-active');
                 }
                 
                 prepareForPrinting(elementId);
                 
-                // Increased timeout to give browsers (especially Chrome) more time to render
                 setTimeout(() => {
                     window.print();
                 }, 250);
             }
 
-            // This handler is crucial for cleaning up the temporary divs after printing
             let afterPrintHandler = () => {
                 cleanupAfterPrinting('output-plan');
                 cleanupAfterPrinting('report-page-content');
@@ -1087,13 +1061,11 @@
             if (window.matchMedia) {
                 let mediaQueryList = window.matchMedia('print');
                 mediaQueryList.addEventListener('change', (mql) => {
-                    // For browsers that don't robustly support 'afterprint', this is a fallback.
                     if (!mql.matches) {
                         afterPrintHandler();
                     }
                 });
             }
-            // --- END OF MODIFIED SCRIPT ---
 
             function updateRegionUI() {
                 const btnOther = document.getElementById('btn-region-other');
