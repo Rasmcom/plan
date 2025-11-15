@@ -44,12 +44,10 @@
         .content-section.active {
             display: block;
         }
-        
-        /* MODIFIED: Using relative units for padding on screen to avoid print conflicts */
         .a4-page {
             width: 210mm;
             min-height: 297mm;
-            padding: 3rem 1.5rem; /* Using relative units */
+            padding: 12mm 5mm;
             margin: 1cm auto;
             border: 1px #D1D5DB solid;
             border-radius: 5px;
@@ -95,12 +93,19 @@
             background: linear-gradient(to left, #28a745, #007bff);
             border-radius: 2.5px;
         }
-        
+
         .print-only-content {
             display: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: inherit;
+            font-family: inherit;
+            color: #000;
+            padding: 2px;
         }
 
         @media screen and (max-width: 768px) {
+            .container { padding-left: 0; padding-right: 0; }
             .a4-page { width: 100%; min-height: 0; padding: 16px; margin: 0; border: none; box-shadow: none; }
             .no-print, header.no-print { padding-left: 1rem; padding-right: 1rem; }
             h1 { font-size: 1.5rem; }
@@ -110,179 +115,97 @@
             .flex-1 { min-width: 0; }
             #output-plan footer .grid-cols-2, #output-report footer .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1rem; }
         }
-        
-        /* --- FINAL AND DEFINITIVE PRINT STYLES --- */
+
+        @page {
+            size: A4 portrait;
+            margin: 0.3cm;
+        }
+
         @media print {
-            * {
-                box-shadow: none !important;
-                text-shadow: none !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
+            .no-print { display: none !important; }
+            textarea, input[type="text"] { display: none !important; }
+            .print-only-content { display: block !important; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            html, body { width: 100% !important; margin: 0 !important; padding: 0 !important; background: white !important; font-size: 8pt; }
+            .container, .a4-page { box-shadow: none !important; border-radius: 0 !important; max-width: 100% !important; width: 100% !important;  margin: 0 !important; border: none !important; padding: 1cm 5mm; page-break-inside: avoid; height: auto; min-height: 0; }
+            .a4-page main { flex-grow: 1; }
+            .content-section { display: none !important; }
+            .content-section.printable-active { display: block !important; }
+            .table-bordered { table-layout: auto; width: 100%; }
+            .table-bordered tr { page-break-inside: avoid; }
+            .table-bordered th, .table-bordered td { border: 1px solid #ddd !important; padding: 4px !important; font-size: 8pt; white-space: normal; word-wrap: break-word; vertical-align: top; }
+            .table-bordered th { background-color: #0c7894 !important; color: white !important; }
+            .report-label { background-color: #f0f9ff !important; color: #000 !important; border-left: 1px solid #000 !important; }
+            h2 { font-size: 14pt; color: #000 !important; }
+            .header img { height: 50px !important; }
+            .image-upload-slot { height: 5cm; aspect-ratio: auto; }
+            .image-upload-slot img { object-fit: contain; }
+            .image-upload-slot:not(.has-image) { display: none !important; }
+        }
 
-            .no-print, header.no-print, footer.no-print {
-                display: none !important;
-            }
-
-            body > .container {
-                display: block !important;
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-            .content-section:not(.printable-active) {
-                display: none !important;
-            }
-            .content-section.printable-active {
-                display: block !important;
-            }
-
-            @page {
-                size: A4 portrait;
-                margin: 1cm; /* This defines the outer margin of the printed page */
-            }
-
-            /* This is the key fix for Chrome scaling: NO fixed dimensions on body/html */
+        /* --- تعديلات مقترحة لحل مشكلة الطباعة من الجوال --- */
+        @media print {
+            /* 1. إعادة تعيين أساسيات الصفحة لضمان التدفق الطبيعي للمحتوى */
             html, body {
-                width: 100%;
-                height: auto;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+                float: none !important;
+                display: block !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                background: #fff !important;
-                font-size: 9pt;
             }
 
-            /* And this is the other key fix: NO fixed padding */
+            /* 2. ضمان أن حاوية الصفحة الرئيسية تتمدد بشكل صحيح */
             .a4-page {
                 width: 100% !important;
                 min-height: 0 !important;
                 height: auto !important;
                 margin: 0 !important;
-                padding: 0 !important; /* The page margin is handled by @page now */
+                padding: 0.5cm !important; /* تعديل بسيط لترك هامش بسيط */
                 border: none !important;
                 box-shadow: none !important;
-                border-radius: 0 !important;
                 page-break-inside: avoid;
-            }
-
-            .a4-page header, .a4-page footer {
-                page-break-after: avoid;
-                page-break-inside: avoid;
-            }
-            .a4-page main {
-                flex-grow: 1;
-            }
-            
-            .a4-page header img { height: 50px !important; }
-
-            .table-bordered {
-                width: 100%;
-                border-collapse: collapse;
-                table-layout: fixed;
-                word-wrap: break-word;
-            }
-            .table-bordered tr, .table-bordered td, .table-bordered th {
-                page-break-inside: avoid;
-                border: 1px solid #ddd !important;
-                padding: 5px !important;
-                font-size: 8.5pt;
-                white-space: normal !important;
-                vertical-align: top;
-            }
-            
-            /* FIXED: Image placeholder styling to prevent cropping and allow scaling */
-            .image-upload-slot {
-                width: 100%;
-                height: auto;
-                max-height: 15vh; /* Using relative unit 'vh' to allow scaling */
-                aspect-ratio: auto !important; /* Removed fixed aspect ratio that caused cropping */
-                border: 1px solid #ccc !important;
-                page-break-inside: avoid;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .image-upload-slot img { 
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: contain !important; /* This is the key to prevent cropping */
-            }
-            .image-upload-slot:not(.has-image) { 
-                display: none !important; 
-            }
-            .image-upload-slot label { 
-                display: none !important; 
-            }
-
-            textarea, input[type="text"] {
-                display: none !important;
-            }
-            .print-only-content {
                 display: block !important;
-                white-space: pre-wrap;
-                word-wrap: break-word;
-                padding: 2px;
-                margin: 0;
-                font-size: inherit;
-                font-family: inherit;
-                line-height: 1.5;
-                min-height: 1em;
+            }
+
+            /* 3. إزالة أي قيود على الحاويات الرئيسية الأخرى */
+            .container, main, .content-section.printable-active {
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+                display: block !important;
+            }
+
+            /* 4. إجبار الجداول على التكيف مع عرض الصفحة */
+            .table-bordered {
+                display: table !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .table-bordered tr {
+                display: table-row !important;
+            }
+            .table-bordered th, .table-bordered td {
+                display: table-cell !important;
+                width: auto !important; /* السماح للمتصفح بتحديد عرض الأعمدة */
+            }
+            
+            /* 5. ضمان ظهور جميع المحتويات وعدم إخفائها */
+            * {
+                overflow: visible !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+            }
+
+            /* 6. تحسينات إضافية */
+            main {
+                display: block !important;
+                flex-grow: 0 !important;
             }
         }
-        @media print {
-    /* --- تعديلاتpropposed لحل مشكلة الطباعة من الجوال --- */
+        /* --- نهاية التعديلات المقترحة --- */
 
-    /* 1. إعادة تعيين أساسيات الصفحة لضمان التدفق الطبيعي للمحتوى */
-    html, body {
-        width: 100% !important;
-        height: auto !important;
-        overflow: visible !important;
-        float: none !important;
-        display: block !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* 2. ضمان أن حاوية الصفحة الرئيسية تتمدد بشكل صحيح */
-    .a4-page {
-        width: 100% !important;
-        min-height: 0 !important;
-        height: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-        box-shadow: none !important;
-        page-break-inside: avoid;
-    }
-
-    /* 3. إزالة أي قيود على الحاويات الرئيسية الأخرى */
-    .container, main, .content-section.printable-active {
-        width: 100% !important;
-        height: auto !important;
-        overflow: visible !important;
-        display: block !important;
-    }
-
-    /* 4. إجبار الجداول على التكيف مع عرض الصفحة */
-    .table-bordered, .table-bordered tr, .table-bordered td, .table-bordered th {
-        width: 100% !important;
-        box-sizing: border-box !important;
-        display: table-row !important; /* تحسين سلوك الجداول */
-    }
-
-    .table-bordered th, .table-bordered td {
-        display: table-cell !important; /* ضمان العرض الصحيح للخلايا */
-    }
-    
-    /* 5. ضمان ظهور جميع المحتويات وعدم إخفائها */
-    * {
-        overflow: visible !important;
-        box-shadow: none !important;
-        text-shadow: none !important;
-    }
-
-    /* --- نهاية التعديلات المقترحة --- */
-}
     </style>
 </head>
 <body class="text-slate-800">
@@ -459,19 +382,13 @@
                                 <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-remedial-actions-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
                             </div>
                         </main>
-                        <!-- FIXED: Footer structure for the Plan -->
                         <footer class="pt-8 text-center text-xs">
                             <div class="gradient-line mb-4"></div>
                             <div class="grid grid-cols-2 gap-16">
-                                <div class="pt-2 mt-2">
-                                    <p class="font-bold">رائد/ة النشاط</p>
-                                    <p id="report-leader-name-plan" class="font-bold h-6 mt-4"></p>
-                                </div>
-                                <div class="pt-2 mt-2">
-                                    <p class="font-bold">مدير/ة المدرسة</p>
-                                    <p id="report-director-name-plan" class="font-bold h-6 mt-4"></p>
-                                </div>
+                                <div class="pt-2 mt-2"><p id="report-leader-name-plan" class="font-bold h-6"></p></div>
+                                <div class="pt-2 mt-2"><p id="report-director-name-plan" class="font-bold h-6"></p></div>
                             </div>
+
                         </footer>
                     </div>
                 </div>
@@ -721,7 +638,7 @@
                         learningOutcomes: "• تمييز ثلاث من خصائص الفضاء.\n• تصميم نموذج مبسط لبدلة أو مركبة فضائية.\n• توظيف أدوات بسيطة ومحلية في التصميم.\n• المشاركة في نشاط تمثيلي بدور رائد فضاء.\n• مناقشة جهود عالم أو مهندس فضاء.\n• التعاون مع الزملاء في تنفيذ تصميم مشترك.",
                         assessmentMethods: "تقييم المشاريع، الملاحظة",
                         details: [
-                            { title: "خصائص الفضاء والرحلات الفضائية", content: "نشاط افتتاحي (مقارنة بين الأرض والفضاء من حيث الجاذبية/الأكسجين/الحرارة) – مشاهدة مقطع قصير عن رحلات الفضاء – مناقشة أهمية الاستكشاف." }, { title: "تصميم نموذج مبسط (بدلة أو مركبة)", content: "رسم توضيحي أو استخدام مواد بسيطة لتصميم جزء من مركبة/بدلة فضائية – شرح وظيفة جزء واحد على الأقل – تبادل الأفكار داخل المجموعات." }, { title: "ابتكار فكرة باستخدام أدوات محلية", content: "استخدام أدوات متوفرة (ورق، كرتون، عبوات) لتطوير فكرة بدلة/مركبة ذكية – نقاش جماعي حول كيف ساعدهم الخيال في تحسين التصميم." }, { title: "حياتي كـرائد فضاء", content: "نشاط تمثيلي: لعب أدوار (رائد فضاء) يصف مهمتين داخل المحطة أو في الفضاء – تبادل الحوار حول الصعوبات اليومية لرائد فضاء." }, { title: "علماء ومهندسو الفضاء", content: "عرض قصير عن عالم أو مهندس فضاء (سعودي أو عالمي) – توضيح أثر إنجازه في تطوير تقنيات الفضاء – نشاط ختامي: تصميم بطاقة شكر/لوحة إنجاز." }
+                            { title: "خصائص الفضاء والرحلات الفضائية", content: "نشاط افتتاحي (مقارنة بين الأرض والفضاء من حيث الجاذبية/الأكسجين/الحرارة) – مشاهدة مقطع قصير عن رحلات الفضاء – مناقشة أهمية الاستكشاف." }, { title: "تصميم نموذج مبسط (بدلة أو مركبة)", content: "رسم توضيحي أو استخدام مواد بسيطة لتصميم جزء من مركبة/بدلة فضائية – شرح وظيفة جزء واحد على الأقل – تبادل الأفكار داخل المجموعات." }, { title: "ابتكار فكرة باستخدام أدوات محلية", content: "استخدام أدوات متوفرة (ورق، كرتون، عبوات) لتطوير فكرة بدلة/مركبة ذكية – نقاش جماعي حول كيف ساعدهم الخيال في تحسين التصميم." }, { title: "حياتي كـرائد فضاء", content: "نشاط تمثيلي: لعب أدوار (رائد فضاء) يصف مهمتين داخل المحطة أو في الفضاء – تبادل الحوار حول الصعوبات اليومية لرائد الفضاء." }, { title: "علماء ومهندسو الفضاء", content: "عرض قصير عن عالم أو مهندس فضاء (سعودي أو عالمي) – توضيح أثر إنجازه في تطوير تقنيات الفضاء – نشاط ختامي: تصميم بطاقة شكر/لوحة إنجاز." }
                         ],
                         strengths: "قدرة الطلاب على التصميم والبناء.", difficulties: "توفير مواد متنوعة للبناء.", achievements: "تصميم نماذج مبتكرة للمركبات الفضائية.", remedial_actions: "تشجيع استخدام المواد المعاد تدويرها."
                     },
@@ -903,7 +820,7 @@
                 });
                  ['btn-region-other', 'btn-region-western'].forEach(id => document.getElementById(id).addEventListener('click', (e) => { state.region = id.includes('other') ? 'other' : 'western'; updateRegionUI(); }));
                 datePickerBtn.addEventListener('click', () => openDatePicker());
-                document.getElementById('reset-plan-btn').addEventListener('click', () => { if(confirm('هل أنت متأكد؟ سيتم حذف جميع البيانات المدخلة.')) { localStorage.removeItem('planGeneratorStateScience'); location.reload(); }});
+                document.getElementById('reset-plan-btn').addEventListener('click', () => { if(confirm('هل أنت متأكد؟ سيتم حذف جميع البيانات المدخلة.')) { localStorage.removeItem('planGeneratorState'); location.reload(); }});
                 document.getElementById('generate-plan-btn').addEventListener('click', generatePlan);
             }
              function updateProgramDisplay() {
@@ -995,10 +912,10 @@
                         <h3 class="text-xl font-bold mb-3 text-teal-700 text-center">${programData.name}</h3>
                         <table class="w-full mb-4 text-sm border-collapse table-bordered">
                             <tbody>
-                                <tr><td class="report-label w-1/5">المرحلة:</td><td colspan="3"><textarea id="report-stage-report" class="w-full border-none p-2 resize-none" rows="1">${stageSelectReports.options[stageSelectReports.selectedIndex].text}</textarea></td></tr>
-                                <tr><td class="report-label w-1/5">الهدف من البرنامج:</td><td colspan="3"><textarea id="report-objective-report" class="w-full border-none p-2 resize-none" rows="1">${state.objective || 'لم يحدد في الخطة'}</textarea></td></tr>
-                                <tr><td class="report-label w-1/5">تاريخ التنفيذ:</td><td><textarea id="report-date-report" class="w-full border-none p-2 resize-none" rows="1">${dateRange}</textarea></td><td class="report-label w-1/5">مكان التنفيذ:</td><td><textarea id="report-location-report" rows="${locationLines}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' class="w-full border-none p-1 bg-transparent" style="overflow-y:hidden; resize:none;">${programData.location}</textarea></td></tr>
-                                <tr><td class="report-label w-1/5">عدد الطلاب المستفيدين:</td><td><input type="text" class="w-full border-none p-1" placeholder="للتعبئة"></td><td class="report-label w-1/5">المعلم/ة المنفذ/ة:</td><td><input type="text" class="w-full border-none p-1" value="${document.getElementById('teacher-name').value}"></td></tr>
+                                <tr><td class="font-bold bg-slate-50 w-1/5">المرحلة:</td><td colspan="3"><textarea id="report-stage-report" class="w-full border-none p-2 resize-none" rows="1">${stageSelectReports.options[stageSelectReports.selectedIndex].text}</textarea></td></tr>
+                                <tr><td class="font-bold bg-slate-50 w-1/5">الهدف من البرنامج:</td><td colspan="3"><textarea id="report-objective-report" class="w-full border-none p-2 resize-none" rows="1">${state.objective || 'لم يحدد في الخطة'}</textarea></td></tr>
+                                <tr><td class="font-bold bg-slate-50 w-1/5">تاريخ التنفيذ:</td><td><textarea id="report-date-report" class="w-full border-none p-2 resize-none" rows="1">${dateRange}</textarea></td><td class="font-bold bg-slate-50 w-1/5">مكان التنفيذ:</td><td><textarea id="report-location-report" rows="${locationLines}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' class="w-full border-none p-1 bg-transparent" style="overflow-y:hidden; resize:none;">${programData.location}</textarea></td></tr>
+                                <tr><td class="font-bold bg-slate-50 w-1/5">عدد الطلاب المستفيدين:</td><td><input type="text" class="w-full border-none p-1" placeholder="للتعبئة"></td><td class="font-bold bg-slate-50 w-1/5">المعلم/ة المنفذ/ة:</td><td><input type="text" class="w-full border-none p-1" value="${document.getElementById('teacher-name').value}"></td></tr>
                                 <tr>
                                     <td class="report-label align-top">نواتج التعلم:</td>
                                     <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3">
@@ -1018,11 +935,11 @@
                                 <h4 class="report-label mb-1 mt-8">صور للشواهد</h4>
                                 <div id="image-upload-grid" class="grid grid-cols-3 gap-4 mt-2">
                                     ${Array(6).fill(0).map((_, i) => `
-                                        <div class="border-2 border-dashed rounded-lg flex items-center justify-center text-slate-400 relative image-upload-slot">
+                                        <div class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center text-slate-400 relative image-upload-slot">
                                             <label for="image-input-${i}" class="cursor-pointer absolute inset-0 flex flex-col items-center justify-center z-10">
-                                                <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>إضافة صورة ${i + 1}</span></label>
+                                                <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>إضافة صورة ${i + 1}</span></label>
                                             <input type="file" id="image-input-${i}" class="hidden" accept="image/*" onchange="previewImage(event, 'image-preview-${i}')">
-                                            <img id="image-preview-${i}" class="absolute inset-0 w-full h-full rounded-lg hidden z-0">
+                                            <img id="image-preview-${i}" class="absolute inset-0 w-full h-full object-cover rounded-lg hidden z-0">
                                         </div>`).join('')}
                                 </div>
                             </div>
@@ -1031,17 +948,17 @@
                     <footer class="pt-8 text-center text-xs">
                         <div class="gradient-line mb-4"></div>
                         <div class="grid grid-cols-2 gap-16">
-                             <div class="pt-2 mt-2"><p class="font-bold">رائد/ة النشاط</p><p id="report-leader-name-report" class="font-bold h-6 mt-4"></p></div>
-                             <div class="pt-2 mt-2"><p class="font-bold">مدير/ة المدرسة</p><p id="report-director-name-report" class="font-bold h-6 mt-4"></p></div>
+                            <div class="pt-2 mt-2"><p class="font-bold h-6">${leaderName}</p></div>
+                            <div class="pt-2 mt-2"><p class="font-bold h-6">${directorName}</p></div>
                         </div>
                     </footer>`;
                 document.getElementById('report-page-content').innerHTML = reportHTML;
                 document.getElementById('setup-screen-reports').classList.add('hidden');
                 document.getElementById('output-report').classList.remove('hidden');
 
-                document.querySelectorAll('#report-page-content textarea, #report-page-content input').forEach(element => {
-                    autoGrowTextarea(element);
-                    element.addEventListener('input', () => autoGrowTextarea(element));
+                document.querySelectorAll('#report-page-content textarea').forEach(textarea => {
+                    autoGrowTextarea(textarea);
+                    textarea.addEventListener('input', () => autoGrowTextarea(textarea));
                 });
             }
             
@@ -1049,7 +966,7 @@
             const formatFullDate = (dateString) => { const p = dateString.split(' '); return `${p[1].padStart(2, '0')} / ${p[3].padStart(2, '0')} / 1447 هـ`; };
             const saveState = () => { 
                 state.objective = objectiveSelect.value; 
-                localStorage.setItem('planGeneratorStateScience', JSON.stringify(state)); 
+                localStorage.setItem('planGeneratorState', JSON.stringify(state)); 
             };
             
             function autoGrowTextarea(element) {
@@ -1197,34 +1114,17 @@
 
                 document.querySelectorAll('#output-plan textarea').forEach(textarea => autoGrowTextarea(textarea));
             }
-            
-            // --- UPDATED SCRIPT FOR BETTER PRINTING ---
+
             function prepareForPrinting(containerId) {
                 const container = document.getElementById(containerId);
                 if (!container) return;
-                
-                cleanupAfterPrinting(containerId); 
-
                 container.querySelectorAll('textarea, input[type="text"]').forEach(element => {
                     const printDiv = document.createElement('div');
                     printDiv.className = 'print-only-content';
-                    
-                    printDiv.textContent = element.value || ''; 
-
-                    if (printDiv.textContent.trim() === '') {
-                        printDiv.innerHTML = '&nbsp;';
-                    }
-
-                    element.parentNode.insertBefore(printDiv, element.nextSibling);
+                    printDiv.innerText = element.value || '';
+                    if (element.style.color === 'red') { printDiv.style.color = 'red'; }
+                    element.parentNode.insertBefore(printDiv, element);
                 });
-                
-                // Special handling for report leader/director names
-                if (containerId === 'report-page-content') {
-                    const leaderName = document.getElementById('leader-name').value;
-                    const directorName = document.getElementById('director-name').value;
-                    document.getElementById('report-leader-name-report').textContent = leaderName;
-                    document.getElementById('report-director-name-report').textContent = directorName;
-                }
             }
 
             function cleanupAfterPrinting(containerId) {
@@ -1236,7 +1136,6 @@
             window.printContent = function(elementId) {
                 document.querySelectorAll('.content-section').forEach(el => el.classList.remove('printable-active'));
                 const elementToPrint = document.getElementById(elementId);
-
                 if (elementToPrint && elementToPrint.parentElement.classList.contains('content-section')) {
                      elementToPrint.parentElement.classList.add('printable-active');
                 }
@@ -1245,13 +1144,12 @@
                 
                 setTimeout(() => {
                     window.print();
-                }, 250);
+                }, 100);
             }
 
             let afterPrintHandler = () => {
                 cleanupAfterPrinting('output-plan');
                 cleanupAfterPrinting('report-page-content');
-                 document.querySelectorAll('.content-section').forEach(el => el.classList.remove('printable-active'));
             };
 
             window.addEventListener('afterprint', afterPrintHandler);
@@ -1263,7 +1161,6 @@
                     }
                 });
             }
-            // --- END OF UPDATED SCRIPT ---
             
             function updateRegionUI() {
                 const btnOther = document.getElementById('btn-region-other');
@@ -1280,7 +1177,7 @@
             }
             
             function initializeApp() {
-                state = JSON.parse(localStorage.getItem('planGeneratorStateScience')) || { region: 'other' };
+                state = JSON.parse(localStorage.getItem('planGeneratorState')) || { region: 'other' };
                 if (state.educationAdmin) document.getElementById('education-admin').value = state.educationAdmin;
                 if (state.schoolName) document.getElementById('school-name').value = state.schoolName;
                 if (state.teacherName) document.getElementById('teacher-name').value = state.teacherName;
