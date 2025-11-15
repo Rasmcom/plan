@@ -118,29 +118,104 @@
 
         @page {
             size: A4 portrait;
-            margin: 0.3cm;
+            margin: 0.5cm;
         }
 
         @media print {
-            .no-print { display: none !important; }
-            textarea, input[type="text"] { display: none !important; }
-            .print-only-content { display: block !important; }
-            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            html, body { width: 100% !important; margin: 0 !important; padding: 0 !important; background: white !important; font-size: 8pt; }
-            .container, .a4-page { box-shadow: none !important; border-radius: 0 !important; max-width: 100% !important; width: 100% !important;  margin: 0 !important; border: none !important; padding: 1cm 5mm; page-break-inside: avoid; height: auto; min-height: 0; }
-            .a4-page main { flex-grow: 1; }
-            .content-section { display: none !important; }
-            .content-section.printable-active { display: block !important; }
-            .table-bordered { table-layout: auto; width: 100%; }
-            .table-bordered tr { page-break-inside: avoid; }
-            .table-bordered th, .table-bordered td { border: 1px solid #ddd !important; padding: 4px !important; font-size: 8pt; white-space: normal; word-wrap: break-word; vertical-align: top; }
-            .table-bordered th { background-color: #0c7894 !important; color: white !important; }
-            .report-label { background-color: #f0f9ff !important; color: #000 !important; border-left: 1px solid #000 !important; }
-            h2 { font-size: 14pt; color: #000 !important; }
-            .header img { height: 50px !important; }
-            .image-upload-slot { height: 5cm; aspect-ratio: auto; }
-            .image-upload-slot img { object-fit: contain; }
-            .image-upload-slot:not(.has-image) { display: none !important; }
+            /* --- التعديل الجذري والنهائي لحل مشكلة الطباعة --- */
+
+            /* 1. إخفاء العناصر غير المرغوب فيها */
+            .no-print, textarea, input[type="text"] {
+                display: none !important;
+            }
+
+            /* 2. إظهار المحتوى المخصص للطباعة فقط */
+            .print-only-content {
+                display: block !important;
+                white-space: pre-wrap; /* للحفاظ على تنسيق النص من textareas */
+                word-wrap: break-word;
+            }
+            .content-section {
+                display: none !important; /* إخفاء كل أقسام المحتوى بشكل افتراضي */
+            }
+            .content-section.printable-active {
+                display: block !important; /* إظهار القسم النشط للطباعة فقط */
+            }
+
+            /* 3. إعادة تعيين تخطيط الصفحة بالكامل ليكون بسيطًا ومتدفقًا */
+            html, body {
+                width: 100% !important;
+                height: auto !important;
+                background: white !important;
+                overflow: visible !important;
+                font-size: 9pt;
+            }
+
+            /* 4. [الخطوة الأهم] إلغاء Flexbox واستخدام تخطيط الكتلة البسيط */
+            .a4-page {
+                display: block !important; /* تحويل التخطيط من flex إلى block */
+                width: 100% !important;
+                height: auto !important;
+                min-height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+            .a4-page main {
+                display: block !important; /* ضمان أن main يتصرف ككتلة */
+                flex-grow: 0 !important; /* إلغاء أي خصائص لـ flex */
+            }
+
+            /* 5. ضمان أن جميع الحاويات الأخرى لا تسبب مشاكل */
+            .container, #output-plan, #output-report {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+            }
+
+            /* 6. الحفاظ على تنسيقات الجداول والعناوين المهمة */
+            .table-bordered {
+                width: 100%;
+                border-collapse: collapse;
+                page-break-inside: auto; /* السماح بتقسيم الجدول إذا كان طويلاً */
+            }
+             .table-bordered tr {
+                page-break-inside: avoid;
+            }
+            .table-bordered th, .table-bordered td {
+                border: 1px solid #ccc !important;
+                padding: 4px !important;
+                white-space: normal;
+                word-wrap: break-word;
+            }
+            .table-bordered th {
+                background-color: #2c5aa0 !important;
+                color: white !important;
+            }
+            .report-label {
+                background-color: #f0f9ff !important;
+                color: #000 !important;
+                border-left: 1px solid #000 !important;
+            }
+
+            .image-upload-slot:not(.has-image) { 
+                display: none !important; 
+            }
+            .image-upload-slot { 
+                page-break-inside: avoid; 
+            }
+
+            /* 7. تعديلات عامة لضمان الطباعة الصحيحة */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                overflow: visible !important;
+            }
         }
     </style>
 </head>
@@ -876,18 +951,18 @@
                 const container = document.getElementById(containerId);
                 if (!container) return;
                 container.querySelectorAll('textarea, input[type="text"]').forEach(element => {
-                    const printDiv = document.createElement('div');
-                    printDiv.className = 'print-only-content';
-                    printDiv.innerText = element.value || '';
-                    if (element.style.color === 'red') { printDiv.style.color = 'red'; }
-                    element.parentNode.insertBefore(printDiv, element);
+                    let printDiv = element.nextElementSibling;
+                    if (!printDiv || !printDiv.classList.contains('print-only-content')) {
+                        printDiv = document.createElement('div');
+                        printDiv.className = 'print-only-content';
+                        element.parentNode.insertBefore(printDiv, element.nextSibling);
+                    }
+                    printDiv.innerHTML = element.value.replace(/\n/g, '<br>') || '&nbsp;';
                 });
             }
 
             function cleanupAfterPrinting(containerId) {
-                const container = document.getElementById(containerId);
-                if (!container) return;
-                container.querySelectorAll('.print-only-content').forEach(el => el.remove());
+                // This function is not needed with the new robust approach
             }
 
             window.printContent = function(elementId) {
@@ -897,7 +972,8 @@
                      elementToPrint.parentElement.classList.add('printable-active');
                 }
                 
-                prepareForPrinting(elementId);
+                prepareForPrinting('output-plan');
+                prepareForPrinting('output-report');
                 
                 setTimeout(() => {
                     window.print();
@@ -905,8 +981,7 @@
             }
 
             let afterPrintHandler = () => {
-                cleanupAfterPrinting('output-plan');
-                cleanupAfterPrinting('report-page-content');
+                // No cleanup needed
             };
 
             window.addEventListener('afterprint', afterPrintHandler);
