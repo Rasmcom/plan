@@ -229,6 +229,60 @@
                 min-height: 1em;
             }
         }
+        @media print {
+    /* --- تعديلاتpropposed لحل مشكلة الطباعة من الجوال --- */
+
+    /* 1. إعادة تعيين أساسيات الصفحة لضمان التدفق الطبيعي للمحتوى */
+    html, body {
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        float: none !important;
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 2. ضمان أن حاوية الصفحة الرئيسية تتمدد بشكل صحيح */
+    .a4-page {
+        width: 100% !important;
+        min-height: 0 !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+    }
+
+    /* 3. إزالة أي قيود على الحاويات الرئيسية الأخرى */
+    .container, main, .content-section.printable-active {
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+
+    /* 4. إجبار الجداول على التكيف مع عرض الصفحة */
+    .table-bordered, .table-bordered tr, .table-bordered td, .table-bordered th {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        display: table-row !important; /* تحسين سلوك الجداول */
+    }
+
+    .table-bordered th, .table-bordered td {
+        display: table-cell !important; /* ضمان العرض الصحيح للخلايا */
+    }
+    
+    /* 5. ضمان ظهور جميع المحتويات وعدم إخفائها */
+    * {
+        overflow: visible !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    /* --- نهاية التعديلات المقترحة --- */
+}
     </style>
 </head>
 <body class="text-slate-800">
