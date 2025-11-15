@@ -118,29 +118,104 @@
 
         @page {
             size: A4 portrait;
-            margin: 0.3cm;
+            margin: 0.5cm;
         }
 
         @media print {
-            .no-print { display: none !important; }
-            textarea, input[type="text"] { display: none !important; }
-            .print-only-content { display: block !important; }
-            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            html, body { width: 100% !important; margin: 0 !important; padding: 0 !important; background: white !important; font-size: 8pt; }
-            .container, .a4-page { box-shadow: none !important; border-radius: 0 !important; max-width: 100% !important; width: 100% !important;  margin: 0 !important; border: none !important; padding: 1cm 5mm; page-break-inside: avoid; height: auto; min-height: 0; }
-            .a4-page main { flex-grow: 1; }
-            .content-section { display: none !important; }
-            .content-section.printable-active { display: block !important; }
-            .table-bordered { table-layout: auto; width: 100%; }
-            .table-bordered tr { page-break-inside: avoid; }
-            .table-bordered th, .table-bordered td { border: 1px solid #ddd !important; padding: 4px !important; font-size: 8pt; white-space: normal; word-wrap: break-word; vertical-align: top; }
-            .table-bordered th { background-color: #0c7894 !important; color: white !important; }
-            .report-label { background-color: #f0f9ff !important; color: #000 !important; border-left: 1px solid #000 !important; }
-            h2 { font-size: 14pt; color: #000 !important; }
-            .header img { height: 50px !important; }
-            .image-upload-slot { height: 5cm; aspect-ratio: auto; }
-            .image-upload-slot img { object-fit: contain; }
-            .image-upload-slot:not(.has-image) { display: none !important; }
+            /* --- التعديل الجذري والنهائي لحل مشكلة الطباعة --- */
+
+            /* 1. إخفاء العناصر غير المرغوب فيها */
+            .no-print, textarea, input[type="text"] {
+                display: none !important;
+            }
+
+            /* 2. إظهار المحتوى المخصص للطباعة فقط */
+            .print-only-content {
+                display: block !important;
+                white-space: pre-wrap; /* للحفاظ على تنسيق النص من textareas */
+                word-wrap: break-word;
+            }
+            .content-section {
+                display: none !important; /* إخفاء كل أقسام المحتوى بشكل افتراضي */
+            }
+            .content-section.printable-active {
+                display: block !important; /* إظهار القسم النشط للطباعة فقط */
+            }
+
+            /* 3. إعادة تعيين تخطيط الصفحة بالكامل ليكون بسيطًا ومتدفقًا */
+            html, body {
+                width: 100% !important;
+                height: auto !important;
+                background: white !important;
+                overflow: visible !important;
+                font-size: 9pt;
+            }
+
+            /* 4. [الخطوة الأهم] إلغاء Flexbox واستخدام تخطيط الكتلة البسيط */
+            .a4-page {
+                display: block !important; /* تحويل التخطيط من flex إلى block */
+                width: 100% !important;
+                height: auto !important;
+                min-height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+            .a4-page main {
+                display: block !important; /* ضمان أن main يتصرف ككتلة */
+                flex-grow: 0 !important; /* إلغاء أي خصائص لـ flex */
+            }
+
+            /* 5. ضمان أن جميع الحاويات الأخرى لا تسبب مشاكل */
+            .container, #output-plan, #output-report {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+            }
+
+            /* 6. الحفاظ على تنسيقات الجداول والعناوين المهمة */
+            .table-bordered {
+                width: 100%;
+                border-collapse: collapse;
+                page-break-inside: auto; /* السماح بتقسيم الجدول إذا كان طويلاً */
+            }
+             .table-bordered tr {
+                page-break-inside: avoid;
+            }
+            .table-bordered th, .table-bordered td {
+                border: 1px solid #ccc !important;
+                padding: 4px !important;
+                white-space: normal;
+                word-wrap: break-word;
+            }
+            .table-bordered th {
+                background-color: #2c5aa0 !important;
+                color: white !important;
+            }
+            .report-label {
+                background-color: #f0f9ff !important;
+                color: #000 !important;
+                border-left: 1px solid #000 !important;
+            }
+
+            .image-upload-slot:not(.has-image) { 
+                display: none !important; 
+            }
+            .image-upload-slot { 
+                page-break-inside: avoid; 
+            }
+
+            /* 7. تعديلات عامة لضمان الطباعة الصحيحة */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                overflow: visible !important;
+            }
         }
     </style>
 </head>
@@ -537,7 +612,7 @@
                     },
                     'middle': {
                         name: "مهارات الرياضات الذهنية – المرحلة المتوسطة (البلوت)", sessions: 8, duration: "360 دقيقة (8 حصص)", target: "المرحلة المتوسطة", location: "قاعة النشاط", tools: "أوراق لعب البلوت، سبورة للشرح، نماذج تقييم",
-                        learningOutcomes: "• ممارسـة ألعـاب ذهنيـة تتضمـن حـركات تسـاعد عـلى التفكيـر والتحليـل.\n• إتقـان مهـارات متنوعـة فـي الألعـاب الذهنيـة، ويتخـذ قـرارات صحيحـة وسـريعة، بمـا يـدل عـلى امتـلاك موهبـة ذهنيـة متقدمـة.\n• ممارسـة ألعـاب ذهنيـة تعتمـد عـلى التركيـز المصحـوب بالحركـة، ويُظهـر خلالهـا تحسـنًا فـي سـرعة التفكيـر.\n• تجربـة مجموعـة متنوعـة مـن الألعـاب الذهنيـة، ويُظهـر فهمًا لقواعدهـا وتفكيـرًا منطقيًا.\n• تطويـر مهاراتـه فـي الألعـاب الذهنيـة بشـكل متـدرج مـن خـلال التعـرف إلى تكتيـكات جديـدة.",
+                        learningOutcomes: "• ممارسـة ألعـاب ذهنيـة تتضمـن حـركات تسـاعد عـلى التفكيـر والتحليـل.\n• إتقـان مهـارات متنوعـة فـي الألعـاب الذهنيـة، ويتخـذ قـرارات صحيحـة وسـريعة، بمـا يـدل عـلى امتـلاك موهـبـة ذهنيـة متقدمـة.\n• ممارسـة ألعـاب ذهنيـة تعتمـد عـلى التركيـز المصحـوب بالحركـة، ويُظهـر خلالهـا تحسـنًا فـي سـرعة التفكيـر.\n• تجربـة مجموعـة متنوعـة مـن الألعـاب الذهنيـة، ويُظهـر فهمًا لقواعدهـا وتفكيـرًا منطقيًا.\n• تطويـر مهاراتـه فـي الألعـاب الذهنيـة بشـكل متـدرج مـن خـلال التعـرف إلى تكتيـكات جديـدة.",
                         assessmentMethods: "الملاحظة أثناء اللعب، تحليل القرارات، التقييم الذاتي",
                         details: [
                             { week: '1', date: 'لاحقًا', title: 'أتعرف إلى لعبة البلوت', content: 'تهيئة: نشاط رمزي لتمييز رموز البطاقات وسؤال تفاعلي. تنفيذ: شرح مبسّط للقواعد وتوزيع الأدوار ثم جولة تجريبية قصيرة. ختام: مشاركة سريعة + شارة تحفيز.' }, { week: '1', date: 'لاحقًا', title: 'ألعب وأحلل بذكاء', content: 'تهيئة: سيناريو "خمن قرار الخصم" لتحفيز التوقع. تنفيذ: جولة لعب مع توقفات قصيرة لتحليل قرارات اللعب وتسجيل ملاحظات. ختام: تمرين "فكر بصوت" وتثبيت ملاحظة.' }, { week: '2', date: 'لاحقًا', title: 'أخطط وأربك الخصم', content: 'تهيئة: تمرين تحليل موقف (صادق أم تمويه). تنفيذ: جولات تكتيكية مع تبادل الأدوار وتجريب استراتيجيات تمويه. ختام: كتابة خطة مبسطة للجولة القادمة.' }, { week: '2', date: 'لاحقًا', title: 'أنافس وأقيم أدائي', content: 'تهيئة: شرح نظام البطولة ومعايير التقييم. تنفيذ: بطولة مصغّرة مع تدوين النقاط وتحليل سريع للأداء. ختام: عرض نتائج قصيرة وتقييم ذاتي.' }, { week: '3', date: 'لاحقًا', title: 'مباريات وتطوير الخطة (1)', content: 'تهيئة: نشاط "اسأل خصمك" لتبادل الملاحظات. تنفيذ: مباريات رسمية بنظام خروج المغلوب مع ملاحظات تكتيكية من المعلم. ختام: اقتراح تعديلات على الخطة.' }, { week: '3', date: 'لاحقًا', title: 'مباريات وتطوير الخطة (2)', content: 'تهيئة: مراجعة الاستراتيجيات المقترحة. تنفيذ: استكمال مباريات مع تطبيق التحسينات وتسجيل الأداء بالأرقام/النقاط. ختام: تغذية راجعة عملية لكل فريق.' }, { week: '4', date: 'لاحقًا', title: 'أقيم نفسي', content: 'تهيئة: تمرين "ما أول شيء سأغيره؟" كمقدمة للتقييم. تنفيذ: تقييم ذاتي من الطالب + تقييم زميل (بطاقة ملاحظة قصيرة). ختام: مشاركة دروس مكتسبة وخطة تحسين شخصية.' }, { week: '4', date: 'لاحقًا', title: 'أعرض ما تعلمت + توثيق', content: 'تهيئة: تحضير سريع للعروض الفردية/الجماعية. تنفيذ: عرض نتائج واستراتيجيات مختارة أمام الزملاء وتوثيق صور/ملاحظات. ختام: توزيع شارات/بطاقات تحفيزية وتسجيل في ملف الإنجاز.' }
@@ -561,7 +636,7 @@
                 stages: {
                     'primary': {
                         name: "مهارات الرياضات الفردية – الصفوف الأولية (القفز)", sessions: 8, duration: "360 دقيقة (8 حصص)", target: "الصفوف الأولية", location: "فناء المدرسة، صالة رياضية", tools: "حواجز إسفنجية، أطواق أرضية، حبال، بساط هبوط",
-                        learningOutcomes: "• أداء نشـاط بدنـي فـردي لمـدة تتـراوح بيـن خمـس إلى عشـر دقائـق متواصلـة.\n• أداء مهـارات فرديـة بدقـة وتحكـم وانضبـاط حركـي.\n• تنفيـذ حـركات فرديـة منظمـة، تُظهـر تحكمـه فـي حركـة جسـمه.\n• تجربـة مجموعـة متنوعـة مـن الأنشـطة الفرديـة، ويُتقـن المهـارات الأساسـية.",
+                        learningOutcomes: "• أداء نشـاط بدنـي فـردي لمـدة تتـراوح بيـن خمـس إلى عشـر دقائـق متواصلـة.\n• أداء مهـارات فرديـة بدقـة وتحكـم وانضبـاط حركـي.\n• تنفيـذ حـركات فرديـة منظمـة، تُظhـر تحكمـه فـي حركـة جسـمه.\n• تجربـة مجموعـة متنوعـة مـن الأنشـطة الفرديـة، ويُتقـن المهـارات الأساسـية.",
                         assessmentMethods: "الملاحظة، قوائم الشطب، ملف الإنجاز",
                         details: [
                             { week: '1', date: 'لاحقًا', title: 'الاستكشاف والتهيئة', content: 'التهيئة: لعبة "اقفز إذا سمعت…" + حركات إيقاعية بسيطة. التطبيق: شرح عملي من المعلم لطريقة القفز الصحيحة، ثم قفز في المكان بشكل فردي وجماعي. نشاط إضافي: قفز فوق خطوط مرسومة على الأرض. التهدئة: تمدد للأطراف وتمارين تنفس عميق.' }, { week: '1', date: 'لاحقًا', title: 'تطبيق مهارة القفز الأساسي', content: 'التهيئة: مشي سريع + قفز متدرج باستخدام الحبال. التطبيق: القفز فوق حواجز إسفنجية منخفضة مع التركيز على ثني الركبتين عند الهبوط. نشاط إضافي: لعبة "قفز إلى اللون" حسب توجيه المعلم. التهدئة: تمرين استرخاء صوتي وتأمل حركي بسيط.' }, { week: '2', date: 'لاحقًا', title: 'تنويع الأدوات', content: 'التهيئة: لعبة "قفزة اللون" باستخدام بطاقات. التطبيق: قفز بالأطواق – قفز على بساط – استخدام الحبل الفردي (محطات). نشاط جماعي: سباق تتابع قفز بين المجموعات. التهدئة: تمدد جانبي + تمرين تنفس.' }, { week: '2', date: 'لاحقًا', title: 'استعراض وتقييم', content: 'التهيئة: لعبة تقليد حركات القفز. النشاط الرئيس: عرض فردي من كل طالب لمهارة قفز تعلمها. نشاط إثرائي: رسم الطفل لنفسه أثناء القفز مع تعبير لفظي مبسط. الختام: توزيع شارات تحفيزية (قافز اليوم – قفزتك رائعة).' }, { week: '3', date: 'لاحقًا', title: 'تحسين التوازن أثناء القفز', content: 'التهيئة: تمرينات خفيفة للتوازن (وقوف على رجل واحدة). التطبيق: القفز للأمام مع الوقوف لحظة عند الهبوط. نشاط إضافي: قفز جانبي متتابع باستخدام علامات أرضية. التهدئة: تمارين استطالة بسيطة.' }, { week: '3', date: 'لاحقًا', title: 'قفز متدرج ومتعدد', content: 'التهيئة: لعبة "قفزة مع الإشارة" (عند سماع التصفيق). التطبيق: قفز متتالي عبر حواجز متفاوتة الارتفاع. نشاط إضافي: لعبة سباق الحواجز البسيط (قفز ثم جري قصير). التهدئة: تنفس عميق + استرخاء عضلي.' }, { week: '4', date: 'لاحقًا', title: 'دمج القفز مع أنشطة أخرى', content: 'التهيئة: تمرين الجري في المكان مع قفز متقطع. التطبيق: قفز ثم التقاط كرة صغيرة – قفز للأمام ثم رمي كرة في سلة. نشاط جماعي: لعبة تتابع: قفز + تمرير كرة. التهدئة: تمدد للذراعين والساقين.' }, { week: '4', date: 'لاحقًا', title: 'التقييم الختامي', content: 'التهيئة: نشاط حركي جماعي (قفز متتابع في دائرة). التطبيق: أداء فردي لمهارة مختارة من الحصص السابقة. نشاط إثرائي: رسم أو كتابة جملة عن شعوره أثناء التعلم. الختام: تسليم شهادات مشاركة أو بطاقات إنجاز.' }
@@ -775,7 +850,7 @@
                 const programKeyOnly = state.programKey;
                 const programData = fieldsData[programKeyOnly].stages[state.stage];
                 if (!programData) return;
-                const count = state.planDates ? state.planDates.filter(d => d !== 'يحدد لاحقًا').length : 0;
+                const count = state.planDates ? state.planDates.filter(d => d !== 'يحدد لاحقًا' && d !== 'لاحقًا').length : 0;
                 datePickerBtn.textContent = `اختر تواريخ الحصص (${count} / ${programData.sessions})`;
             }
 
@@ -789,7 +864,7 @@
                 programSelectReports.addEventListener('change', () => {
                     generateReportBtn.disabled = !programSelectReports.value;
                     const datesDisplay = document.getElementById('report-dates-display');
-                    if (state.planDates && state.planDates.length > 0 && !state.planDates.includes('يحدد لاحقًا')) {
+                    if (state.planDates && state.planDates.length > 0 && !state.planDates.includes('يحدد لاحقًا') && !state.planDates.includes('لاحقًا')) {
                         state.planDates.sort((a, b) => parseDateForSorting(a) - parseDateForSorting(b));
                         const dateRange = `تواريخ الخطة المحددة: من ${formatFullDate(state.planDates[0])} إلى ${formatFullDate(state.planDates[state.planDates.length - 1])}`;
                         datesDisplay.textContent = dateRange;
@@ -811,7 +886,7 @@
                 const schoolName = document.getElementById('school-name').value;
 
                 let dateRange = "لم يتم تحديد التواريخ في الخطة";
-                if (state.planDates && state.planDates.length > 0 && !state.planDates.includes('يحدد لاحقًا')) {
+                if (state.planDates && state.planDates.length > 0 && !state.planDates.includes('يحدد لاحقًا') && !state.planDates.includes('لاحقًا')) {
                      state.planDates.sort((a, b) => parseDateForSorting(a) - parseDateForSorting(b));
                      dateRange = `من ${formatFullDate(state.planDates[0])} إلى ${formatFullDate(state.planDates[state.planDates.length - 1])}`;
                 } else if (programData.duration.includes("العام الدراسي") || programData.duration.includes("مرنة")) {
@@ -917,7 +992,7 @@
                 const programKeyOnly = state.programKey;
                 const programData = fieldsData[programKeyOnly]?.stages[state.stage];
                 if (!programData) return;
-                tempSelectedDates = [...(state.planDates || [])].filter(d => d !== 'يحدد لاحقًا');
+                tempSelectedDates = [...(state.planDates || [])].filter(d => d !== 'يحدد لاحقًا' && d !== 'لاحقًا');
                 const container = document.getElementById('modal-weeks-container');
                 container.innerHTML = '';
                 document.getElementById('modal-title').textContent = `اختر ${programData.sessions} حصص لبرنامج: ${programData.name}`;
@@ -979,7 +1054,7 @@
                      alert(`يرجى اختيار حصة واحدة على الأقل لتوليد الخطة.`); return; 
                 }
                 saveState(); 
-                if(state.planDates && !state.planDates.includes('يحدد لاحقًا')) {
+                if(state.planDates && !state.planDates.includes('يحدد لاحقًا') && !state.planDates.includes('لاحقًا')) {
                     state.planDates.sort((a, b) => parseDateForSorting(a) - parseDateForSorting(b));
                 }
                 
@@ -1005,31 +1080,29 @@
                 const tableBody = document.getElementById('plan-table-body');
                 tableBody.innerHTML = '';
 
-                state.planDates.forEach((date, index) => {
-                    if (index < programData.details.length) {
-                        const session = programData.details[index];
-                        let weekName = session.week || '';
-                        
-                        if (date !== 'يحدد لاحقًا') {
-                             for (const key in activeWeeksData) { 
-                                if (Object.values(activeWeeksData[key].days).includes(date.split(' ').slice(1).join(' '))) { 
-                                    weekName = activeWeeksData[key].name; 
-                                    break; 
-                                }
+                programData.details.forEach((session, index) => {
+                    let date = (state.planDates && state.planDates[index]) ? state.planDates[index] : 'لاحقًا';
+                    let weekName = session.week || '';
+                    
+                    if (date !== 'يحدد لاحقًا' && date !== 'لاحقًا') {
+                         for (const key in activeWeeksData) { 
+                            if (Object.values(activeWeeksData[key].days).includes(date.split(' ').slice(1).join(' '))) { 
+                                weekName = activeWeeksData[key].name; 
+                                break; 
                             }
                         }
-
-                        tableBody.innerHTML += `<tr>
-                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${weekName}</textarea></td>
-                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${date ? (date === 'يحدد لاحقًا' ? 'يحدد لاحقًا' : formatFullDate(date)) : 'لم يحدد'}</textarea></td>
-                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${session.title}</textarea></td>
-                            <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${session.content}</textarea></td>
-                            <td class="text-xs">
-                                <div class="flex items-center p-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> نفذ</div>
-                                <div class="flex items-center p-1 mt-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> لم ينفذ</div>
-                            </td>
-                        </tr>`;
                     }
+
+                    tableBody.innerHTML += `<tr>
+                        <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${weekName}</textarea></td>
+                        <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${(date === 'يحدد لاحقًا' || date === 'لاحقًا') ? 'يحدد لاحقًا' : formatFullDate(date)}</textarea></td>
+                        <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${session.title}</textarea></td>
+                        <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${session.content}</textarea></td>
+                        <td class="text-xs">
+                            <div class="flex items-center p-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> نفذ</div>
+                            <div class="flex items-center p-1 mt-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> لم ينفذ</div>
+                        </td>
+                    </tr>`;
                 });
 
                 document.getElementById('setup-screen-plan').classList.add('hidden');
@@ -1042,18 +1115,18 @@
                 const container = document.getElementById(containerId);
                 if (!container) return;
                 container.querySelectorAll('textarea, input[type="text"]').forEach(element => {
-                    const printDiv = document.createElement('div');
-                    printDiv.className = 'print-only-content';
-                    printDiv.innerText = element.value || '';
-                    if (element.style.color === 'red') { printDiv.style.color = 'red'; }
-                    element.parentNode.insertBefore(printDiv, element);
+                    let printDiv = element.nextElementSibling;
+                    if (!printDiv || !printDiv.classList.contains('print-only-content')) {
+                        printDiv = document.createElement('div');
+                        printDiv.className = 'print-only-content';
+                        element.parentNode.insertBefore(printDiv, element.nextSibling);
+                    }
+                    printDiv.innerHTML = element.value.replace(/\n/g, '<br>') || '&nbsp;';
                 });
             }
 
             function cleanupAfterPrinting(containerId) {
-                const container = document.getElementById(containerId);
-                if (!container) return;
-                container.querySelectorAll('.print-only-content').forEach(el => el.remove());
+                // This function is not needed with the new robust approach
             }
 
             window.printContent = function(elementId) {
@@ -1063,7 +1136,8 @@
                      elementToPrint.parentElement.classList.add('printable-active');
                 }
                 
-                prepareForPrinting(elementId);
+                prepareForPrinting('output-plan');
+                prepareForPrinting('output-report');
                 
                 setTimeout(() => {
                     window.print();
@@ -1071,8 +1145,7 @@
             }
 
             let afterPrintHandler = () => {
-                cleanupAfterPrinting('output-plan');
-                cleanupAfterPrinting('report-page-content');
+                // No cleanup needed
             };
 
             window.addEventListener('afterprint', afterPrintHandler);
