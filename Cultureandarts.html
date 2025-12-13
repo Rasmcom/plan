@@ -1176,18 +1176,18 @@
 <table class="w-full mb-4 text-sm border-collapse table-fixed">
     <tbody>
         <tr>
-            <td class="report-label w-[15%]">المرحلة:</td>
+            <td class="report-label w-[20%]">المرحلة:</td>
             <td colspan="3" class="p-0 border border-slate-200"><textarea id="report-stage-report" class="w-full border-none p-2 resize-none" rows="1">${stageSelectReports.options[stageSelectReports.selectedIndex].text}</textarea></td>
         </tr>
         <tr>
-            <td class="report-label w-[15%]">الهدف من البرنامج:</td>
+            <td class="report-label w-[20%]">الهدف من البرنامج:</td>
             <td colspan="3" class="p-0 border border-slate-200"><textarea id="report-objective-report" class="w-full border-none p-2 resize-none" rows="1">${state.objective || 'لم يحدد في الخطة'}</textarea></td>
         </tr>
         <tr>
-            <td class="report-label w-[15%]">تاريخ التنفيذ:</td>
+            <td class="report-label w-[20%]">تاريخ التنفيذ:</td>
             <td class="w-[35%] p-0 border border-slate-200"><textarea id="report-date-report" class="w-full border-none p-2 resize-none" rows="1">${dateRange}</textarea></td>
             <td class="report-label w-[15%]">مكان التنفيذ:</td>
-            <td class="w-[35%] p-0 border border-slate-200"><textarea id="report-location-report" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' class="w-full border-none p-1 bg-transparent" style="overflow-y:hidden; resize:none;">${programData.location}</textarea></td>
+            <td class="w-[30%] p-0 border border-slate-200"><textarea id="report-location-report" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' class="w-full border-none p-1 bg-transparent" style="overflow-y:hidden; resize:none;">${programData.location}</textarea></td>
         </tr>
         <tr>
             <td class="report-label">عدد الطلاب المستفيدين:</td>
