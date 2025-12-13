@@ -222,6 +222,46 @@
                 text-shadow: none !important;
                 overflow: visible !important;
             }
+            /* --- تنسيق الصور لعدم التمدد --- */
+            #image-upload-grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important; /* 3 أعمدة إجبارية */
+                gap: 4px !important; /* مسافة صغيرة جداً بين الصور */
+                margin-top: 5px !important;
+            }
+
+            .image-upload-slot {
+                /* إلغاء النسبة المربعة لأنها تستهلك طولاً كبيراً */
+                aspect-ratio: auto !important; 
+                height: 3.5cm !important; /* ارتفاع ثابت وصغير للصورة (يمكنك تغييره لـ 4cm إذا أردت أكبر قليلاً) */
+                width: 100% !important;
+                border: 1px solid #ccc !important;
+                border-radius: 4px !important;
+                overflow: hidden !important; /* قص أي جزء زائد */
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                page-break-inside: avoid !important; /* منع قص الصورة بين صفحتين */
+            }
+
+            .image-upload-slot img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important; /* contain: تظهر الصورة كاملة داخل الإطار (قد تظهر فراغات بيضاء) */
+                /* object-fit: cover !important;  <-- استخدم هذا الخيار إذا أردت تعبئة الإطار بالكامل لكن قد يتم قص أطراف الصورة */
+                display: block !important;
+            }
+
+            /* إخفاء الخانات الفارغة التي لا تحتوي على صور */
+            .image-upload-slot:not(.has-image) { 
+                display: none !important; 
+            }
+            
+            /* إخفاء أيقونة الرفع والنص داخل الصورة عند الطباعة */
+            .image-upload-slot label {
+                display: none !important;
+            }
+        }
         }
     </style>
 </head>
