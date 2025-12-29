@@ -200,13 +200,25 @@
                 color: #000 !important;
                 border-left: 1px solid #000 !important;
             }
-
+            
+            /* --- الحل لمشكلة الصور --- */
+            .image-upload-slot { 
+                height: 5cm !important;
+                width: 100% !important;
+                display: block !important; /* إلغاء Flexbox */
+                page-break-inside: avoid !important;
+                border: 1px solid #ccc !important; /* إضافة حد خفيف للوضوح */
+            }
+            .image-upload-slot img {
+                position: static !important; /* إعادة الصورة للتدفق الطبيعي */
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important; /* ضمان احتواء الصورة داخل الإطار */
+            }
             .image-upload-slot:not(.has-image) { 
                 display: none !important; 
             }
-            .image-upload-slot { 
-                page-break-inside: avoid; 
-            }
+            /* --- نهاية حل مشكلة الصور --- */
 
             /* 7. تعديلات عامة لضمان الطباعة الصحيحة */
             * {
