@@ -17,6 +17,7 @@
         .content-section { display: none; }
         .content-section.active { display: block; }
         
+        /* تنسيق صفحة A4 الأساسي */
         .a4-page { width: 210mm; min-height: 297mm; padding: 12mm 5mm; margin: 1cm auto; border: 1px #D1D5DB solid; border-radius: 5px; background: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; }
         .a4-page main { flex-grow: 1; }
         
@@ -32,15 +33,41 @@
         .holiday-note { grid-column: span 5; text-align: center; padding: 8px; background-color: #fee2e2; color: #991b1b; border-radius: 4px; font-size: 0.9rem; }
 
         textarea { min-height: 40px; overflow: hidden; resize: none; }
+        .print-only-content { display: none; }
+
+        /* ==========================================================================
+           تحسينات الجوال (مأخوذة من كود الأيام والمناسبات)
+           ========================================================================== */
+        @media screen and (max-width: 768px) {
+            .container { padding-left: 0; padding-right: 0; }
+            /* تحويل ورقة A4 إلى تصميم مرن يملأ الشاشة */
+            .a4-page { width: 100%; min-height: 0; padding: 16px; margin: 0; border: none; box-shadow: none; }
+            .no-print, header.no-print { padding-left: 1rem; padding-right: 1rem; }
+            h1 { font-size: 1.5rem; }
+            .tab-button { font-size: 0.875rem; padding: 8px 12px; }
+            /* جعل الجداول قابلة للتمرير أفقياً */
+            .table-bordered { display: block; overflow-x: auto; white-space: nowrap; }
+            .table-bordered th, .table-bordered td { white-space: normal; min-width: 120px; } /* ضمان عرض مناسب للخلايا */
+            
+            /* تعديل الشبكات لتصبح عمود واحد في المعاينة */
+            .a4-page .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+            .flex-1 { min-width: 0; }
+            /* إصلاح التذييل في الجوال */
+            #output-plan footer .grid-cols-2, #output-report footer .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1rem; }
+            
+            /* تحسين عرض رفع الصور */
+            #image-upload-grid { grid-template-columns: repeat(2, 1fr); }
+        }
 
         @media print {
             .no-print, textarea, input[type="text"], button { display: none !important; }
             .print-only-content { display: block !important; white-space: pre-wrap; word-wrap: break-word; font-size: inherit; font-family: inherit; color: #000; padding: 2px; }
             .content-section { display: none !important; }
             .content-section.printable-active { display: block !important; }
-            html, body { width: 100% !important; height: auto !important; background: white !important; font-size: 9pt; overflow: visible !important; }
+            html, body { width: 100% !important; height: auto !important; background: white !important; font-size: 9pt; overflow: visible !important; margin: 0 !important; padding: 0 !important; }
             .a4-page { width: 100% !important; margin: 0 !important; padding: 0 !important; border: none !important; box-shadow: none !important; display: block !important; page-break-inside: avoid; }
             .a4-page main { display: block !important; flex-grow: 0 !important; }
+            .table-bordered { width: 100%; border-collapse: collapse; display: table !important; overflow: visible !important; white-space: normal !important; }
             .table-bordered th, .table-bordered td { border: 1px solid #ccc !important; padding: 4px !important; }
             .table-bordered th { background-color: #2c5aa0 !important; color: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             .report-label { background-color: #f0f9ff !important; color: #000 !important; border-left: 1px solid #000 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -48,8 +75,8 @@
             .image-upload-slot { aspect-ratio: auto !important; height: 3.5cm !important; border: 1px solid #ccc !important; display: flex !important; align-items: center; justify-content: center; page-break-inside: avoid !important; }
             .image-upload-slot img { width: 100% !important; height: 100% !important; object-fit: contain !important; display: block !important; }
             .image-upload-slot:not(.has-image) { display: none !important; }
+            .container { padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: none !important; }
         }
-        .print-only-content { display: none; }
     </style>
 </head>
 <body class="text-slate-800">
@@ -57,31 +84,31 @@
 <div class="container mx-auto px-4 py-8">
     <header class="flex justify-between items-center mb-8 pb-4 border-b-2 border-teal-600 no-print">
         <div class="flex items-center gap-4">
-            <img src="https://upload.wikimedia.org/wikipedia/ar/thumb/1/17/Saudi_Ministry_of_Education_Logo_2025.png/400px-Saudi_Ministry_of_Education_Logo_2025.png" alt="شعار وزارة التعليم" class="h-20">
+            <img src="https://upload.wikimedia.org/wikipedia/ar/thumb/1/17/Saudi_Ministry_of_Education_Logo_2025.png/400px-Saudi_Ministry_of_Education_Logo_2025.png" alt="شعار وزارة التعليم" class="h-16 md:h-20"> <!-- تصغير الشعار قليلاً للجوال -->
             <div>
-                <h1 class="text-3xl font-bold text-teal-800">مجال الثقافة والفنون</h1>
-                <p class="text-slate-600">إدارة خطط وتقارير برامج المجال - 1447هـ</p>
+                <h1 class="text-2xl md:text-3xl font-bold text-teal-800">مجال الثقافة والفنون</h1>
+                <p class="text-slate-600 text-sm md:text-base">إدارة خطط وتقارير برامج المجال - 1447هـ</p>
             </div>
         </div>
     </header>
 
     <div class="flex justify-center gap-2 mb-8 no-print">
-        <button id="tab-btn-plan" class="tab-button active flex items-center gap-2 text-lg py-3 px-6">خطة برامج النشاط</button>
-        <button id="tab-btn-reports" class="tab-button flex items-center gap-2 text-lg py-3 px-6">التقارير</button>
+        <button id="tab-btn-plan" class="tab-button active flex items-center gap-2 text-base md:text-lg py-3 px-4 md:px-6">خطة برامج النشاط</button>
+        <button id="tab-btn-reports" class="tab-button flex items-center gap-2 text-base md:text-lg py-3 px-4 md:px-6">التقارير</button>
     </div>
 
     <main>
         <!-- Plan Section -->
         <div id="content-plan" class="content-section active">
             <div id="setup-screen-plan" class="no-print">
-                <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-slate-200">
-                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="max-w-4xl mx-auto bg-white p-4 md:p-8 rounded-2xl shadow-lg border border-slate-200">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"> <!-- تم تعديل Grid ليكون 1 في الجوال -->
                         <input type="text" id="education-admin" placeholder="الإدارة التعليمية: ..." class="w-full p-3 border border-slate-300 rounded-lg">
                         <input type="text" id="school-name" placeholder="المدرسة: ..." class="w-full p-3 border border-slate-300 rounded-lg">
                     </div>
                     
                     <div class="space-y-6">
-                        <div class="grid md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <h3 class="text-xl font-bold mb-3 text-teal-700">1. اختر المنطقة</h3>
                                 <div class="flex gap-3">
@@ -102,7 +129,7 @@
                             <h3 class="text-xl font-bold mb-3 text-teal-700">4. اختر الهدف</h3>
                             <select id="objective-select" class="w-full p-3 border border-slate-300 rounded-lg bg-slate-50" disabled></select>
                         </div>
-                        <div class="grid md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <h3 class="text-xl font-bold mb-3 text-teal-700">5. التواريخ</h3>
                                 <button id="date-picker-btn" class="w-full p-3 border border-slate-300 rounded-lg text-right text-slate-500 hover:bg-slate-50 transition" disabled>اختر تواريخ الحصص</button>
@@ -119,73 +146,81 @@
                         </div>
                          <div>
                             <h3 class="text-xl font-bold mb-3 text-teal-700">7. تفاصيل إضافية</h3>
-                            <div class="grid md:grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <textarea id="additional-achievements" placeholder="الإنجازات" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
                                 <textarea id="strengths" placeholder="نقاط القوة" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
                                 <textarea id="difficulties" placeholder="الصعوبات" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
                                 <textarea id="remedial-actions" placeholder="الإجراءات العلاجية" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
                             </div>
                         </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-3 text-teal-700">8. اختيار الخط</h3>
+                            <select id="font-select" class="w-full p-3 border border-slate-300 rounded-lg">
+                                <option value="Tajawal">الخط الافتراضي (Tajawal)</option>
+                                <option value="Sakkal Majalla">Sakkal Majalla</option>
+                                <option value="AL Mohanad">AL Mohanad</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="mt-10 text-center flex gap-4">
-                        <button id="generate-plan-btn" class="w-full bg-teal-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-teal-700 transition text-lg">إعداد الخطة للطباعة</button>
-                        <button id="reset-plan-btn" class="w-auto bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition">إعادة تعيين</button>
+                    <div class="mt-10 text-center flex flex-col md:flex-row gap-4 justify-center">
+                        <button id="generate-plan-btn" class="w-full md:w-auto bg-teal-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-teal-700 transition text-lg">إعداد الخطة للطباعة</button>
+                        <button id="reset-plan-btn" class="w-full md:w-auto bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition">إعادة تعيين</button>
                     </div>
                 </div>
             </div>
 
             <!-- Output Plan A4 -->
             <div id="output-plan" class="hidden">
-                 <div class="text-center mb-6 no-print">
-                    <button onclick="printContent('output-plan')" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition">🖨️ طباعة الخطة</button>
-                    <button onclick="document.getElementById('output-plan').classList.add('hidden'); document.getElementById('setup-screen-plan').classList.remove('hidden');" class="bg-slate-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-slate-700 transition">🔄 العودة</button>
+                 <div class="text-center mb-6 no-print flex flex-col md:flex-row justify-center gap-3">
+                    <button onclick="printContent('output-plan')" class="w-full md:w-auto bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition">🖨️ طباعة الخطة</button>
+                    <button onclick="document.getElementById('output-plan').classList.add('hidden'); document.getElementById('setup-screen-plan').classList.remove('hidden');" class="w-full md:w-auto bg-slate-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-slate-700 transition">🔄 العودة</button>
                 </div>
                 <div class="a4-page">
                     <header class="mb-4">
                         <div class="flex justify-between items-center pb-2">
-                            <img src="https://upload.wikimedia.org/wikipedia/ar/thumb/1/17/Saudi_Ministry_of_Education_Logo_2025.png/400px-Saudi_Ministry_of_Education_Logo_2025.png" alt="شعار وزارة التعليم" class="h-20">
+                            <img src="https://upload.wikimedia.org/wikipedia/ar/thumb/1/17/Saudi_Ministry_of_Education_Logo_2025.png/400px-Saudi_Ministry_of_Education_Logo_2025.png" alt="شعار وزارة التعليم" class="h-16 md:h-20">
                             <div class="flex-1 mr-4 space-y-2 text-base text-right">
                                 <p id="report-education-admin-plan" class="font-bold"></p>
                                 <p id="report-school-name-plan" class="font-bold"></p>
                             </div>
                         </div>
                         <div class="gradient-line mt-2"></div>
-                        <h2 class="text-2xl font-bold text-teal-800 text-center mt-4">خطة تنفيذ برنامج النشاط الطلابي</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-teal-800 text-center mt-4">خطة تنفيذ برنامج النشاط الطلابي</h2>
                     </header>
                     <main>
-                        <table class="w-full mb-4 text-sm border-collapse table-fixed">
+                        <table class="w-full mb-4 text-sm border-collapse table-fixed table-bordered">
                             <tbody>
                                 <tr>
                                     <td class="report-label w-[15%]">اسم البرنامج:</td>
-                                    <td class="p-0 border border-slate-200 w-[35%]"><textarea id="report-program-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                    <td class="p-0 border border-slate-200 w-[35%]"><textarea id="report-program-name-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
                                     <td class="report-label w-[15%]">تفاصيل البرنامج:</td>
-                                    <td class="p-0 border border-slate-200 w-[35%]"><textarea id="report-program-details-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                    <td class="p-0 border border-slate-200 w-[35%]"><textarea id="report-program-details-name-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td class="report-label">الهدف من البرنامج:</td>
-                                    <td class="p-0 border border-slate-200"><textarea id="report-objective-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                    <td class="p-0 border border-slate-200"><textarea id="report-objective-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
                                     <td class="report-label">الفئة المستهدفة:</td>
-                                    <td class="p-0 border border-slate-200"><textarea id="report-program-target-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                    <td class="p-0 border border-slate-200"><textarea id="report-program-target-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td class="report-label">المعلم/ة المنفذ/ة:</td>
-                                    <td class="p-0 border border-slate-200"><textarea id="report-teacher-name-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                    <td class="p-0 border border-slate-200"><textarea id="report-teacher-name-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
                                     <td class="report-label">مدة التنفيذ:</td>
-                                    <td class="p-0 border border-slate-200"><textarea id="report-duration-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                    <td class="p-0 border border-slate-200"><textarea id="report-duration-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td class="report-label">مكان التنفيذ:</td>
-                                    <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-location-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-location-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
                                     <td class="report-label">أدوات التنفيذ:</td>
-                                    <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-tools-plan" class="w-full border-none p-2 resize-none" rows="1"></textarea></td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-tools-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td class="report-label align-top">نواتج التعلم:</td>
-                                    <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-learning-outcomes-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-learning-outcomes-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="3"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td class="report-label w-1/4 align-top">أساليب التقويم:</td>
-                                    <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-assessment-methods-plan" class="w-full border-none p-2 resize-none" rows="2"></textarea></td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-assessment-methods-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="2"></textarea></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -196,10 +231,10 @@
                             <tbody id="plan-table-body"></tbody>
                         </table>
                         <div class="grid grid-cols-2 gap-4 text-sm">
-                            <div><h4 class="report-label mb-1">الإنجازات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-additional-achievements-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
-                            <div><h4 class="report-label mb-1">نقاط القوة</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-strengths-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
-                            <div><h4 class="report-label mb-1">الصعوبات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-difficulties-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
-                            <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-remedial-actions-plan" class="w-full border-none p-2 resize-none" rows="3"></textarea></div></div>
+                            <div><h4 class="report-label mb-1">الإنجازات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-additional-achievements-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="3"></textarea></div></div>
+                            <div><h4 class="report-label mb-1">نقاط القوة</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-strengths-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="3"></textarea></div></div>
+                            <div><h4 class="report-label mb-1">الصعوبات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-difficulties-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="3"></textarea></div></div>
+                            <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-remedial-actions-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="3"></textarea></div></div>
                         </div>
                     </main>
                     <footer class="pt-8 text-center text-xs">
@@ -216,22 +251,22 @@
         <!-- Reports Section -->
         <div id="content-reports" class="content-section">
             <div id="setup-screen-reports" class="no-print">
-                <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-slate-200">
-                    <h2 class="text-2xl font-bold text-teal-800 mb-6">إعداد تقرير برنامج النشاط</h2>
-                    <div class="grid md:grid-cols-2 gap-4">
+                <div class="max-w-4xl mx-auto bg-white p-4 md:p-8 rounded-2xl shadow-lg border border-slate-200">
+                    <h2 class="text-xl md:text-2xl font-bold text-teal-800 mb-6">إعداد تقرير برنامج النشاط</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <select id="stage-select-reports" class="w-full p-3 border border-slate-300 rounded-lg"></select>
                         <select id="program-select-reports" class="w-full p-3 border border-slate-300 rounded-lg" disabled></select>
                     </div>
-                    <div id="report-dates-display" class="mt-4 text-center text-slate-600 bg-slate-100 p-3 rounded-lg">اختر مرحلة وبرنامج لعرض التواريخ</div>
+                    <div id="report-dates-display" class="mt-4 text-center text-slate-600 bg-slate-100 p-3 rounded-lg text-sm">اختر مرحلة وبرنامج لعرض التواريخ</div>
                      <div class="mt-6 text-center">
-                        <button id="generate-report-btn" class="w-full bg-teal-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-teal-700 transition text-lg" disabled>إنشاء نموذج التقرير</button>
+                        <button id="generate-report-btn" class="w-full md:w-auto bg-teal-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-teal-700 transition text-lg" disabled>إنشاء نموذج التقرير</button>
                     </div>
                 </div>
             </div>
             <div id="output-report" class="hidden">
-                 <div class="text-center mb-6 no-print">
-                    <button onclick="printContent('output-report')" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition">🖨️ طباعة التقرير</button>
-                    <button onclick="document.getElementById('output-report').classList.add('hidden'); document.getElementById('setup-screen-reports').classList.remove('hidden');" class="bg-slate-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-slate-700 transition">🔄 العودة</button>
+                 <div class="text-center mb-6 no-print flex flex-col md:flex-row justify-center gap-3">
+                    <button onclick="printContent('output-report')" class="w-full md:w-auto bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition">🖨️ طباعة التقرير</button>
+                    <button onclick="document.getElementById('output-report').classList.add('hidden'); document.getElementById('setup-screen-reports').classList.remove('hidden');" class="w-full md:w-auto bg-slate-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-slate-700 transition">🔄 العودة</button>
                 </div>
                 <div class="a4-page" id="report-page-content"></div>
             </div>
@@ -240,26 +275,27 @@
 </div>
 
 <!-- Date Picker Modal -->
-<div id="date-picker-modal" class="fixed inset-0 z-50 items-center justify-center p-4 bg-black bg-opacity-50 hidden no-print">
-    <div class="bg-white rounded-lg shadow-xl p-6 max-w-4xl w-full max-h-[90vh] flex flex-col">
-        <h3 id="modal-title" class="text-xl font-bold mb-4">اختر تواريخ التنفيذ</h3>
+<div id="date-picker-modal" class="fixed inset-0 z-50 items-center justify-center p-4 bg-black bg-opacity-50 hidden no-print backdrop-blur-sm">
+    <div class="bg-white rounded-lg shadow-xl p-4 md:p-6 max-w-4xl w-full max-h-[90vh] flex flex-col">
+        <h3 id="modal-title" class="text-lg md:text-xl font-bold mb-4">اختر تواريخ التنفيذ</h3>
         <div id="modal-weeks-container" class="flex-grow overflow-y-auto space-y-4"></div>
-        <div class="mt-6 flex justify-end gap-3 pt-4 border-t">
-            <button onclick="closeDatePicker()" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">إلغاء</button>
-            <button onclick="saveDates()" class="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700">حفظ التواريخ</button>
+        <div class="mt-6 flex flex-col md:flex-row justify-end gap-3 pt-4 border-t">
+            <button onclick="closeDatePicker()" class="w-full md:w-auto px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">إلغاء</button>
+            <button onclick="saveDates()" class="w-full md:w-auto px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700">حفظ التواريخ</button>
         </div>
     </div>
 </div>
 
 <footer class="text-center py-6 mt-12 border-t border-slate-200 no-print">
     <a href="https://www.rasmcom.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 text-sm text-gray-600 hover:text-teal-700 transition" style="text-decoration: none;">
-        <img src="https://e.top4top.io/p_3463x5tj40.png" alt="شعار رسم" class="h-10 w-auto" style="height: 2.5rem; width: auto; border: none;">
+        <img src="https://e.top4top.io/p_3463x5tj40.png" alt="شعار رسم" class="h-8 md:h-10 w-auto">
         <span>جميع الحقوق محفوظة لقناة رسم للتصميم والخدمات التعليمية 2025</span>
     </a>
 </footer>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    // تم نسخ الكود الأصلي وإضافة منطق التبويبات والملاءمة فقط
+    document.addEventListener('DOMContentLoaded', function () {
     
     // --- Data Definitions ---
     const createGenericProgramData = (programName) => {
@@ -297,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- Inject Specific Data (Full Content) ---
     // Note: I am inserting the FULL data objects you provided in the prompt.
-    // 1. الفنون المسرحية
+     // 1. الفنون المسرحية
     fieldsData.theatrical_arts.stages['primary'] = {
         name: "الفنون المسرحية", sessions: 8, duration: "٣٦٠ دقيقة (٨ حصص)", target: "الصفوف الأولية", location: "المسرح المدرسي – الفصول الدراسي – الفناء الداخلي للمدرسة", tools: "مكبّرات صوت، إضاءة، كاميرات الجوالات، برامج صوتيات للمؤثرات الصوتية.",
         learningOutcomes: "• تأدية مشهد قصير من اختيار الطالب أمام الجمهور؛ للتعبير عن فكرة مبتكرة هادفة.\n• التعبير عن الميول والاهتمامات الشخصية من خلال تقديم مشهد مسرحي قصير.\n• المشاركة مع الأقران في تقديم عرض مسرحي قصير؛ لإبراز المواهب والقدرات الإبداعية.\n• المناقشـة مـع الأقـران حـول عناصـر عـرض مسـرحي بعـد مشـاهدتهم؛ بتوضيـح الجوانـب المفضلـة لهم .\n• التعـرف علـى العناصـر الأدائيـة فـي الأعمـال المسـرحية القصيـرة، وفـق القـدرات والمهـارات الفنيـة والشخصية.\n• التواصل بفاعلية مع الأقران أثناء المشاركة في عرض مسرحي قصير.",
@@ -707,10 +743,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     };
-    
     // -------------------------------------------------------------------------
     // Week Data & Date Picker Logic
     // -------------------------------------------------------------------------
+
+    // --- Calendar Data ---
     const weeksS1_Other = {
         'week1': { name: 'الأسبوع الأول', semester: 1, startDate: '1 / 3', endDate: '5 / 3', days: { 'الأحد': '1 / 3', 'الاثنين': '2 / 3', 'الثلاثاء': '3 / 3', 'الأربعاء': '4 / 3', 'الخميس': '5 / 3' } },
         'week2': { name: 'الأسبوع الثاني', semester: 1, startDate: '8 / 3', endDate: '12 / 3', days: { 'الأحد': '8 / 3', 'الاثنين': '9 / 3', 'الثلاثاء': '10 / 3', 'الأربعاء': '11 / 3', 'الخميس': '12 / 3' } },
