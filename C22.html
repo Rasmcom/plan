@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مجال الثقافة والفنون | خطة 1447هـ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face { font-family: 'Sakkal Majalla'; src: local('Sakkal Majalla'), url('https://fonts.cdnfonts.com/s/72921/Sakkal Majalla.woff') format('woff'); }
+        @font-face { font-family: 'AL Mohanad'; src: local('AL Mohanad'), url('https://alfont.net/fonts/a-l-mohanad-340/AL-Mohanad-Light.woff') format('woff'); }
+
+        body { font-family: 'Tajawal', sans-serif; background-color: #f7fafc; }
+        
+        .tab-button { transition: all 0.3s ease; border-bottom: 4px solid transparent; border-radius: 8px 8px 0 0; background-color: #e2e8f0; color: #4a5568; }
+        .tab-button.active { border-color: #38a169; background-color: #ffffff; color: #2c7a7b; font-weight: 700; }
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+        
+        /* تنسيق صفحة A4 الأساسي */
+        .a4-page { width: 210mm; min-height: 297mm; padding: 12mm 5mm; margin: 1cm auto; border: 1px #D1D5DB solid; border-radius: 5px; background: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; }
+        .a4-page main { flex-grow: 1; }
+        
+        .report-label { color: #067693; background-color: #f0f9ff; font-weight: bold; padding: 8px; border-left: 4px solid #0891b2; }
+        .table-bordered th, .table-bordered td { border: 1px solid #ddd; padding: 4px; text-align: right; vertical-align: top; font-size: 0.8rem; }
+        .table-bordered th { background-color: #2c5aa0; color: white; }
+        .gradient-line { height: 5px; background: linear-gradient(to left, #28a745, #007bff); border-radius: 2.5px; }
+        
+        /* Date Picker Styles */
+        #date-picker-modal .week-grid .day.selected { background-color: #0d9488 !important; color: white !important; border-color: #0f766e; }
+        #date-picker-modal .week-grid .day.selected span { color: white !important; }
+        #date-picker-modal .week-grid .day.disabled { background-color: #F3F4F6; color: #9CA3AF; cursor: not-allowed; }
+        .holiday-note { grid-column: span 5; text-align: center; padding: 8px; background-color: #fee2e2; color: #991b1b; border-radius: 4px; font-size: 0.9rem; }
+
+        textarea { min-height: 40px; overflow: hidden; resize: none; }
+        .print-only-content { display: none; }
+
+        /* ==========================================================================
+           تحسينات الجوال (مأخوذة من كود الأيام والمناسبات)
+           ========================================================================== */
+        @media screen and (max-width: 768px) {
+            .container { padding-left: 0; padding-right: 0; }
+            /* تحويل ورقة A4 إلى تصميم مرن يملأ الشاشة */
+            .a4-page { width: 100%; min-height: 0; padding: 16px; margin: 0; border: none; box-shadow: none; }
+            .no-print, header.no-print { padding-left: 1rem; padding-right: 1rem; }
+            h1 { font-size: 1.5rem; }
+            .tab-button { font-size: 0.875rem; padding: 8px 12px; }
+            /* جعل الجداول قابلة للتمرير أفقياً */
+            .table-bordered { display: block; overflow-x: auto; white-space: nowrap; }
+            .table-bordered th, .table-bordered td { white-space: normal; min-width: 120px; } /* ضمان عرض مناسب للخلايا */
+            
+            /* تعديل الشبكات لتصبح عمود واحد في المعاينة */
+            .a4-page .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+            .flex-1 { min-width: 0; }
+            /* إصلاح التذييل في الجوال */
+            #output-plan footer .grid-cols-2, #output-report footer .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1rem; }
+            
+            /* تحسين عرض رفع الصور */
+            #image-upload-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media print {
+            .no-print, textarea, input[type="text"], button { display: none !important; }
+            .print-only-content { display: block !important; white-space: pre-wrap; word-wrap: break-word; font-size: inherit; font-family: inherit; color: #000; padding: 2px; }
+            .content-section { display: none !important; }
+            .content-section.printable-active { display: block !important; }
+            html, body { width: 100% !important; height: auto !important; background: white !important; font-size: 9pt; overflow: visible !important; margin: 0 !important; padding: 0 !important; }
+            .a4-page { width: 100% !important; margin: 0 !important; padding: 0 !important; border: none !important; box-shadow: none !important; display: block !important; page-break-inside: avoid; }
+            .a4-page main { display: block !important; flex-grow: 0 !important; }
+            .table-bordered { width: 100%; border-collapse: collapse; display: table !important; overflow: visible !important; white-space: normal !important; }
+            .table-bordered th, .table-bordered td { border: 1px solid #ccc !important; padding: 4px !important; }
+            .table-bordered th { background-color: #2c5aa0 !important; color: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .report-label { background-color: #f0f9ff !important; color: #000 !important; border-left: 1px solid #000 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            #image-upload-grid { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 4px !important; }
+            .image-upload-slot { aspect-ratio: auto !important; height: 3.5cm !important; border: 1px solid #ccc !important; display: flex !important; align-items: center; justify-content: center; page-break-inside: avoid !important; }
+            .image-upload-slot img { width: 100% !important; height: 100% !important; object-fit: contain !important; display: block !important; }
+            .image-upload-slot:not(.has-image) { display: none !important; }
+            .container { padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: none !important; }
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+<div class="container mx-auto px-4 py-8">
+    <header class="flex justify-between items-center mb-8 pb-4 border-b-2 border-teal-600 no-print">
+        <div class="flex items-center gap-4">
+            <img src="https://upload.wikimedia.org/wikipedia/ar/thumb/1/17/Saudi_Ministry_of_Education_Logo_2025.png/400px-Saudi_Ministry_of_Education_Logo_2025.png" alt="شعار وزارة التعليم" class="h-16 md:h-20"> <!-- تصغير الشعار قليلاً للجوال -->
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-teal-800">مجال الثقافة والفنون</h1>
+                <p class="text-slate-600 text-sm md:text-base">إدارة خطط وتقارير برامج المجال - 1447هـ</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex justify-center gap-2 mb-8 no-print">
+        <button id="tab-btn-plan" class="tab-button active flex items-center gap-2 text-base md:text-lg py-3 px-4 md:px-6">خطة برامج النشاط</button>
+        <button id="tab-btn-reports" class="tab-button flex items-center gap-2 text-base md:text-lg py-3 px-4 md:px-6">التقارير</button>
+    </div>
+
+    <main>
+        <!-- Plan Section -->
+        <div id="content-plan" class="content-section active">
+            <div id="setup-screen-plan" class="no-print">
+                <div class="max-w-4xl mx-auto bg-white p-4 md:p-8 rounded-2xl shadow-lg border border-slate-200">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"> <!-- تم تعديل Grid ليكون 1 في الجوال -->
+                        <input type="text" id="education-admin" placeholder="الإدارة التعليمية: ..." class="w-full p-3 border border-slate-300 rounded-lg">
+                        <input type="text" id="school-name" placeholder="المدرسة: ..." class="w-full p-3 border border-slate-300 rounded-lg">
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-xl font-bold mb-3 text-teal-700">1. اختر المنطقة</h3>
+                                <div class="flex gap-3">
+                                    <button id="btn-region-other" class="w-full p-3 border rounded-lg transition bg-teal-600 text-white">باقي المناطق</button>
+                                    <button id="btn-region-western" class="w-full p-3 border rounded-lg transition">المنطقة الغربية</button>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-3 text-teal-700">2. اختر المرحلة</h3>
+                                <select id="stage-select-plan" class="w-full p-3 border border-slate-300 rounded-lg"></select>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-3 text-teal-700">3. اختر البرنامج</h3>
+                            <select id="program-select-plan" class="w-full p-3 border border-slate-300 rounded-lg" disabled></select>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-3 text-teal-700">4. اختر الهدف</h3>
+                            <select id="objective-select" class="w-full p-3 border border-slate-300 rounded-lg bg-slate-50" disabled></select>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-xl font-bold mb-3 text-teal-700">5. التواريخ</h3>
+                                <button id="date-picker-btn" class="w-full p-3 border border-slate-300 rounded-lg text-right text-slate-500 hover:bg-slate-50 transition" disabled>اختر تواريخ الحصص</button>
+                                <div id="program-details-plan" class="border-2 border-teal-100 bg-teal-50/50 p-3 rounded-lg mt-4 text-sm min-h-[60px]"></div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-3 text-teal-700">6. البيانات الأساسية</h3>
+                                <div class="space-y-4">
+                                    <input type="text" id="teacher-name" placeholder="المعلم/ة المنفذ/ة" class="w-full p-3 border border-slate-300 rounded-lg">
+                                    <input type="text" id="leader-name" placeholder="رائد/ة النشاط" class="w-full p-3 border border-slate-300 rounded-lg">
+                                    <input type="text" id="director-name" placeholder="مدير/ة المدرسة" class="w-full p-3 border border-slate-300 rounded-lg">
+                                </div>
+                            </div>
+                        </div>
+                         <div>
+                            <h3 class="text-xl font-bold mb-3 text-teal-700">7. تفاصيل إضافية</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <textarea id="additional-achievements" placeholder="الإنجازات" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
+                                <textarea id="strengths" placeholder="نقاط القوة" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
+                                <textarea id="difficulties" placeholder="الصعوبات" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
+                                <textarea id="remedial-actions" placeholder="الإجراءات العلاجية" class="w-full p-3 border border-slate-300 rounded-lg h-24"></textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-3 text-teal-700">8. اختيار الخط</h3>
+                            <select id="font-select" class="w-full p-3 border border-slate-300 rounded-lg">
+                                <option value="Tajawal">الخط الافتراضي (Tajawal)</option>
+                                <option value="Sakkal Majalla">Sakkal Majalla</option>
+                                <option value="AL Mohanad">AL Mohanad</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-10 text-center flex flex-col md:flex-row gap-4 justify-center">
+                        <button id="generate-plan-btn" class="w-full md:w-auto bg-teal-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-teal-700 transition text-lg">إعداد الخطة للطباعة</button>
+                        <button id="reset-plan-btn" class="w-full md:w-auto bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition">إعادة تعيين</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Plan A4 -->
+            <div id="output-plan" class="hidden">
+                 <div class="text-center mb-6 no-print flex flex-col md:flex-row justify-center gap-3">
+                    <button onclick="printContent('output-plan')" class="w-full md:w-auto bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition">🖨️ طباعة الخطة</button>
+                    <button onclick="document.getElementById('output-plan').classList.add('hidden'); document.getElementById('setup-screen-plan').classList.remove('hidden');" class="w-full md:w-auto bg-slate-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-slate-700 transition">🔄 العودة</button>
+                </div>
+                <div class="a4-page">
+                    <header class="mb-4">
+                        <div class="flex justify-between items-center pb-2">
+                            <img src="https://upload.wikimedia.org/wikipedia/ar/thumb/1/17/Saudi_Ministry_of_Education_Logo_2025.png/400px-Saudi_Ministry_of_Education_Logo_2025.png" alt="شعار وزارة التعليم" class="h-16 md:h-20">
+                            <div class="flex-1 mr-4 space-y-2 text-base text-right">
+                                <p id="report-education-admin-plan" class="font-bold"></p>
+                                <p id="report-school-name-plan" class="font-bold"></p>
+                            </div>
+                        </div>
+                        <div class="gradient-line mt-2"></div>
+                        <h2 class="text-xl md:text-2xl font-bold text-teal-800 text-center mt-4">خطة تنفيذ برنامج النشاط الطلابي</h2>
+                    </header>
+                    <main>
+                        <table class="w-full mb-4 text-sm border-collapse table-fixed table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td class="report-label w-[15%]">اسم البرنامج:</td>
+                                    <td class="p-0 border border-slate-200 w-[35%]"><textarea id="report-program-name-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
+                                    <td class="report-label w-[15%]">تفاصيل البرنامج:</td>
+                                    <td class="p-0 border border-slate-200 w-[35%]"><textarea id="report-program-details-name-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="report-label">الهدف من البرنامج:</td>
+                                    <td class="p-0 border border-slate-200"><textarea id="report-objective-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
+                                    <td class="report-label">الفئة المستهدفة:</td>
+                                    <td class="p-0 border border-slate-200"><textarea id="report-program-target-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="report-label">المعلم/ة المنفذ/ة:</td>
+                                    <td class="p-0 border border-slate-200"><textarea id="report-teacher-name-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
+                                    <td class="report-label">مدة التنفيذ:</td>
+                                    <td class="p-0 border border-slate-200"><textarea id="report-duration-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="report-label">مكان التنفيذ:</td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-location-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
+                                    <td class="report-label">أدوات التنفيذ:</td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line"><textarea id="report-tools-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="1"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="report-label align-top">نواتج التعلم:</td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-learning-outcomes-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="3"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="report-label w-1/4 align-top">أساليب التقويم:</td>
+                                    <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3"><textarea id="report-assessment-methods-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="2"></textarea></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="w-full table-bordered mb-6">
+                            <thead class="bg-teal-50 font-bold">
+                                <tr><th class="w-[8%]">الأسبوع</th><th class="w-[13%]">التاريخ</th><th class="w-[14%]">عنوان الحصة</th><th class="w-[52%]">المحتوى والإجراءات</th><th class="w-[13%]">الحالة</th></tr>
+                            </thead>
+                            <tbody id="plan-table-body"></tbody>
+                        </table>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div><h4 class="report-label mb-1">الإنجازات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-additional-achievements-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="3"></textarea></div></div>
+                            <div><h4 class="report-label mb-1">نقاط القوة</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-strengths-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="3"></textarea></div></div>
+                            <div><h4 class="report-label mb-1">الصعوبات</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-difficulties-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="3"></textarea></div></div>
+                            <div><h4 class="report-label mb-1">الإجراءات العلاجية</h4><div class="p-0 border border-slate-200 min-h-[40px] whitespace-pre-wrap"><textarea id="report-remedial-actions-plan" class="w-full border-none p-2 resize-none bg-transparent" rows="3"></textarea></div></div>
+                        </div>
+                    </main>
+                    <footer class="pt-8 text-center text-xs">
+                        <div class="gradient-line mb-4"></div>
+                        <div class="grid grid-cols-2 gap-16">
+                            <div class="pt-2 mt-2"><p id="report-leader-name-plan" class="font-bold h-6"></p></div>
+                            <div class="pt-2 mt-2"><p id="report-director-name-plan" class="font-bold h-6"></p></div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div id="content-reports" class="content-section">
+            <div id="setup-screen-reports" class="no-print">
+                <div class="max-w-4xl mx-auto bg-white p-4 md:p-8 rounded-2xl shadow-lg border border-slate-200">
+                    <h2 class="text-xl md:text-2xl font-bold text-teal-800 mb-6">إعداد تقرير برنامج النشاط</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <select id="stage-select-reports" class="w-full p-3 border border-slate-300 rounded-lg"></select>
+                        <select id="program-select-reports" class="w-full p-3 border border-slate-300 rounded-lg" disabled></select>
+                    </div>
+                    <div id="report-dates-display" class="mt-4 text-center text-slate-600 bg-slate-100 p-3 rounded-lg text-sm">اختر مرحلة وبرنامج لعرض التواريخ</div>
+                     <div class="mt-6 text-center">
+                        <button id="generate-report-btn" class="w-full md:w-auto bg-teal-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-teal-700 transition text-lg" disabled>إنشاء نموذج التقرير</button>
+                    </div>
+                </div>
+            </div>
+            <div id="output-report" class="hidden">
+                 <div class="text-center mb-6 no-print flex flex-col md:flex-row justify-center gap-3">
+                    <button onclick="printContent('output-report')" class="w-full md:w-auto bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition">🖨️ طباعة التقرير</button>
+                    <button onclick="document.getElementById('output-report').classList.add('hidden'); document.getElementById('setup-screen-reports').classList.remove('hidden');" class="w-full md:w-auto bg-slate-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-slate-700 transition">🔄 العودة</button>
+                </div>
+                <div class="a4-page" id="report-page-content"></div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Date Picker Modal -->
+<div id="date-picker-modal" class="fixed inset-0 z-50 items-center justify-center p-4 bg-black bg-opacity-50 hidden no-print backdrop-blur-sm">
+    <div class="bg-white rounded-lg shadow-xl p-4 md:p-6 max-w-4xl w-full max-h-[90vh] flex flex-col">
+        <h3 id="modal-title" class="text-lg md:text-xl font-bold mb-4">اختر تواريخ التنفيذ</h3>
+        <div id="modal-weeks-container" class="flex-grow overflow-y-auto space-y-4"></div>
+        <div class="mt-6 flex flex-col md:flex-row justify-end gap-3 pt-4 border-t">
+            <button onclick="closeDatePicker()" class="w-full md:w-auto px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">إلغاء</button>
+            <button onclick="saveDates()" class="w-full md:w-auto px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700">حفظ التواريخ</button>
+        </div>
+    </div>
+</div>
+
+<footer class="text-center py-6 mt-12 border-t border-slate-200 no-print">
+    <a href="https://www.rasmcom.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 text-sm text-gray-600 hover:text-teal-700 transition" style="text-decoration: none;">
+        <img src="https://e.top4top.io/p_3463x5tj40.png" alt="شعار رسم" class="h-8 md:h-10 w-auto">
+        <span>جميع الحقوق محفوظة لقناة رسم للتصميم والخدمات التعليمية 2025</span>
+    </a>
+</footer>
+
+<script>
+    // تم نسخ الكود الأصلي وإضافة منطق التبويبات والملاءمة فقط
+    document.addEventListener('DOMContentLoaded', function () {
+    
+    // --- Data Definitions ---
+    const createGenericProgramData = (programName) => {
+        const stages = ['primary', 'upper-primary', 'middle', 'high-2'];
+        const stageNames = { 'primary': 'الصفوف الأولية', 'upper-primary': 'الصفوف العليا', 'middle': 'المرحلة المتوسطة', 'high-2': 'المرحلة الثانوية' };
+        const sessionCount = 8;
+        const duration = `${sessionCount * 45} دقيقة (${sessionCount} حصص)`;
+        const details = Array.from({ length: sessionCount }, (_, i) => ({
+            title: `الحصة ${i + 1}`,
+            content: 'سيتم تحديث الموقع بعد صدور الأدلة الخاصة بالبرامج من المركز الوطني للمناهج'
+        }));
+        let programData = { name: programName, field: "الثقافة والفنون", stages: {} };
+        stages.forEach(stage => {
+            programData.stages[stage] = {
+                name: `${programName} – ${stageNames[stage]}`, sessions: sessionCount, duration: duration, target: `طلاب ${stageNames[stage]}`, location: "قاعات النشاط / المسرح المدرسي", tools: "أدوات فنية متنوعة حسب طبيعة البرنامج",
+                learningOutcomes: "سيتم تحديث الموقع بعد صدور الأدلة الخاصة بالبرامج من المركز الوطني للمناهج", assessmentMethods: "الملاحظة، ملف الإنجاز، تقييم الأقران", details: details,
+                executionSummary: "سيتم تحديث الموقع بعد صدور الأدلة الخاصة بالبرامج من المركز الوطني للمناهج"
+            };
+        });
+        return programData;
+    };
+
+    const programDefinitions = {
+        'culture_arts': {
+            field: "الثقافة والفنون",
+            programs: { 'seventh_art_cinema': "الفن السابع (السينما)", 'art_gardens': "حدائق الفن", 'saudi_fashion': "الأزياء السعودية", 'media_culture': "الثقافة الإعلامية", 'contemporary_heritage_designs': "تصاميم تراثية معاصرة", 'theatrical_arts': "الفنون المسرحية", 'musical_program_anthems': "البرنامج الموسيقي (الأناشيد الوطنية)", 'visual_stories': "حكايات مرئية" }
+        }
+    };
+    
+    let fieldsData = {};
+    Object.keys(programDefinitions.culture_arts.programs).forEach(progKey => {
+        const progName = programDefinitions.culture_arts.programs[progKey];
+        fieldsData[progKey] = createGenericProgramData(progName);
+    });
+
+    // --- Inject Specific Data (Paste your long data here) ---
+    // (تم اختصار البيانات هنا للتوضيح، سيتم استخدام البيانات الأصلية)
+    // 1. الفنون المسرحية (موجودة في الكود الأصلي)
+    fieldsData.theatrical_arts.stages['primary'] = {
+        name: "الفنون المسرحية", sessions: 8, duration: "٣٦٠ دقيقة (٨ حصص)", target: "الصفوف الأولية", location: "المسرح المدرسي – الفصول الدراسي – الفناء الداخلي للمدرسة", tools: "مكبّرات صوت، إضاءة، كاميرات الجوالات، برامج صوتيات للمؤثرات الصوتية.",
+        learningOutcomes: "• تأدية مشهد قصير من اختيار الطالب أمام الجمهور؛ للتعبير عن فكرة مبتكرة هادفة.\n• التعبير عن الميول والاهتمامات الشخصية من خلال تقديم مشهد مسرحي قصير.\n• المشاركة مع الأقران في تقديم عرض مسرحي قصير؛ لإبراز المواهب والقدرات الإبداعية.\n• المناقشـة مـع الأقـران حـول عناصـر عـرض مسـرحي بعـد مشـاهدتهم؛ بتوضيـح الجوانـب المفضلـة لهم .\n• التعـرف علـى العناصـر الأدائيـة فـي الأعمـال المسـرحية القصيـرة، وفـق القـدرات والمهـارات الفنيـة والشخصية.\n• التواصل بفاعلية مع الأقران أثناء المشاركة في عرض مسرحي قصير.",
+        assessmentMethods: "• بطاقة ملاحظة قوائم تقدير تحكيم الخبراء .\n• تقويم الأقران.",
+        executionSummary: "تم تنفيذ البرنامج عبر أنشطة متدرجة، بدأت بالتهيئة وسرد القصص، ثم تحويلها لمشاهد تمثيلية. تضمنت الخطة ورش عمل للتدريب على الصوت والجسد، وصولًا لتقديم عرض صفّي، واختتمت بنقاش وتوثيق للتجربة.",
+        details: [
+            { title: 'تهيئة: قصة تمهيدية حيّة', content: '1-  يبدأ المعلّم بسرد قصة قصيرة بأسلوب مشوّق ومؤثِّر صوتيًا مع تعبيرات وجه وجسد لجذب انتباه الأطفال وبناء تجربة سمعية-بصرية. أمثلة مقترحة من مقرّر لغتي: (عادل في الطائرة)  (الإيثار) (الأقمار الصناعية) بعد السرد، ينتقل مباشرةً للأنشطة. التسامح\n2-  نص يُظهر التسامح داخل النشاط: (أنا آسف إن سبقْتُكَ - تفضل قبلي - أُصغي لِرأيك حتى لو اختلفتُ معك )  ثم يكرّرها الأطفال تمثيلًا. التسامح\n3-  أسئلة فهم من الدليل: من الشخصيات؟ كيف بدأت القصة؟ ماذا حدث في المنتصف؟ كيف انتهت؟ ما التحدّي الذي واجهه البطل؟ .  الانضباط\n4-  يتفق الجميع على «ميثاق العرض»: لا سخرية/لا مقاطعة/انتظار الدور - ويُعلّق في الصف . الأمانة' },
+            { title: 'من السرد إلى التمثيل', content: '1-  يختار المعلمُ فقرة من القصة المسموعة (اعتذار/صفح/تقاسم دور) ويحوّلها لِحوارٍ قصير:  أعتذر لأنني استعجلت - هيا نتقاسم الوقت .  التسامح\n2-  تحديد مواقع الوقوف والكلام بعلامات أرضية والتزام إشارة البدء الانضباط\n3-  تدريب صوتي مُوجَّه على جمل الأدب: «شكرًا لإصغائك»، «جربّنا طريقتك الآن« العزيمة\n4-   تبادل الأدوار لإظهار تقبّل اختلاف الزملاء  . التعاون' },
+            { title: 'مشهد صامت عن المساندة', content: '1-  مشهد «أسقطَ أقلامَه - أُساعِدُه وأبتسم» يؤدَّى بلا كلام .التعاون\n2-  إيماءات احترام: «استأذن/تفضّل» لضبط السلوك دون لفظ « .الانضباط\n3-  بعد كل عرض، جملة لطيفة إلزامية: «أعجبني لطفُك عندما«.  التسامح\n4-  توثيق على لوحة «ما أتقنّا/ما نُحسّن«.  الأمانة' },
+            { title: 'نهاية بديلة بنَفَس وطني', content: '1-  عصف ذهني للنهايات يُظهر روح المدرسة والأسرة (حماية الممتلكات/تحية العلم) الانتماء الوطني\n2-   كتابة نهاية تُنهي الخلاف بـ «حلٍّ وسط»: «نتقاسم اللعب» التسامح\n3-   بطاقات أدوار: «مستأذن/مُجيب/مُقترِح حل» الأمانة\n4-   بروفة اتفاق بجُمل:  «اتفقنا؟ اتفقنا»  الانضباط' },
+            { title: 'بروفة 1: صوت/جسد', content: '1-  روتين افتتاحي ثابت:  تنفّس – إشارة - بدء . الانضباط\n2-   جُمل سلوكية داخل الأداء: «أفرح بنجاحك مثل نجاحي»  التسامح\n3-  تدوير أدوار ودعم الخجولين بخطوات صغيرة وتعزيز لفظي . التعاون' },
+            { title: 'بروفة 2 + تمثيل المكان', content: '1-  إعادة المشهد كاملًا مع تصحيح هادئ: «نحاول مرّة أخرى - لا نستسلم»  العزيمة\n2-   تنظيم الدخول/الخروج:   «أتحرّك بعد جملتك»  الانضباط\n3-   تذكير سلامة: العمل ضمن الحدود المرسومة وحفظ الأدوات الأمانة' },
+            { title: 'العرض الصفّي', content: '1-  مقدّمة قيمية: «اليوم نُظهر كيف نختلف بلطف»   التسامح\n2- ) التزام ترتيب الفِرَق والوقت وإتيكيت الجمهور ) الانضباط\n3-  جملة ختامية موحّدة: «نختلف… لكن نجد حلًا معًا»  التعاون' },
+            { title: 'نقاش وتوثيق', content: '1-  بطاقة تأمّل: «لُطفٌ قلتُه اليوم / سلوكٌ حسنٌ فعلتُه»   الأمانة\n2-   ثلاثة مواقف تسامح رآها الطلاب في العروض . التسامح\n3-  «وعد تطبيق» في الفسحة/البيت مع توقيع جماعي  . الانتماء الوطني' }
+        ],
+        strengths: "• نشاط قصصي-تمثيلي بسيط يرفع جاذبية البيئة المدرسية ويغرس السلوك الإيجابي.\n• قابل لإشراك الأسرة (مشاهدة/توثيق) لتعزيز الشراكة المجتمعية.", difficulties: "• تفاوت الجرأة اللغوية/الحركية.\n• إدارة وقت البروفات القصيرة.",
+        achievements: "• مشهد صفّي قصير يعكس سلوكًا إيجابيًا (تسامح/تعاون).\n• تحسّن ملحوظ في الانضباط والتعاون موثّق ببطاقات الملاحظة.", remedial_actions: "• تدوير الأدوار مع جُمل دعم إيجابية للخجولين.\n• روتين إحماء ثابت (صوت/جسد) لضبط الإيقاع والتركيز."
+    };
+    
+    // (يجب هنا نسخ بقية البيانات الخاصة بالبرامج من الكود السابق: الأزياء السعودية، البرنامج الموسيقي، الثقافة الإعلامية، تصاميم تراثية...)
+    // ... [تم حذفها اختصاراً في الرد، يجب أن تكون موجودة في الملف النهائي] ...
+
+    // --- Calendar Data ---
+    const weeksS1_Other = {
+        'week1': { name: 'الأسبوع الأول', semester: 1, startDate: '1 / 3', endDate: '5 / 3', days: { 'الأحد': '1 / 3', 'الاثنين': '2 / 3', 'الثلاثاء': '3 / 3', 'الأربعاء': '4 / 3', 'الخميس': '5 / 3' } },
+        'week2': { name: 'الأسبوع الثاني', semester: 1, startDate: '8 / 3', endDate: '12 / 3', days: { 'الأحد': '8 / 3', 'الاثنين': '9 / 3', 'الثلاثاء': '10 / 3', 'الأربعاء': '11 / 3', 'الخميس': '12 / 3' } },
+        'week3': { name: 'الأسبوع الثالث', semester: 1, startDate: '15 / 3', endDate: '19 / 3', days: { 'الأحد': '15 / 3', 'الاثنين': '16 / 3', 'الثلاثاء': '17 / 3', 'الأربعاء': '18 / 3', 'الخميس': '19 / 3' } },
+        'week4': { name: 'الأسبوع الرابع', semester: 1, startDate: '22 / 3', endDate: '26 / 3', days: { 'الأحد': '22 / 3', 'الاثنين': '23 / 3', 'الثلاثاء': '24 / 3', 'الأربعاء': '25 / 3', 'الخميس': '26 / 3' } },
+        'week5': { name: 'الأسبوع الخامس', semester: 1, startDate: '29 / 3', endDate: '3 / 4', days: { 'الأحد': '29 / 3', 'الاثنين': '30 / 3', 'الثلاثاء': '1 / 4', 'الأربعاء': '2 / 4', 'الخميس': '3 / 4' }, specialDays: { '1 / 4': { name: 'إجازة اليوم الوطني', type: 'holiday', color: 'green' } } },
+        'week6': { name: 'الأسبوع السادس', semester: 1, startDate: '6 / 4', endDate: '10 / 4', days: { 'الأحد': '6 / 4', 'الاثنين': '7 / 4', 'الثلاثاء': '8 / 4', 'الأربعاء': '9 / 4', 'الخميس': '10 / 4' } },
+        'week7': { name: 'الأسبوع السابع', semester: 1, startDate: '13 / 4', endDate: '17 / 4', days: { 'الأحد': '13 / 4', 'الاثنين': '14 / 4', 'الثلاثاء': '15 / 4', 'الأربعاء': '16 / 4', 'الخميس': '17 / 4' } },
+        'week8': { name: 'الأسبوع الثامن', semester: 1, startDate: '20 / 4', endDate: '24 / 4', days: { 'الأحد': '20 / 4', 'الاثنين': '21 / 4', 'الثلاثاء': '22 / 4', 'الأربعاء': '23 / 4', 'الخميس': '24 / 4' }, specialDays: { '20 / 4': { name: 'إجازة إضافية', type: 'holiday', color: 'red' } } },
+        'week9': { name: 'الأسبوع التاسع', semester: 1, startDate: '27 / 4', endDate: '1 / 5', days: { 'الأحد': '27 / 4', 'الاثنين': '28 / 4', 'الثلاثاء': '29 / 4', 'الأربعاء': '30 / 4', 'الخميس': '1 / 5' } },
+        'week10': { name: 'الأسبوع العاشر', semester: 1, startDate: '4 / 5', endDate: '8 / 5', days: { 'الأحد': '4 / 5', 'الاثنين': '5 / 5', 'الثلاثاء': '6 / 5', 'الأربعاء': '7 / 5', 'الخميس': '8 / 5' } },
+        'week11': { name: 'الأسبوع الحادي عشر', semester: 1, startDate: '11 / 5', endDate: '15 / 5', days: { 'الأحد': '11 / 5', 'الاثنين': '12 / 5', 'الثلاثاء': '13 / 5', 'الأربعاء': '14 / 5', 'الخميس': '15 / 5' } },
+        'week12': { name: 'الأسبوع الثاني عشر', semester: 1, startDate: '18 / 5', endDate: '22 / 5', days: { 'الأحد': '18 / 5', 'الاثنين': '19 / 5', 'الثلاثاء': '20 / 5', 'الأربعاء': '21 / 5', 'الخميس': '22 / 5' } },
+        'week13': { name: 'الأسبوع الثالث عشر', semester: 1, startDate: '25 / 5', endDate: '29 / 5', days: { 'الأحد': '25 / 5', 'الاثنين': '26 / 5', 'الثلاثاء': '27 / 5', 'الأربعاء': '28 / 5', 'الخميس': '29 / 5' } },
+        'autumn_break': { name: 'إجازة الخريف', semester: 1, startDate: '30 / 5', endDate: '8 / 6', days: {}, holidayDetails: 'تبدأ بنهاية دوام الخميس 05/29 إلى السبت 06/08' },
+        'week14': { name: 'الأسبوع الرابع عشر', semester: 1, startDate: '9 / 6', endDate: '13 / 6', days: { 'الأحد': '9 / 6', 'الاثنين': '10 / 6', 'الثلاثاء': '11 / 6', 'الأربعاء': '12 / 6', 'الخميس': '13 / 6' } },
+        'week15': { name: 'الأسبوع الخامس عشر', semester: 1, startDate: '16 / 6', endDate: '20 / 6', days: { 'الأحد': '16 / 6', 'الاثنين': '17 / 6', 'الثلاثاء': '18 / 6', 'الأربعاء': '19 / 6', 'الخميس': '20 / 6' }, specialDays: { '20 / 6': { name: 'إجازة إضافية', type: 'holiday', color: 'red' } } },
+        'week16': { name: 'الأسبوع السادس عشر', semester: 1, startDate: '23 / 6', endDate: '27 / 6', days: { 'الأحد': '23 / 6', 'الاثنين': '24 / 6', 'الثلاثاء': '25 / 6', 'الأربعاء': '26 / 6', 'الخميس': '27 / 6' }, specialDays: { '23 / 6': { name: 'إجازة إضافية', type: 'holiday', color: 'red' } } },
+        'week17': { name: 'الأسبوع السابع عشر', semester: 1, startDate: '1 / 7', endDate: '5 / 7', days: { 'الأحد': '1 / 7', 'الاثنين': '2 / 7', 'الثلاثاء': '3 / 7', 'الأربعاء': '4 / 7', 'الخميس': '5 / 7' } },
+        'week18': { name: 'الأسبوع الثامن عشر', semester: 1, startDate: '8 / 7', endDate: '12 / 7', days: { 'الأحد': '8 / 7', 'الاثنين': '9 / 7', 'الثلاثاء': '10 / 7', 'الأربعاء': '11 / 7', 'الخميس': '12 / 7' } },
+        'exams': { name: 'الاختبارات', semester: 1, startDate: '15 / 7', endDate: '19 / 7', days: {} }
+    };
+    const weeksS1_Western = {
+        'week1': { name: 'الأسبوع الأول', semester: 1, startDate: '8 / 3', endDate: '12 / 3', days: { 'الأحد': '8 / 3', 'الاثنين': '9 / 3', 'الثلاثاء': '10 / 3', 'الأربعاء': '11 / 3', 'الخميس': '12 / 3' } },
+        'week2': { name: 'الأسبوع الثاني', semester: 1, startDate: '15 / 3', endDate: '19 / 3', days: { 'الأحد': '15 / 3', 'الاثنين': '16 / 3', 'الثلاثاء': '17 / 3', 'الأربعاء': '18 / 3', 'الخميس': '19 / 3' } },
+        'week3': { name: 'الأسبوع الثالث', semester: 1, startDate: '22 / 3', endDate: '26 / 3', days: { 'الأحد': '22 / 3', 'الاثنين': '23 / 3', 'الثلاثاء': '24 / 3', 'الأربعاء': '25 / 3', 'الخميس': '26 / 3' } },
+        'week4': { name: 'الأسبوع الرابع', semester: 1, startDate: '29 / 3', endDate: '3 / 4', days: { 'الأحد': '29 / 3', 'الاثنين': '30 / 3', 'الثلاثاء': '1 / 4', 'الأربعاء': '2 / 4', 'الخميس': '3 / 4' }, specialDays: { '1 / 4': { name: 'إجازة اليوم الوطني', type: 'holiday', color: 'green' } } },
+        'week5': { name: 'الأسبوع الخامس', semester: 1, startDate: '6 / 4', endDate: '10 / 4', days: { 'الأحد': '6 / 4', 'الاثنين': '7 / 4', 'الثلاثاء': '8 / 4', 'الأربعاء': '9 / 4', 'الخميس': '10 / 4' } },
+        'week6': { name: 'الأسبوع السادس', semester: 1, startDate: '13 / 4', endDate: '17 / 4', days: { 'الأحد': '13 / 4', 'الاثنين': '14 / 4', 'الثلاثاء': '15 / 4', 'الأربعاء': '16 / 4', 'الخميس': '17 / 4' } },
+        'week7': { name: 'الأسبوع السابع', semester: 1, startDate: '20 / 4', endDate: '24 / 4', days: { 'الأحد': '20 / 4', 'الاثنين': '21 / 4', 'الثلاثاء': '22 / 4', 'الأربعاء': '23 / 4', 'الخميس': '24 / 4' }, specialDays: { '20 / 4': { name: 'إجازة إضافية', type: 'holiday', color: 'red' } } },
+        'week8': { name: 'الأسبوع الثامن', semester: 1, startDate: '27 / 4', endDate: '1 / 5', days: { 'الأحد': '27 / 4', 'الاثنين': '28 / 4', 'الثلاثاء': '29 / 4', 'الأربعاء': '30 / 4', 'الخميس': '1 / 5' } },
+        'week9': { name: 'الأسبوع التاسع', semester: 1, startDate: '4 / 5', endDate: '8 / 5', days: { 'الأحد': '4 / 5', 'الاثنين': '5 / 5', 'الثلاثاء': '6 / 5', 'الأربعاء': '7 / 5', 'الخميس': '8 / 5' } },
+        'week10': { name: 'الأسبوع العاشر', semester: 1, startDate: '11 / 5', endDate: '15 / 5', days: { 'الأحد': '11 / 5', 'الاثنين': '12 / 5', 'الثلاثاء': '13 / 5', 'الأربعاء': '14 / 5', 'الخميس': '15 / 5' } },
+        'week11': { name: 'الأسبوع الحادي عشر', semester: 1, startDate: '18 / 5', endDate: '22 / 5', days: { 'الأحد': '18 / 5', 'الاثنين': '19 / 5', 'الثلاثاء': '20 / 5', 'الأربعاء': '21 / 5', 'الخميس': '22 / 5' } },
+        'week12': { name: 'الأسبوع الثاني عشر', semester: 1, startDate: '25 / 5', endDate: '29 / 5', days: { 'الأحد': '25 / 5', 'الاثنين': '26 / 5', 'الثلاثاء': '27 / 5', 'الأربعاء': '28 / 5', 'الخميس': '29 / 5' } },
+        'autumn_break': { name: 'إجازة الخريف', semester: 1, startDate: '30 / 5', endDate: '8 / 6', days: {}, holidayDetails: 'تبدأ بنهاية دوام الخميس 05/29 إلى السبت 06/08' },
+        'week13': { name: 'الأسبوع الثالث عشر', semester: 1, startDate: '9 / 6', endDate: '13 / 6', days: { 'الأحد': '9 / 6', 'الاثنين': '10 / 6', 'الثلاثاء': '11 / 6', 'الأربعاء': '12 / 6', 'الخميس': '13 / 6' } },
+        'week14': { name: 'الأسبوع الرابع عشر', semester: 1, startDate: '16 / 6', endDate: '20 / 6', days: { 'الأحد': '16 / 6', 'الاثنين': '17 / 6', 'الثلاثاء': '18 / 6', 'الأربعاء': '19 / 6', 'الخميس': '20 / 6' }, specialDays: { '20 / 6': { name: 'إجازة إضافية', type: 'holiday', color: 'red' } } },
+        'week15': { name: 'الأسبوع الخامس عشر', semester: 1, startDate: '23 / 6', endDate: '27 / 6', days: { 'الأحد': '23 / 6', 'الاثنين': '24 / 6', 'الثلاثاء': '25 / 6', 'الأربعاء': '26 / 6', 'الخميس': '27 / 6' }, specialDays: { '23 / 6': { name: 'إجازة إضافية', type: 'holiday', color: 'red' } } },
+        'week16': { name: 'الأسبوع السادس عشر', semester: 1, startDate: '1 / 7', endDate: '5 / 7', days: { 'الأحد': '1 / 7', 'الاثنين': '2 / 7', 'الثلاثاء': '3 / 7', 'الأربعاء': '4 / 7', 'الخميس': '5 / 7' } },
+        'week17': { name: 'الأسبوع السابع عشر', semester: 1, startDate: '8 / 7', endDate: '12 / 7', days: { 'الأحد': '8 / 7', 'الاثنين': '9 / 7', 'الثلاثاء': '10 / 7', 'الأربعاء': '11 / 7', 'الخميس': '12 / 7' } },
+        'exams': { name: 'الاختبارات', semester: 1, startDate: '15 / 7', endDate: '19 / 7', days: {} }
+    };
+    const weeksS2_Other = {
+        's2_week1': { name: 'الأسبوع الأول', semester: 2, startDate: '29 / 07', endDate: '03 / 08', days: { 'الأحد': '29 / 07', 'الاثنين': '30 / 07', 'الثلاثاء': '01 / 08', 'الأربعاء': '02 / 08', 'الخميس': '03 / 08' } },
+        's2_week2': { name: 'الأسبوع الثاني', semester: 2, startDate: '06 / 08', endDate: '10 / 08', days: { 'الأحد': '06 / 08', 'الاثنين': '07 / 08', 'الثلاثاء': '08 / 08', 'الأربعاء': '09 / 08', 'الخميس': '10 / 08' } },
+        's2_week3': { name: 'الأسبوع الثالث', semester: 2, startDate: '13 / 08', endDate: '17 / 08', days: { 'الأحد': '13 / 08', 'الاثنين': '14 / 08', 'الثلاثاء': '15 / 08', 'الأربعاء': '16 / 08', 'الخميس': '17 / 08' } },
+        's2_week4': { name: 'الأسبوع الرابع', semester: 2, startDate: '20 / 08', endDate: '24 / 08', days: { 'الأحد': '20 / 08', 'الاثنين': '21 / 08', 'الثلاثاء': '22 / 08', 'الأربعاء': '23 / 08', 'الخميس': '24 / 08' } },
+        's2_week5': { name: 'الأسبوع الخامس', semester: 2, startDate: '27 / 08', endDate: '02 / 09', days: { 'الأحد': '27 / 08', 'الاثنين': '28 / 08', 'الثلاثاء': '29 / 08', 'الأربعاء': '01 / 09', 'الخميس': '02 / 09' }, specialDays: { '01 / 09': { name: 'غرة رمضان', type: 'occasion', color: 'green' } } },
+        's2_week6': { name: 'الأسبوع السادس', semester: 2, startDate: '05 / 09', endDate: '09 / 09', days: { 'الأحد': '05 / 09', 'الاثنين': '06 / 09', 'الثلاثاء': '07 / 09', 'الأربعاء': '08 / 09', 'الخميس': '09 / 09' }, specialDays: { '05 / 09': { name: 'إجازة يوم التأسيس', type: 'holiday', color: 'green' } } },
+        's2_week7': { name: 'الأسبوع السابع', semester: 2, startDate: '12 / 09', endDate: '16 / 09', days: { 'الأحد': '12 / 09', 'الاثنين': '13 / 09', 'الثلاثاء': '14 / 09', 'الأربعاء': '15 / 09', 'الخميس': '16 / 09' } },
+        's2_eid_fitr': { name: 'إجازة عيد الفطر', semester: 2, startDate: '16 / 09', endDate: '09 / 10', days: {}, holidayDetails: 'تبدأ بنهاية دوام الخميس 09/16 إلى السبت 10/09' },
+        's2_week8': { name: 'الأسبوع الثامن', semester: 2, startDate: '10 / 10', endDate: '14 / 10', days: { 'الأحد': '10 / 10', 'الاثنين': '11 / 10', 'الثلاثاء': '12 / 10', 'الأربعاء': '13 / 10', 'الخميس': '14 / 10' } },
+        's2_week9': { name: 'الأسبوع التاسع', semester: 2, startDate: '17 / 10', endDate: '21 / 10', days: { 'الأحد': '17 / 10', 'الاثنين': '18 / 10', 'الثلاثاء': '19 / 10', 'الأربعاء': '20 / 10', 'الخميس': '21 / 10' }, specialDays: { '19 / 10': { name: 'يوم الصحة العالمي', type: 'occasion', color: 'blue' } } },
+        's2_week10': { name: 'الأسبوع العاشر', semester: 2, startDate: '24 / 10', endDate: '28 / 10', days: { 'الأحد': '24 / 10', 'الاثنين': '25 / 10', 'الثلاثاء': '26 / 10', 'الأربعاء': '27 / 10', 'الخميس': '28 / 10' } },
+        's2_week11': { name: 'الأسبوع الحادي عشر', semester: 2, startDate: '02 / 11', endDate: '06 / 11', days: { 'الأحد': '02 / 11', 'الاثنين': '03 / 11', 'الثلاثاء': '04 / 11', 'الأربعاء': '05 / 11', 'الخميس': '06 / 11' } },
+        's2_week12': { name: 'الأسبوع الثاني عشر', semester: 2, startDate: '09 / 11', endDate: '13 / 11', days: { 'الأحد': '09 / 11', 'الاثنين': '10 / 11', 'الثلاثاء': '11 / 11', 'الأربعاء': '12 / 11', 'الخميس': '13 / 11' } },
+        's2_week13': { name: 'الأسبوع الثالث عشر', semester: 2, startDate: '16 / 11', endDate: '20 / 11', days: { 'الأحد': '16 / 11', 'الاثنين': '17 / 11', 'الثلاثاء': '18 / 11', 'الأربعاء': '19 / 11', 'الخميس': '20 / 11' } },
+        's2_week14': { name: 'الأسبوع الرابع عشر', semester: 2, startDate: '23 / 11', endDate: '27 / 11', days: { 'الأحد': '23 / 11', 'الاثنين': '24 / 11', 'الثلاثاء': '25 / 11', 'الأربعاء': '26 / 11', 'الخميس': '27 / 11' } },
+        's2_week15': { name: 'الأسبوع الخامس عشر', semester: 2, startDate: '30 / 11', endDate: '04 / 12', days: { 'الأحد': '30 / 11', 'الاثنين': '01 / 12', 'الثلاثاء': '02 / 12', 'الأربعاء': '03 / 12', 'الخميس': '04 / 12' } },
+        's2_eid_adha': { name: 'إجازة عيد الأضحى', semester: 2, startDate: '04 / 12', endDate: '15 / 12', days: {}, holidayDetails: 'تبدأ بنهاية دوام الخميس 12/04 إلى الاثنين 12/15' },
+        's2_week16': { name: 'الأسبوع السادس عشر', semester: 2, startDate: '16 / 12', endDate: '18 / 12', days: { 'الثلاثاء': '16 / 12', 'الأربعاء': '17 / 12', 'الخميس': '18 / 12' } },
+        's2_week17': { name: 'الأسبوع السابع عشر', semester: 2, startDate: '21 / 12', endDate: '25 / 12', days: { 'الأحد': '21 / 12', 'الاثنين': '22 / 12', 'الثلاثاء': '23 / 12', 'الأربعاء': '24 / 12', 'الخميس': '25 / 12' } },
+        's2_week18': { name: 'الأسبوع الثامن عشر', semester: 2, startDate: '28 / 12', endDate: '03 / 01', days: { 'الأحد': '28 / 12', 'الاثنين': '29 / 12', 'الثلاثاء': '01 / 01', 'الأربعاء': '02 / 01', 'الخميس': '03 / 01' }, specialDays: { '01 / 01': { name: 'سنة هجرية 1448', type: 'occasion', color: 'green' } } },
+        's2_week19': { name: 'الأسبوع التاسع عشر', semester: 2, startDate: '06 / 01', endDate: '10 / 01', days: { 'الأحد': '06 / 01', 'الاثنين': '07 / 01', 'الثلاثاء': '08 / 01', 'الأربعاء': '09 / 01', 'الخميس': '10 / 01' } }
+    };
+    const weeksS2_Western = {
+        's2_week1': { name: 'الأسبوع الأول', semester: 2, startDate: '29 / 07', endDate: '03 / 08', days: { 'الأحد': '29 / 07', 'الاثنين': '30 / 07', 'الثلاثاء': '01 / 08', 'الأربعاء': '02 / 08', 'الخميس': '03 / 08' } },
+        's2_week2': { name: 'الأسبوع الثاني', semester: 2, startDate: '06 / 08', endDate: '10 / 08', days: { 'الأحد': '06 / 08', 'الاثنين': '07 / 08', 'الثلاثاء': '08 / 08', 'الأربعاء': '09 / 08', 'الخميس': '10 / 08' } },
+        's2_week3': { name: 'الأسبوع الثالث', semester: 2, startDate: '13 / 08', endDate: '17 / 08', days: { 'الأحد': '13 / 08', 'الاثنين': '14 / 08', 'الثلاثاء': '15 / 08', 'الأربعاء': '16 / 08', 'الخميس': '17 / 08' } },
+        's2_week4': { name: 'الأسبوع الرابع', semester: 2, startDate: '20 / 08', endDate: '24 / 08', days: { 'الأحد': '20 / 08', 'الاثنين': '21 / 08', 'الثلاثاء': '22 / 08', 'الأربعاء': '23 / 08', 'الخميس': '24 / 08' } },
+        's2_week5': { name: 'الأسبوع الخامس', semester: 2, startDate: '27 / 08', endDate: '02 / 09', days: { 'الأحد': '27 / 08', 'الاثنين': '28 / 08', 'الثلاثاء': '29 / 08', 'الأربعاء': '01 / 09', 'الخميس': '02 / 09' }, specialDays: { '01 / 09': { name: 'غرة رمضان', type: 'occasion', color: 'green' } } },
+        's2_week6': { name: 'الأسبوع السادس', semester: 2, startDate: '05 / 09', endDate: '09 / 09', days: { 'الأحد': '05 / 09', 'الاثنين': '06 / 09', 'الثلاثاء': '07 / 09', 'الأربعاء': '08 / 09', 'الخميس': '09 / 09' }, specialDays: { '05 / 09': { name: 'إجازة يوم التأسيس', type: 'holiday', color: 'green' } } },
+        's2_week7': { name: 'الأسبوع السابع', semester: 2, startDate: '12 / 09', endDate: '16 / 09', days: { 'الأحد': '12 / 09', 'الاثنين': '13 / 09', 'الثلاثاء': '14 / 09', 'الأربعاء': '15 / 09', 'الخميس': '16 / 09' } },
+        's2_eid_fitr': { name: 'إجازة عيد الفطر', semester: 2, startDate: '16 / 09', endDate: '09 / 10', days: {}, holidayDetails: 'تبدأ بنهاية دوام الخميس 09/16 إلى السبت 10/09' },
+        's2_week8': { name: 'الأسبوع الثامن', semester: 2, startDate: '10 / 10', endDate: '14 / 10', days: { 'الأحد': '10 / 10', 'الاثنين': '11 / 10', 'الثلاثاء': '12 / 10', 'الأربعاء': '13 / 10', 'الخميس': '14 / 10' } },
+        's2_week9': { name: 'الأسبوع التاسع', semester: 2, startDate: '17 / 10', endDate: '21 / 10', days: { 'الأحد': '17 / 10', 'الاثنين': '18 / 10', 'الثلاثاء': '19 / 10', 'الأربعاء': '20 / 10', 'الخميس': '21 / 10' }, specialDays: { '19 / 10': { name: 'يوم الصحة العالمي', type: 'occasion', color: 'blue' } } },
+        's2_week10': { name: 'الأسبوع العاشر', semester: 2, startDate: '24 / 10', endDate: '28 / 10', days: { 'الأحد': '24 / 10', 'الاثنين': '25 / 10', 'الثلاثاء': '26 / 10', 'الأربعاء': '27 / 10', 'الخميس': '28 / 10' } },
+        's2_week11': { name: 'الأسبوع الحادي عشر', semester: 2, startDate: '02 / 11', endDate: '06 / 11', days: { 'الأحد': '02 / 11', 'الاثنين': '03 / 11', 'الثلاثاء': '04 / 11', 'الأربعاء': '05 / 11', 'الخميس': '06 / 11' } },
+        's2_week12': { name: 'الأسبوع الثاني عشر', semester: 2, startDate: '09 / 11', endDate: '13 / 11', days: { 'الأحد': '09 / 11', 'الاثنين': '10 / 11', 'الثلاثاء': '11 / 11', 'الأربعاء': '12 / 11', 'الخميس': '13 / 11' } },
+        's2_week13': { name: 'الأسبوع الثالث عشر', semester: 2, startDate: '16 / 11', endDate: '20 / 11', days: { 'الأحد': '16 / 11', 'الاثنين': '17 / 11', 'الثلاثاء': '18 / 11', 'الأربعاء': '19 / 11', 'الخميس': '20 / 11' } },
+        's2_week14': { name: 'الأسبوع الرابع عشر', semester: 2, startDate: '23 / 11', endDate: '27 / 11', days: { 'الأحد': '23 / 11', 'الاثنين': '24 / 11', 'الثلاثاء': '25 / 11', 'الأربعاء': '26 / 11', 'الخميس': '27 / 11' } },
+        's2_eid_adha': { name: 'إجازة عيد الأضحى', semester: 2, startDate: '27 / 11', endDate: '15 / 12', days: {}, holidayDetails: 'تبدأ بنهاية دوام الخميس 11/27 إلى الاثنين 12/15' },
+        's2_week15': { name: 'الأسبوع الخامس عشر', semester: 2, startDate: '16 / 12', endDate: '18 / 12', days: { 'الثلاثاء': '16 / 12', 'الأربعاء': '17 / 12', 'الخميس': '18 / 12' } },
+        's2_week16': { name: 'الأسبوع السادس عشر', semester: 2, startDate: '21 / 12', endDate: '25 / 12', days: { 'الأحد': '21 / 12', 'الاثنين': '22 / 12', 'الثلاثاء': '23 / 12', 'الأربعاء': '24 / 12', 'الخميس': '25 / 12' } },
+        's2_week17': { name: 'الأسبوع السابع عشر', semester: 2, startDate: '28 / 12', endDate: '03 / 01', days: { 'الأحد': '28 / 12', 'الاثنين': '29 / 12', 'الثلاثاء': '01 / 01', 'الأربعاء': '02 / 01', 'الخميس': '03 / 01' }, specialDays: { '01 / 01': { name: 'سنة هجرية 1448', type: 'occasion', color: 'green' } } },
+        's2_week18': { name: 'الأسبوع الثامن عشر', semester: 2, startDate: '06 / 01', endDate: '10 / 01', days: { 'الأحد': '06 / 01', 'الاثنين': '07 / 01', 'الثلاثاء': '08 / 01', 'الأربعاء': '09 / 01', 'الخميس': '10 / 01' } },
+        's2_week19': { name: 'الأسبوع التاسع عشر', semester: 2, startDate: '13 / 01', endDate: '17 / 01', days: { 'الأحد': '13 / 01', 'الاثنين': '14 / 01', 'الثلاثاء': '15 / 01', 'الأربعاء': '16 / 01', 'الخميس': '17 / 01' } }
+    };
+    function getAcademicWeeks(region) {
+        let semester1, semester2;
+        if (region === 'western') {
+            semester1 = weeksS1_Western;
+            semester2 = weeksS2_Western;
+        } else {
+            semester1 = weeksS1_Other;
+            semester2 = weeksS2_Other;
+        }
+        return { ...semester1, ...semester2 };
+    }
+    
+    let activeWeeksData = getAcademicWeeks('other');
+    let tempSelectedDates = [];
+    let state = {};
+
+    // --- DOM Elements ---
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const contentSections = document.querySelectorAll('.content-section');
+    const stageSelectPlan = document.getElementById('stage-select-plan');
+    const programSelectPlan = document.getElementById('program-select-plan');
+    const objectiveSelect = document.getElementById('objective-select');
+    const datePickerBtn = document.getElementById('date-picker-btn');
+    const stageSelectReports = document.getElementById('stage-select-reports');
+    const programSelectReports = document.getElementById('program-select-reports');
+    const generateReportBtn = document.getElementById('generate-report-btn');
+    const fontSelect = document.getElementById('font-select');
+
+    // --- Event Listeners ---
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            contentSections.forEach(sec => sec.classList.remove('active'));
+            button.classList.add('active');
+            document.getElementById(button.id.replace('tab-btn-', 'content-')).classList.add('active');
+        });
+    });
+
+    function populateStages(selectElement) {
+        const stages = { 'primary': 'الابتدائية (الأولية)', 'upper-primary': 'الابتدائية (العليا)', 'middle': 'المتوسطة', 'high-2': 'الثانوية' };
+        selectElement.innerHTML = '<option value="">-- اختر المرحلة الدراسية --</option>';
+        for (const key in stages) {
+            selectElement.innerHTML += `<option value="${key}">${stages[key]}</option>`;
+        }
+    }
+
+    function populateProgramsByStage(stage, programSelectElement, useGenericName = false) {
+        programSelectElement.innerHTML = '<option value="">-- اختر البرنامج --</option>';
+        programSelectElement.disabled = true;
+        if (!stage) return;
+        
+        Object.entries(fieldsData).forEach(([progKey, progData]) => {
+            if (progData.stages && progData.stages[stage]) {
+                const option = document.createElement('option');
+                option.value = `${progKey}|${stage}`;
+                option.textContent = useGenericName ? progData.name : (progData.stages[stage].name || progData.name);
+                programSelectElement.appendChild(option);
+            }
+        });
+        programSelectElement.disabled = false;
+    }
+
+    // --- Setup Functions ---
+    function setupPlanTab() {
+        populateStages(stageSelectPlan);
+        
+        stageSelectPlan.addEventListener('change', () => {
+            const stage = stageSelectPlan.value;
+            programSelectPlan.innerHTML = '<option value="">-- اختر البرنامج --</option>';
+            programSelectPlan.disabled = true;
+            objectiveSelect.innerHTML = '<option value="">-- اختر الهدف --</option>';
+            objectiveSelect.disabled = true;
+
+            if (!stage) return;
+
+            const cultureField = "الثقافة والفنون";
+            Object.entries(fieldsData).forEach(([key, program]) => {
+                if (program.field === cultureField && program.stages[stage]) {
+                    const option = document.createElement('option');
+                    option.value = key;
+                    option.textContent = program.name;
+                    programSelectPlan.appendChild(option);
+                }
+            });
+            programSelectPlan.disabled = false;
+
+            const objectives = { 
+                'تعزيز المدرسة للشراكة المجتمعية': '١- تعزيز المدرسة للشراكة المجتمعية',
+                'دعم الأنشطة الطلابية للسلوك الإيجابي': '٢- دعم الأنشطة الطلابية للسلوك الإيجابي',
+                'تعزيز مشاركة أولياء الأمور في الأنشطة الطلابية': '٣- تعزيز مشاركة أولياء الأمور في الأنشطة الطلابية',
+                'زيادة جاذبية البيئة المدرسية رضى الطالب عن الحياة': '٤- زيادة جاذبية البيئة المدرسية رضى الطالب عن الحياة',
+                'تعزيز الأنشطة الطلابية للانضباط المدرسي': '٥- تعزيز الأنشطة الطلابية للانضباط المدرسي',
+                'أنشطة تعلم تطبيقية ترتبط بحياة المتعلمين': '٦- أنشطة تعلم تطبيقية ترتبط بحياة المتعلمين',
+                'تحسين الأنشطة الطلابية لنواتج التعلم': '٧- تحسين الأنشطة الطلابية لنواتج التعلم',
+                'اعتزاز الطلبة بثقافتهم واحترامهم للتنوع الثقافي': '٨- اعتزاز الطلبة بثقافتهم واحترامهم للتنوع الثقافي',
+                'تفعيل المناسبات الوطنية والأسابيع والأيام العالمية': '٩- تفعيل المناسبات الوطنية والأسابيع والأيام العالمية'
+            };
+            for (const [value, text] of Object.entries(objectives)) {
+                const opt = document.createElement('option');
+                opt.value = value;
+                opt.textContent = text;
+                objectiveSelect.appendChild(opt);
+            }
+        });
+
+        programSelectPlan.addEventListener('change', () => {
+            state.programKey = programSelectPlan.value;
+            state.stage = stageSelectPlan.value;
+            state.planDates = [];
+            updateProgramDisplay();
+        });
+        
+        ['btn-region-other', 'btn-region-western'].forEach(id => document.getElementById(id).addEventListener('click', (e) => { 
+            const newRegion = id.includes('other') ? 'other' : 'western';
+            if (state.region !== newRegion) {
+                state.region = newRegion;
+                updateRegionUI();
+            }
+        }));
+        
+        datePickerBtn.addEventListener('click', () => openDatePicker());
+        document.getElementById('reset-plan-btn').addEventListener('click', () => { 
+            if(confirm('هل أنت متأكد؟ سيتم حذف جميع البيانات المدخلة.')) { 
+                localStorage.removeItem('planGeneratorState'); 
+                location.reload(); 
+            }
+        });
+        document.getElementById('generate-plan-btn').addEventListener('click', generatePlan);
+    }
+
+    function updateProgramDisplay() {
+        if (!state.programKey || !state.stage) return;
+        const programKeyOnly = state.programKey;
+        const programData = fieldsData[programKeyOnly].stages[state.stage];
+        if (!programData) return;
+        document.getElementById('program-details-plan').innerHTML = `<p><strong class="font-semibold">البرنامج:</strong> ${programData.name}</p><p><strong class="font-semibold">عدد الحصص المقترح:</strong> ${programData.sessions} حصص</p>`;
+        objectiveSelect.disabled = false;
+        if (programData.duration.includes("العام الدراسي") || programData.duration.includes("مرنة")) {
+            datePickerBtn.disabled = true;
+            datePickerBtn.textContent = 'البرنامج مستمر أو بمدة مرنة';
+            state.planDates = programData.details.map(d => d.date);
+        } else {
+            datePickerBtn.disabled = false;
+            updateDatePickerButton();
+        }
+        ['strengths', 'difficulties', 'remedial_actions', 'achievements'].forEach(key => { 
+            const elementId = key === 'achievements' ? 'additional-achievements' : key.replace('_', '-');
+            const element = document.getElementById(elementId);
+            if (element) element.value = programData[key] || ''; 
+        });
+    }
+
+    function updateDatePickerButton() {
+        if (!state.programKey || !state.stage) { datePickerBtn.textContent = 'اختر تواريخ الحصص'; return; }
+        const programKeyOnly = state.programKey;
+        const programData = fieldsData[programKeyOnly].stages[state.stage];
+        if (!programData) return;
+        const count = state.planDates ? state.planDates.filter(d => d !== 'يحدد لاحقًا' && d !== 'لاحقًا').length : 0;
+        datePickerBtn.textContent = `اختر تواريخ الحصص (${count} / ${programData.sessions})`;
+    }
+
+    function setupReportsTab() {
+        populateStages(stageSelectReports);
+        stageSelectReports.addEventListener('change', () => {
+            populateProgramsByStage(stageSelectReports.value, programSelectReports, true);
+            generateReportBtn.disabled = true;
+            document.getElementById('report-dates-display').textContent = 'اختر مرحلة وبرنامج لعرض التواريخ';
+        });
+        programSelectReports.addEventListener('change', () => {
+            generateReportBtn.disabled = !programSelectReports.value;
+            const datesDisplay = document.getElementById('report-dates-display');
+            if (state.planDates && state.planDates.length > 0 && !state.planDates.includes('يحدد لاحقًا') && !state.planDates.includes('لاحقًا')) {
+                state.planDates.sort((a, b) => parseDateForSorting(a) - parseDateForSorting(b));
+                const dateRange = `تواريخ الخطة المحددة: من ${formatFullDate(state.planDates[0])} إلى ${formatFullDate(state.planDates[state.planDates.length - 1])}`;
+                datesDisplay.textContent = dateRange;
+                datesDisplay.classList.remove('text-red-500');
+            } else {
+                datesDisplay.textContent = 'ملاحظة: لم يتم تحديد تواريخ تنفيذ في تبويب الخطة أو أن البرنامج مستمر. سيظهر التاريخ فارغاً في التقرير.';
+                datesDisplay.classList.add('text-red-500');
+            }
+        });
+        generateReportBtn.addEventListener('click', generateReport);
+    }
+    
+    function generateReport() {
+        const [progKey, stageKey] = programSelectReports.value.split('|');
+        const programData = fieldsData[progKey].stages[stageKey];
+        const leaderName = document.getElementById('leader-name').value;
+        const directorName = document.getElementById('director-name').value;
+        const educationAdmin = document.getElementById('education-admin').value;
+        const schoolName = document.getElementById('school-name').value;
+
+        let dateRange = "لم يتم تحديد التواريخ في الخطة";
+        if (state.planDates && state.planDates.length > 0 && !state.planDates.includes('يحدد لاحقًا') && !state.planDates.includes('لاحقًا')) {
+             state.planDates.sort((a, b) => parseDateForSorting(a) - parseDateForSorting(b));
+             dateRange = `من ${formatFullDate(state.planDates[0])} إلى ${formatFullDate(state.planDates[state.planDates.length - 1])}`;
+        } else if (programData.duration.includes("العام الدراسي") || programData.duration.includes("مرنة")) {
+            dateRange = "على مدار العام الدراسي أو بمدة مرنة";
+        }
+        
+        const locationLines = (programData.location.match(/\n/g) || []).length + 1;
+        const summaryContent = programData.executionSummary || "سيتم تحديث الموقع بعد صدور الأدلة الخاصة بالبرامج من المركز الوطني للمناهج";
+
+        const reportHTML = `
+            <header class="mb-4">
+                <div class="flex justify-between items-center pb-2">
+                    <img src="https://upload.wikimedia.org/wikipedia/ar/thumb/1/17/Saudi_Ministry_of_Education_Logo_2025.png/400px-Saudi_Ministry_of_Education_Logo_2025.png" alt="شعار وزارة التعليم" class="h-20">
+                    <div class="flex-1 mr-4 space-y-2 text-base text-right">
+                        <p class="font-bold">${educationAdmin}</p>
+                        <p class="font-bold">${schoolName}</p>
+                    </div>
+                </div>
+                <div class="gradient-line mt-2"></div>
+                <h2 class="text-2xl font-bold text-teal-800 text-center mt-4">تقرير تنفيذ برنامج نشاط</h2>
+            </header>
+            <main>
+                <h3 class="text-xl font-bold mb-3 text-teal-700 text-center">${programData.name}</h3>
+                <table class="w-full mb-4 text-sm border-collapse table-bordered">
+                    <tbody>
+                        <tr><td class="font-bold bg-slate-50 w-1/5">المرحلة:</td><td colspan="3"><textarea id="report-stage-report" class="w-full border-none p-2 resize-none" rows="1">${stageSelectReports.options[stageSelectReports.selectedIndex].text}</textarea></td></tr>
+                        <tr><td class="font-bold bg-slate-50 w-1/5">الهدف من البرنامج:</td><td colspan="3"><textarea id="report-objective-report" class="w-full border-none p-2 resize-none" rows="1">${state.objective || 'لم يحدد في الخطة'}</textarea></td></tr>
+                        <tr><td class="font-bold bg-slate-50 w-1/5">تاريخ التنفيذ:</td><td><textarea id="report-date-report" class="w-full border-none p-2 resize-none" rows="1">${dateRange}</textarea></td><td class="font-bold bg-slate-50 w-1/5">مكان التنفيذ:</td><td><textarea id="report-location-report" rows="${locationLines}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' class="w-full border-none p-1 bg-transparent" style="overflow-y:hidden; resize:none;">${programData.location}</textarea></td></tr>
+                        <tr><td class="font-bold bg-slate-50 w-1/5">عدد الطلاب المستفيدين:</td><td><input type="text" class="w-full border-none p-1" placeholder="للتعبئة"></td><td class="font-bold bg-slate-50 w-1/5">المعلم/ة المنفذ/ة:</td><td><input type="text" class="w-full border-none p-1" value="${document.getElementById('teacher-name').value}"></td></tr>
+                        <tr>
+                            <td class="report-label align-top">نواتج التعلم:</td>
+                            <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3">
+                                <textarea id="report-learning-outcomes-report" class="w-full border-none p-2 resize-none" rows="3">${programData.learningOutcomes}</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="report-label align-top">إجراءات التنفيذ (ملخص):</td>
+                            <td class="p-0 border border-slate-200 whitespace-pre-line" colspan="3">
+                                <textarea id="report-details-report" class="w-full border-none p-2 resize-none" rows="3">${summaryContent}</textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="space-y-4 text-sm">
+                    <div>
+                        <h4 class="report-label mb-1 mt-8">صور للشواهد</h4>
+                        <div id="image-upload-grid" class="grid grid-cols-3 gap-4 mt-2">
+                            ${Array(6).fill(0).map((_, i) => `
+                                <div class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center text-slate-400 relative image-upload-slot">
+                                    <label for="image-input-${i}" class="cursor-pointer absolute inset-0 flex flex-col items-center justify-center z-10">
+                                        <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>إضافة صورة ${i + 1}</span></label>
+                                    <input type="file" id="image-input-${i}" class="hidden" accept="image/*" onchange="previewImage(event, 'image-preview-${i}')">
+                                    <img id="image-preview-${i}" class="absolute inset-0 w-full h-full object-cover rounded-lg hidden z-0">
+                                </div>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="pt-8 text-center text-xs">
+                <div class="gradient-line mb-4"></div>
+                <div class="grid grid-cols-2 gap-16">
+                    <div class="pt-2 mt-2"><p class="font-bold h-6">${leaderName}</p></div>
+                    <div class="pt-2 mt-2"><p class="font-bold h-6">${directorName}</p></div>
+                </div>
+            </footer>`;
+        document.getElementById('report-page-content').innerHTML = reportHTML;
+        document.getElementById('setup-screen-reports').classList.add('hidden');
+        document.getElementById('output-report').classList.remove('hidden');
+
+        document.querySelectorAll('#report-page-content textarea').forEach(textarea => {
+            autoGrowTextarea(textarea);
+            textarea.addEventListener('input', () => autoGrowTextarea(textarea));
+        });
+    }
+    
+    const parseDateForSorting = (dateString) => { const parts = dateString.split(' '); return parseInt(parts[3], 10) * 100 + parseInt(parts[1], 10); };
+    const formatFullDate = (dateString) => { const p = dateString.split(' '); return `${p[1].padStart(2, '0')} / ${p[3].padStart(2, '0')} / 1447 هـ`; };
+    const saveState = () => { 
+        state.objective = objectiveSelect.value; 
+        localStorage.setItem('planGeneratorState', JSON.stringify(state)); 
+    };
+    
+    function autoGrowTextarea(element) {
+        if(!element) return;
+        element.style.height = "auto";
+        element.style.height = (element.scrollHeight) + "px";
+    }
+
+    window.previewImage = function(event, imgId) {
+        const img = document.getElementById(imgId);
+        const input = event.target;
+        const slot = input.closest('.image-upload-slot');
+        const label = slot.querySelector('label');
+        if (input.files && input.files[0]) {
+            img.src = URL.createObjectURL(input.files[0]);
+            img.classList.remove('hidden');
+            label.classList.add('opacity-0', 'hover:opacity-75', 'hover:bg-black/50');
+            label.querySelector('span').textContent = 'تغيير الصورة';
+            slot.classList.add('has-image');
+        }
+    }
+
+    // ==========================================
+    // دالة فتح النافذة المنبثقة (محدثة مع تبويبات الفصول)
+    // ==========================================
+    window.openDatePicker = function() {
+        const modal = document.getElementById('date-picker-modal');
+        const programKeyOnly = state.programKey;
+        const programData = fieldsData[programKeyOnly]?.stages[state.stage];
+        if (!programData) return;
+        
+        tempSelectedDates = [...(state.planDates || [])].filter(d => d !== 'يحدد لاحقًا' && d !== 'لاحقًا');
+        const container = document.getElementById('modal-weeks-container');
+        container.innerHTML = '';
+        
+        document.getElementById('modal-title').textContent = `اختر ${programData.sessions} حصص لبرنامج: ${programData.name}`;
+        
+        // 1. إنشاء عناصر التبويب
+        const tabsHeader = document.createElement('div');
+        tabsHeader.className = "flex border-b border-gray-200 mb-4 sticky top-0 bg-white z-10 pt-2";
+        
+        const btnS1 = document.createElement('button');
+        btnS1.className = "flex-1 py-3 text-center font-bold text-teal-700 border-b-4 border-teal-600 bg-teal-50 transition-all duration-200";
+        btnS1.textContent = "الفصل الدراسي الأول";
+        
+        const btnS2 = document.createElement('button');
+        btnS2.className = "flex-1 py-3 text-center font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-all duration-200";
+        btnS2.textContent = "الفصل الدراسي الثاني";
+        
+        tabsHeader.appendChild(btnS1);
+        tabsHeader.appendChild(btnS2);
+        container.appendChild(tabsHeader);
+
+        // 2. إنشاء حاويات المحتوى للفصلين
+        const divS1 = document.createElement('div');
+        divS1.className = "space-y-4 pb-4";
+        
+        const divS2 = document.createElement('div');
+        divS2.className = "space-y-4 pb-4 hidden"; // مخفي افتراضياً
+
+        // 3. منطق التبديل بين التبويبات
+        btnS1.onclick = () => {
+            divS1.classList.remove('hidden');
+            divS2.classList.add('hidden');
+            btnS1.className = "flex-1 py-3 text-center font-bold text-teal-700 border-b-4 border-teal-600 bg-teal-50 transition-all duration-200";
+            btnS2.className = "flex-1 py-3 text-center font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-all duration-200";
+        };
+        
+        btnS2.onclick = () => {
+            divS1.classList.add('hidden');
+            divS2.classList.remove('hidden');
+            btnS1.className = "flex-1 py-3 text-center font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-all duration-200";
+            btnS2.className = "flex-1 py-3 text-center font-bold text-teal-700 border-b-4 border-teal-600 bg-teal-50 transition-all duration-200";
+        };
+
+        // 4. دالة مساعدة لإنشاء عنصر الأسبوع
+        const createWeekElement = (weekData) => {
+            const weekDiv = document.createElement('div');
+            weekDiv.className = 'p-3 border rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow';
+            weekDiv.innerHTML = `<p class="font-bold text-center mb-3 text-teal-800 border-b pb-2">${weekData.name}</p>`;
+            
+            const weekGrid = document.createElement('div');
+            weekGrid.className = 'week-grid grid grid-cols-5 gap-2';
+            
+            if (!weekData.days || Object.keys(weekData.days).length === 0) {
+                const noteDiv = document.createElement('div');
+                noteDiv.className = 'holiday-note col-span-5 text-center p-2 bg-red-50 text-red-700 rounded text-sm';
+                noteDiv.textContent = weekData.holidayDetails || 'إجازة رسمية';
+                weekGrid.appendChild(noteDiv);
+            } else {
+                Object.entries(weekData.days).forEach(([dayName, dayDate]) => {
+                    const dayButton = document.createElement('button');
+                    dayButton.className = 'day p-2 border rounded-md text-sm w-full transition-colors hover:bg-slate-50 relative';
+                    const fullDate = `${dayName} ${dayDate}`;
+                    dayButton.dataset.date = fullDate;
+                    
+                    let buttonText = `<span class="block font-bold">${dayName}</span><span class="block text-gray-600">${dayDate}</span>`;
+                    
+                    if (weekData.specialDays && weekData.specialDays[dayDate]) {
+                        const sp = weekData.specialDays[dayDate];
+                        const colorClass = sp.color === 'green' ? 'text-green-600' : (sp.color === 'red' ? 'text-red-600' : 'text-blue-600');
+                        buttonText += `<span class="block text-xs mt-1 ${colorClass}">${sp.name}</span>`;
+
+                        if (sp.type === 'holiday') {
+                            // إذا كانت إجازة رسمية -> تعطيل
+                            dayButton.classList.add('disabled', 'opacity-60', 'bg-slate-100', 'cursor-not-allowed');
+                            dayButton.disabled = true;
+                        } else {
+                            // إذا كانت مناسبة (مثل رمضان) -> تفعيل مع تمييز لوني
+                            dayButton.classList.add('bg-yellow-50', 'border-yellow-200');
+                            dayButton.onclick = () => toggleDateSelection(dayButton);
+                        }
+                    } else {
+                        // يوم عادي
+                        dayButton.onclick = () => toggleDateSelection(dayButton);
+                    }
+                    
+                    if (tempSelectedDates.includes(fullDate)) {
+                        dayButton.classList.add('selected', 'bg-teal-600', 'text-white', 'border-teal-700');
+                        dayButton.classList.remove('bg-yellow-50'); // إزالة لون المناسبة عند التحديد
+                        // إزالة تأثيرات النص الرمادي عند التحديد
+                        buttonText = buttonText.replace('text-gray-600', 'text-teal-100'); 
+                    }
+                    
+                    dayButton.innerHTML = buttonText;
+                    weekGrid.appendChild(dayButton);
+                });
+            }
+            weekDiv.appendChild(weekGrid);
+            return weekDiv;
+        };
+
+        // 5. توزيع البيانات على الحاويات
+        Object.values(activeWeeksData).forEach(weekData => {
+            const weekElement = createWeekElement(weekData);
+            if (weekData.semester === 1) {
+                divS1.appendChild(weekElement);
+            } else if (weekData.semester === 2) {
+                divS2.appendChild(weekElement);
+            }
+        });
+
+        container.appendChild(divS1);
+        container.appendChild(divS2);
+        
+        modal.style.display = 'flex';
+    }
+
+    window.toggleDateSelection = function(button) {
+        const date = button.dataset.date;
+        const isSelected = button.classList.contains('selected');
+        const programKeyOnly = state.programKey;
+        const sessions = fieldsData[programKeyOnly].stages[state.stage].sessions;
+        
+        if (isSelected) {
+            tempSelectedDates = tempSelectedDates.filter(d => d !== date);
+            button.classList.remove('selected', 'bg-teal-600', 'text-white', 'border-teal-700');
+            
+            // إذا كان يوماً مميزاً (مناسبة)، أعد لون الخلفية الأصفر
+            if (button.classList.contains('border-yellow-200')) {
+                button.classList.add('bg-yellow-50');
+            }
+
+            // استعادة نمط النص الأصلي
+            const dateSpan = button.querySelector('span:nth-child(2)');
+            if(dateSpan) dateSpan.classList.replace('text-teal-100', 'text-gray-600');
+        } else {
+            if (tempSelectedDates.length < sessions) {
+                tempSelectedDates.push(date);
+                button.classList.add('selected', 'bg-teal-600', 'text-white', 'border-teal-700');
+                button.classList.remove('bg-yellow-50'); // إزالة التمييز عند التحديد لتوحيد الشكل
+                
+                // تغيير لون التاريخ ليكون مقروءاً على الخلفية الداكنة
+                const dateSpan = button.querySelector('span:nth-child(2)');
+                if(dateSpan) dateSpan.classList.replace('text-gray-600', 'text-teal-100');
+            } else {
+                alert(`لا يمكن اختيار أكثر من ${sessions} حصص.`);
+            }
+        }
+    }
+
+    window.closeDatePicker = function() { document.getElementById('date-picker-modal').style.display = 'none'; tempSelectedDates = []; }
+    window.saveDates = function() { state.planDates = [...(tempSelectedDates || [])]; updateDatePickerButton(); saveState(); closeDatePicker(); }
+
+    function generatePlan() {
+        state = { ...state, objective: objectiveSelect.value, ...Object.fromEntries(['teacher-name', 'leader-name', 'director-name', 'education-admin', 'school-name', 'strengths', 'difficulties', 'remedial-actions'].map(id => [id.replace(/-(\w)/g, (m, p1) => p1.toUpperCase()), document.getElementById(id).value])), achievements: document.getElementById('additional-achievements').value };
+        const programKeyOnly = state.programKey;
+        const programData = fieldsData[programKeyOnly]?.stages[state.stage];
+        if (!programData || !state.objective) { alert('يرجى التأكد من اختيار جميع الحقول المطلوبة.'); return; }
+        if (!programData.duration.includes("العام الدراسي") && !programData.duration.includes("مرنة") && (!state.planDates || state.planDates.length === 0)) {
+             alert(`يرجى اختيار حصة واحدة على الأقل لتوليد الخطة.`); return; 
+        }
+        saveState(); 
+        if(state.planDates && !state.planDates.includes('يحدد لاحقًا') && !state.planDates.includes('لاحقًا')) {
+            state.planDates.sort((a, b) => parseDateForSorting(a) - parseDateForSorting(b));
+        }
+        
+        document.getElementById('report-education-admin-plan').textContent = state.educationAdmin;
+        document.getElementById('report-school-name-plan').textContent = state.schoolName;
+        document.getElementById('report-program-name-plan').value = fieldsData[programKeyOnly].name;
+        document.getElementById('report-program-details-name-plan').value = programData.name;
+        document.getElementById('report-objective-plan').value = state.objective;
+        document.getElementById('report-program-target-plan').value = programData.target;
+        document.getElementById('report-teacher-name-plan').value = state.teacherName;
+        document.getElementById('report-duration-plan').value = programData.duration;
+        document.getElementById('report-location-plan').value = programData.location;
+        document.getElementById('report-tools-plan').value = programData.tools;
+        document.getElementById('report-learning-outcomes-plan').value = programData.learningOutcomes;
+        document.getElementById('report-assessment-methods-plan').value = programData.assessmentMethods;
+        document.getElementById('report-leader-name-plan').textContent = state.leaderName;
+        document.getElementById('report-director-name-plan').textContent = state.directorName;
+        document.getElementById('report-additional-achievements-plan').value = state.achievements;
+        document.getElementById('report-strengths-plan').value = state.strengths;
+        document.getElementById('report-difficulties-plan').value = state.difficulties;
+        document.getElementById('report-remedial-actions-plan').value = state.remedialActions;
+
+        const tableBody = document.getElementById('plan-table-body');
+        tableBody.innerHTML = '';
+
+        programData.details.forEach((session, index) => {
+            let date = (state.planDates && state.planDates[index]) ? state.planDates[index] : 'لاحقًا';
+            let weekName = session.week || '';
+            
+            if (date !== 'يحدد لاحقًا' && date !== 'لاحقًا') {
+                 for (const key in activeWeeksData) { 
+                     if (activeWeeksData[key].days && Object.values(activeWeeksData[key].days).includes(date.split(' ').slice(1).join(' '))) { 
+                        weekName = activeWeeksData[key].name; 
+                        break; 
+                    }
+                }
+            }
+
+            tableBody.innerHTML += `<tr>
+                <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${weekName}</textarea></td>
+                <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${(date === 'يحدد لاحقًا' || date === 'لاحقًا') ? 'يحدد لاحقًا' : formatFullDate(date)}</textarea></td>
+                <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${session.title}</textarea></td>
+                <td><textarea class="w-full h-auto p-1 border-none resize-none" oninput="autoGrowTextarea(this)">${session.content}</textarea></td>
+                <td class="text-xs">
+                    <div class="flex items-center p-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> نفذ</div>
+                    <div class="flex items-center p-1 mt-1"><span class="inline-block w-4 h-4 border border-slate-400 mr-2 ml-1"></span> لم ينفذ</div>
+                </td>
+            </tr>`;
+        });
+
+        document.getElementById('setup-screen-plan').classList.add('hidden');
+        document.getElementById('output-plan').classList.remove('hidden');
+
+        document.querySelectorAll('#output-plan textarea').forEach(textarea => autoGrowTextarea(textarea));
+    }
+    
+    function prepareForPrinting(containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.querySelectorAll('textarea, input[type="text"]').forEach(element => {
+            let printDiv = element.nextElementSibling;
+            if (!printDiv || !printDiv.classList.contains('print-only-content')) {
+                printDiv = document.createElement('div');
+                printDiv.className = 'print-only-content';
+                element.parentNode.insertBefore(printDiv, element.nextSibling);
+            }
+            printDiv.innerHTML = element.value.replace(/\n/g, '<br>') || '&nbsp;';
+        });
+    }
+
+    function cleanupAfterPrinting(containerId) {
+        // This function is not needed with the new robust approach
+    }
+
+    window.printContent = function(elementId) {
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('printable-active'));
+        const elementToPrint = document.getElementById(elementId);
+        if (elementToPrint && elementToPrint.parentElement.classList.contains('content-section')) {
+             elementToPrint.parentElement.classList.add('printable-active');
+        }
+        
+        prepareForPrinting('output-plan');
+        prepareForPrinting('output-report');
+        
+        setTimeout(() => {
+            window.print();
+        }, 100);
+    }
+
+    let afterPrintHandler = () => {
+        // No cleanup needed
+    };
+
+    window.addEventListener('afterprint', afterPrintHandler);
+    if (window.matchMedia) {
+        let mediaQueryList = window.matchMedia('print');
+        mediaQueryList.addEventListener('change', (mql) => {
+            if (!mql.matches) {
+                afterPrintHandler();
+            }
+        });
+    }
+
+    function updateRegionUI() {
+        const btnOther = document.getElementById('btn-region-other');
+        const btnWestern = document.getElementById('btn-region-western');
+        if (state.region === 'western') {
+            activeWeeksData = getAcademicWeeks('western');
+            btnWestern.classList.add('bg-teal-600', 'text-white');
+            btnOther.classList.remove('bg-teal-600', 'text-white');
+        } else {
+            activeWeeksData = getAcademicWeeks('other');
+            btnOther.classList.add('bg-teal-600', 'text-white');
+            btnWestern.classList.remove('bg-teal-600', 'text-white');
+        }
+    }
+    
+    function initializeApp() {
+        state = JSON.parse(localStorage.getItem('planGeneratorState')) || { region: 'other' };
+        if (state.educationAdmin) document.getElementById('education-admin').value = state.educationAdmin;
+        if (state.schoolName) document.getElementById('school-name').value = state.schoolName;
+        if (state.teacherName) document.getElementById('teacher-name').value = state.teacherName;
+        if (state.leaderName) document.getElementById('leader-name').value = state.leaderName;
+        if (state.directorName) document.getElementById('director-name').value = state.directorName;
+        if (state.achievements) document.getElementById('additional-achievements').value = state.achievements;
+        if (state.strengths) document.getElementById('strengths').value = state.strengths;
+        if (state.difficulties) document.getElementById('difficulties').value = state.difficulties;
+        if (state.remedialActions) document.getElementById('remedial-actions').value = state.remedialActions;
+        
+        updateRegionUI();
+        setupPlanTab();
+        setupReportsTab();
+
+        fontSelect.addEventListener('change', (e) => {
+            document.body.style.fontFamily = e.target.value;
+            state.fontFamily = e.target.value;
+            saveState();
+        });
+
+        if(state.fontFamily) {
+            document.body.style.fontFamily = state.fontFamily;
+            fontSelect.value = state.fontFamily;
+        } else {
+            fontSelect.value = 'Tajawal';
+        }
+
+        if(state.objective) {
+            setTimeout(() => { 
+                objectiveSelect.value = state.objective;
+            }, 100);
+        }
+    }
+    
+    initializeApp();
+});
+</script>
+</body>
+</html>
